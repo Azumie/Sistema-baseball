@@ -1,12 +1,12 @@
 <?php require_once 'includes/headerAdmin.php' ;
       require '../Controlador/Table.php';
-      require_once  '../Controlador/conexionA.php';
+      require_once  '../Modelo/conexionA.php';
 
+      $conexion = new Conexion();
       $sql_leer =   'SELECT personas.CI, personas.Nombre, personas.Apellido, personas.Nacido, personas.Sexo 
                      FROM personas INNER JOIN anotadores on (anotadores.CI = personas.CI)';
-      $gsent = $pdo->prepare($sql_leer);
-      $gsent->execute();
-      $resultado = $gsent->fetchAll();
+      
+      $resultado = $conexion->consultar($sql_leer);
       // AGREGAR A BD
       if(isset($_POST['btnAgregarCategoria'])){
          try {

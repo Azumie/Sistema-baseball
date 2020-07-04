@@ -1,6 +1,4 @@
-
 create database baseball;
-
 
 use baseball;
 
@@ -35,6 +33,7 @@ create table direcciones (
     idDireccion     int primary key not null auto_increment,
     idParroquia     int not null,
     Direccion       varchar(45),
+    UNIQUE(idParroquia,Direccion),
     constraint fk_direcciones_parroquia foreign key (idParroquia) 
         references parroquia (idParroquia) on delete cascade on update cascade
 );
@@ -181,3 +180,5 @@ CREATE TABLE partidas (
     constraint fk_partidas_juegos foreign key (idJuego)
         references juegos (idJuego) on delete cascade on update cascade
 );
+
+ALTER TABLE direcciones ADD UNIQUE(idParroquia,Direccion);

@@ -1,31 +1,23 @@
 <?php require_once 'includes/headerAdmin.php';
+      require_once '../Modelo/conexionA.php';
+      require_once '../Controlador/Table.php';
 
+      $conexion = new Conexion();
 
-   function LlenarTabla(string $nombre, array $post){
-      // CON ISSET NOS ASEGURAMOS DE QUE LA SESIÓN EXISTA
-      if(isset($_SESSION[$nombre])){
-         //EMPTY NOS AYUDA A VER SI NO ESTA VACÍO LOS CAMPO QUE NOS ENVIAN
-         if (!empty($post)) {
-            //SI NO SE ENCUENTRA EN EL ARRAY DE LA SESION, METEMELO
-            if (!in_array( $post, $_SESSION[$nombre])) {
-
-               array_push($_SESSION[$nombre], $post);
-
-            }
-         }   
-         //IMPRIMIENDO LA TABLA
-         foreach ($_SESSION[$nombre] as $registro) {
-            echo '<tr>';
-            foreach ($registro as $campo) {
-               echo '<td>'.$campo.'</td>';
-            }
-            echo '</tr>';
-         }                        
-      }else {
-      // SI LA SESION NO EXISTE, SE CREA
-         $_SESSION[$nombre] = array();
+      if(isset($_POST['Nombre_Campo'])){
+         $datos = array($_POST['Nombre_Campo'],
+                        $_POST['Estado'],
+                        $_POST['Municipio'],
+                       );
+         $sql_incluir = "INSERT INTO direcciones (idParroquia ,Direccion) VALUES (?,?)";
+         $conexion->agregar($sql_incluir, array( $_POST['Parroquia'], $_POST['Direccion']));
+         $sql_leer = "SELECT idDireccion FROM direcciones WHERE idParroquia = ? AND Direccion = ?";
+         $r = $conexion->consultar($sql_leer, array( $_POST['Parroquia'], $_POST['Direccion']));
+         $s = $r[0];
+         echo $s['idDireccion'];
       }
-   }
+
+
 ?>
 <!-- CONTENIDO DE LA PAG -->
 <!-- con las columnas que sobraron hacemos una nueva columna que abarcara 10  que es
@@ -58,10 +50,7 @@ donde se colocara el contenido de la pag-->
                         <th>Dirección</th>
                      </thead>
                      <tbody>
-                        <?php
-                           $registros = $_POST;
-                           llenarTabla('Campos',$registros);
-                        ?>
+                        
                         
                      </tbody>
                   </table>
@@ -86,25 +75,38 @@ donde se colocara el contenido de la pag-->
                      <div class="col-5 col-md-3 mb-1">
                         <label for="Estado">Estado</label>
                         <select class="form-control" id="Estado" name="Estado">
-                           <option value="Lara">Lara</option>
-                           <option value="Amazonas">Amazonas</option>
-                           <option value="Anzoátegui">Anzoátegui</option>
-                           <option value="Apure">Apure</option>
-                           <option value="Aragua">Aragua</option>
+                           <?php    
+                              $sql_leer = "select idEstado, Estado from estados";
+                              $resul = $conexion->consultar($sql_leer, array(''));
+                              foreach ($resul as $campo) {
+                                 echo '<option value="'.$campo['idEstado'].'">'.$campo['Estado'].'</option>';
+                              }
+                            ?>
                         </select>
                      </div>
                      <div class="col-6 col-md-3">
                         <label for="Municipio">Municipio</label>
                         <select class="form-control" id="Municipio" name="Municipio">
-                           <option value="Amazonas">Amazonas</option>
-                           <option value="Anzoátegui">Anzoátegui</option>
-                           <option value="Apure">Apure</option>
-                           <option value="Aragua">Aragua</option>
+                           <?php    
+                              $sql_leer = "select idMunicipio, Municipio from Municipios";
+                              $resul = $conexion->consultar($sql_leer, array(''));
+                              foreach ($resul as $campo) {
+                                 echo '<option value="'.$campo['idMunicipio'].'">'.$campo['Municipio'].'</option>';
+                              }
+                            ?>
                         </select>
                      </div>
                      <div class="col-6 col-md-3">
                         <label for="Parroquia">Parroquia</label>
-                        <input type="text" class="form-control" name="Parroquia" required id="Parroquia">
+                        <select class="form-control" id="Parroquia" name="Parroquia">
+                           <?php    
+                              $sql_leer = "select idParroquia, Parroquia from Parroquia";
+                              $resul = $conexion->consultar($sql_leer, array(''));
+                              foreach ($resul as $campo) {
+                                 echo '<option value="'.$campo['idParroquia'].'">'.$campo['Parroquia'].'</option>';
+                              }
+                            ?>
+                        </select>
                      </div>
                   </div>
                   <div class="form-group row justify-content-end">

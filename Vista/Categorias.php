@@ -1,13 +1,19 @@
 <?php require_once 'includes/headerAdmin.php';
-      require_once '../Controlador/conexionA.php';
+      require_once '../Modelo/conexionA.php';
       require '../Controlador/Table.php';
       //MOSTRANDO EN LAS TABLAS
       // $sql_leer = 'SELECT Categoria FROM categorias';
       // $gsent = $pdo->prepare($sql_leer);
       // $gsent->execute();
       // $resultado = $gsent->fetchAll();
-      $sql_leer = 'SELECT Escuela FROM escuelas';
-      $respuesta = consultar($sql_leer);
+      $conexion = new Conexion();
+
+
+      $sql_leer = 'SELECT Escuela, idEscuela FROM escuelas';
+      $respuesta = $conexion->consultar($sql_leer, array(''));
+       $sql_leer = 'SELECT Categoria, idCategoria FROM Categorias';
+      $respuesta1 = $conexion->consultar($sql_leer, array(''));
+
       // $gsent = $pdo->prepare($sql_leer);
       // $gsent->execute();
       // $resultado1 = $gsent->fetchAll();
@@ -25,12 +31,15 @@
       //       die();
       //       echo "error";
       //    }
-       if(isset($_POST['btnAgregarEscuela'])){
+      if(isset($_POST['btnAgregarEscuela'])){
          $escuelas = $_POST['Nombre_Escuela'];
          $sql_incluir = 'INSERT INTO escuelas (Escuela) VALUES (?)';
-         agregar($sql_incluir, $escuelas);
-            
-       }
+         $conexion->agregar($sql_incluir, array($escuelas));
+      } else if (isset($_POST['btnAgregarCategoria'])){
+         $categoria = $_POST['Nombre_Categoria'];
+         $sql_incluir = 'INSERT INTO categorias (Categoria) VALUES (?)';
+         $conexion->agregar($sql_incluir, array($categoria));
+      }
 
 ?>
 <div class="col fondo">
@@ -71,7 +80,7 @@
                               <th>Cant. Equipos</th>
                            </thead>
                            <tbody>
-                              
+                              <?php addItemAdmin($respuesta1); ?>
                            </tbody>
                         </table>
                      </div>
