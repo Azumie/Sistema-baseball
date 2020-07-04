@@ -1,4 +1,6 @@
+
 create database baseball;
+
 
 use baseball;
 
