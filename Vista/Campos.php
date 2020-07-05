@@ -14,7 +14,8 @@
          $sql_leer = "SELECT idDireccion FROM direcciones WHERE idParroquia = ? AND Direccion = ?";
          $r = $conexion->consultar($sql_leer, array( $_POST['Parroquia'], $_POST['Direccion']));
          $s = $r[0];
-         echo $s['idDireccion'];
+         $sql_incluir = "INSERT INTO campos (idDireccion, Campo) VALUES (?,?)";
+         $conexion->agregar($sql_incluir, array($s['idDireccion'], $_POST['Nombre_Campo'])); 
       }
 
 
@@ -35,14 +36,14 @@ donde se colocara el contenido de la pag-->
                      <h5><i class="fas fa-greater-than-equal" style="position: relative; top: .1em;"></i>Campos Agregados</h5>
                   </div>
                   <div class="col-4">
-                     <a href="#AgregarCampo" class="btn b1 b1-primary btn-block"><i class="fas fa-share fa-lg mr-2" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i>Agregar</a>
+                     <a href="#AgregarCampo" class="btn b1 b1-info btn-block"><i class="fas fa-share fa-lg mr-2" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i>Agregar</a>
                   </div>
                </div>
             </div>
             <div class="card-body">
                <div class="col-12">
                   <table class="table table-bordered table-sm table-hover table-responsive-sm">
-                     <thead class="table-info">
+                     <thead class="table-primary">
                         <th>Campo</th>
                         <th>Estado</th>
                         <th>Municipio</th>
@@ -50,8 +51,17 @@ donde se colocara el contenido de la pag-->
                         <th>Dirección</th>
                      </thead>
                      <tbody>
-                        
-                        
+                        <?php 
+
+                           $sql_leer = "SELECT c.campo, e.Estado, m.Municipio, p.Parroquia, d.Direccion 
+                                          FROM campos c 
+                                          INNER JOIN direcciones d ON d.idDireccion = c.idDireccion 
+                                          INNER JOIN parroquia p ON p.idParroquia = d.idParroquia 
+                                          INNER JOIN municipios m ON m.idMunicipio = p.idMunicipio 
+                                          INNER JOIN estados e ON e.idEstado = m.idEstado";
+                           $resul = $conexion->consultar($sql_leer, array(''));
+                           addItemAdmin($resul);
+                        ?>
                      </tbody>
                   </table>
                </div>

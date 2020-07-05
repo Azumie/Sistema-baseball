@@ -6,7 +6,7 @@
       $sql_leer =   'SELECT personas.CI, personas.Nombre, personas.Apellido, personas.Nacido, personas.Sexo 
                      FROM personas INNER JOIN anotadores on (anotadores.CI = personas.CI)';
       
-      $resultado = $conexion->consultar($sql_leer);
+      $resultado = $conexion->consultar($sql_leer, array(""));
       // AGREGAR A BD
       if(isset($_POST['btnAgregarCategoria'])){
          try {

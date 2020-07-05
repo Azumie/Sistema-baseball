@@ -87,7 +87,7 @@
                                  <th>Num Partidas</th>
                               </thead>
                               <tbody>
-                                 <?php addItemAdmin($resultado1); ?>
+                                 <?php addItemAdmin($resultado); ?>
                               </tbody>
                            </table>
                         </div>
