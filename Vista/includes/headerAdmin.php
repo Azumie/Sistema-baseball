@@ -7,7 +7,7 @@
 			<div class="col-sm-auto bg-dark p-2 barra-lateral collapse show" id="menu">
 				
 				<div class="menu">
-					<button class="btn btn-dark btn-block mt-0 text-left" data-toggle="modal" data-target="#modal"><i class="icon-inicio mr-2"></i>Inicio</button>
+					<a class="btn btn-dark btn-block mt-0 text-left text-white" data-toggle="modal" data-target="#modal"><i class="icon-inicio mr-2"></i><span>Inicio</span></a>
 					<a href="Temporada.php?nombre=Temporada" class="btn btn-dark btn-block mt-0 "><i class="icon-calendario "></i><span>Temporada</span></a>
 					<a href="Equipos.php?nombre=Equipos" class="btn btn-dark btn-block mt-0 "><i class="icon-equipo  "></i><span>Equipos</span></a>
 					<a href="Campos.php?nombre=Campos" class="btn btn-dark btn-block mt-0 "><i class="icon-estadio "></i><span>Campos</span></a>
