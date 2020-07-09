@@ -1,16 +1,13 @@
 <?php require_once 'includes/headerAdmin.php';
-      require_once '../Modelo/conexionA.php';
+      require_once '../Modelo/Escuela.php';
       require '../Controlador/Table.php';
+      $escuelas = new Escuela();
       //MOSTRANDO EN LAS TABLAS
       // $sql_leer = 'SELECT Categoria FROM categorias';
       // $gsent = $pdo->prepare($sql_leer);
       // $gsent->execute();
       // $resultado = $gsent->fetchAll();
-      $conexion = new Conexion();
-      $sql_leer = 'SELECT Escuela, idEscuela FROM escuelas';
-      $respuesta = $conexion->consultar($sql_leer, array(''));
-      $sql_leer = 'SELECT Categoria, idCategoria FROM Categorias';
-      $respuesta1 = $conexion->consultar($sql_leer, array(''));
+      $categorias = new Categoria();
       // $gsent = $pdo->prepare($sql_leer);
       // $gsent->execute();
       // $resultado1 = $gsent->fetchAll();
@@ -29,13 +26,11 @@
       //       echo "error";
       //    }
       if(isset($_POST['btnAgregarEscuela'])){
-        $escuelas = $_POST['Nombre_Escuela'];
-        $sql_incluir = 'INSERT INTO escuelas (Escuela) VALUES (?)';
-        $conexion->agregar($sql_incluir, array($escuelas));
+        $escuelas->setNombre($_POST['Nombre_Escuela']);
+        $escuelas->incluir($escuelas);
       } else if (isset($_POST['btnAgregarCategoria'])){
-        $categoria = $_POST['Nombre_Categoria'];
-        $sql_incluir = 'INSERT INTO categorias (Categoria) VALUES (?)';
-        $conexion->agregar($sql_incluir, array($categoria));
+        $categorias->setNombre($_POST['Nombre_Categoria']);
+        $categorias->incluir($categorias);
       }
 ?>
 <div class="col fondo">
@@ -76,7 +71,7 @@
                     <th>Cant. Equipos</th>
                   </thead>
                   <tbody>
-                    <?php addItemAdmin($respuesta1); ?>
+                    <?php addItemAdmin($categorias->listar()); ?>
                   </tbody>
                 </table>
               </div>
@@ -99,7 +94,7 @@
                   </thead>
                   <tbody>
                     <?php
-                    addItemAdmin($respuesta);
+                    addItemAdmin($escuelas->listar());
                     ?>
                   </tbody>
                 </table>
@@ -128,6 +123,7 @@
     </div>
   </div>
 </div>
+
 </div>
 </div>
 <script src="../js/jquery-3.4.1.min.js"></script>

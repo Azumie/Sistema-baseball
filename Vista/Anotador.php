@@ -1,26 +1,32 @@
 <?php require_once 'includes/headerAdmin.php' ;
-      require '../Controlador/Table.php';
-      require_once  '../Modelo/conexionA.php';
+      require '../Controlador/Table.php';;
+      require_once '../Modelo/Persona.php';
+      require_once '../Modelo/Anotador.php';
+      require_once '../Modelo/Campo.php';
 
-      $conexion = new Conexion();
-      $sql_leer =   'SELECT personas.CI, personas.Nombre, personas.Apellido, personas.Nacido, personas.Sexo 
-                     FROM personas INNER JOIN anotadores on (anotadores.CI = personas.CI)';
       
-      $resultado = $conexion->consultar($sql_leer, array(""));
+      $anotador = new Anotador();
       // AGREGAR A BD
-      if(isset($_POST['btnAgregarCategoria'])){
-         try {
-            $categoria = $_POST['Nombre_Categoria'];
-            $sql_incluir = 'INSERT INTO categorias (Categoria) VALUES (?)';
-            $gsent = $pdo->prepare($sql_incluir);
-            $gsent->execute(array($categoria));
-            $sql_incluir = null; $pdo = null; $gsent = null;
-            unset($_POST, $gsent);
-         } catch (PDOException $e) {
-            print "Error : " . $e->getMessage() ."<br>";
-            die();
-            echo "error";
-         }
+      if(isset($_POST['Nacionalidad'])){
+         $persona = new Persona();
+         $direccion = new Direccion();
+
+         $direccion->setIdParroquia ( $_POST['Parroquia'] );
+         $direccion->setDireccion   ( $_POST['Direccion'] );
+         $direccion->incluir        ( $direccion );
+
+
+         $persona->setCI            ( $_POST['Cedula_Anotador'] );
+         $persona->setNombre        ( $_POST['Nombre_Anotador'] );
+         $persona->setApellido      ( $_POST['Apellido_Anotador'] );
+         $persona->setNacido        ( $_POST['Inicio_Anotador'] );
+         $persona->setSexo          ( $_POST['Sexo'] );
+         $persona->setNacionalidad  ( $_POST['Nacionalidad'] );
+         $persona->setIdDireccion   ( $direccion->getId() );
+         $persona->incluir($persona);
+
+         $anotador->setCI($persona->getCI());
+         $anotador->incluir($anorador);
       }
 
 ?>
@@ -42,7 +48,7 @@
                      <h5><i class="fas fa-greater-than-equal" style="position: relative; top: .1em;"></i>Anotadores Agregados</h5>
                   </div>
                   <div class="col-4">
-                     <a href="#AgregarAnotador" class="btn b1 b1-info btn-block"><i class="fas fa-share fa-lg mr-2" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i>Agregar</a>
+                     <a href="#AgregarAnotador" class="btn b1 b1-info btn-block"><i class="fas fa-share fa-lg mr-2 pos"></i>Agregar</a>
                   </div>
                </div>
             </div>
@@ -59,7 +65,7 @@
                         </thead>
                         <tbody>
                               <?php 
-                                    
+                                   addItemAdmin($anotador->listar()); 
                               ?>        
                         </tbody>
                      </table>
@@ -121,33 +127,33 @@
                   </div>
                   <div class="form-group row justify-content-center">
                      <div class="col-1">
-                        <select name="Estado" id="Estado" class="form-control">
+                        <select name="Nacionalidad" id="Estado" class="form-control">
                            <option value="V">V</option>
                            <option value="E">E</option>
                         </select>
                      </div>
                      <div class="col-6 col-md-3 mb-2">
-                        <input  id="Agregar_Cedula_Anotador" type="text" placeholder="Cédula" class="form-control" name="Agregar_Cedula_Anotador" maxlength="9" required>
+                        <input  id="Cedula_Anotador" type="text" placeholder="Cédula" class="form-control" name="Cedula_Anotador" maxlength="9" required>
                      </div>
                      <div class="col-6 col-md-3">
-                        <input type="text" name="Agregar_Nombre_Anotador" id="Agregar_Nombre_Anotador" placeholder="Nombre" maxlength="30" class="form-control" required>
+                        <input type="text" name="Nombre_Anotador" id="Nombre_Anotador" placeholder="Nombre" maxlength="30" class="form-control" required>
                      </div>
                      <div class=" col-9 col-md-3">
-                        <input id=""  type="text" name="Agregar_Apellido_Anotador" id="Agregar_Apellido_Anotador" placeholder="Apellido" maxlength="30" class="form-control" required>
+                        <input id=""  type="text" name="Apellido_Anotador" id="Apellido_Anotador" placeholder="Apellido" maxlength="30" class="form-control" required>
                      </div>
                   </div>
                   <div class="row justify-content-center mb-2">
                      <div class="col-6 col-md-3">
-                        <label for="Agregar_Inicio_Anotador">Inicio en el campo</label>
-                        <input id=""  type="date" name="Agregar_Inicio_Anotador" id="Agregar_Inicio_Anotador" class="form-control" required max="2020-06-30">
+                        <label for="Inicio_Anotador">Inicio en el campo</label>
+                        <input id=""  type="date" name="Inicio_Anotador" id="Inicio_Anotador" class="form-control" required max="2020-06-30">
                      </div>
                      <div class="col-4 col-md-2 mt-4">
                         <div  class="custom-control custom-radio mr-2">
-                           <input type="radio" name="Agregar_sexo_Anotador" id="mujer" class="custom-control-input" checked value="Mujer">
+                           <input type="radio" name="Sexo" id="mujer" class="custom-control-input" checked value="Mujer">
                            <label for="mujer" class="custom-control-label">Mujer</label>
                         </div>
                         <div class="custom-control custom-radio ">
-                           <input value="Hombre" type="radio" name="Agregar_sexo_Anotador" id="hombre" class="custom-control-input">
+                           <input value="Hombre" type="radio" name="Sexo" id="hombre" class="custom-control-input">
                            <label for="hombre" class="custom-control-label">Hombre</label>
                         </div>
                      </div>

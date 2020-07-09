@@ -1,4 +1,15 @@
 <?php require_once 'includes/headerAdmin.php';
+      require_once '../Modelo/Equipo.php';
+      require_once '../Controlador/Table.php';
+      $conexion = new Conexion();
+      $equipo = new Equipo();
+      if (isset($_POST['nombre'])) {
+         $equipo->setNombre($_POST['nombre']);
+         $equipo->setLetra($_POST['letra']);
+         $equipo->setIdCategoria($_POST['categoria']);
+         $equipo->setIdEscuela($_POST['escuela']);
+         $equipo->incluir($equipo);
+      }
 ?>
 
             <!-- CONTENIDO DE LA PAG -->
@@ -33,6 +44,9 @@
                                  <th>Temporadas</th>
                               </thead>
                               <tbody>
+                                 <?php    
+                                    addItemAdmin($equipo->listar());
+                                  ?>
                                  <tr>
                                     <td>Cebmo</td>
                                     <td>A</td>
@@ -74,19 +88,19 @@
                   <div class="col-12 mt-4">
                      <div class="card">
                         <div class="card-header" id="agregarEquipo">
-                           <div class="mb-0 row justify-content-between">
-                              <div class="col-auto mt-1">
+                           <div class="mb-0 row">
+                              <div class="col-9 mt-1">
                                  <h4><i class="icon-equipo"></i><i class="icon-mas mr-2"></i>Agregar Nuevo Equipo</h4>
                               </div>
-                              <div class="col-md-auto d-inline">
+                              <div class="col-md-2 d-inline">
                                  <a href="#Inicio" class="btn b1 b1-danger "><i class="far fa-times-circle fa-lg mr-1"></i>Cancelar</a>
-                                 <Button class="btn b1 b1-info"><i class="icon-mas mr-2"></i>Agregar</Button>
+                                 
                               </div>
                            </div>
                         </div>
                         <div class="card-body">
                            <!-- AGREGAR EQUIPO -->
-                           <form action="">
+                           <form action="" method="POST">
                               <div class="row text-center">
                                  <div class="col-12">
                                     <h6>Ingrese los siguientes datos:</h6>
@@ -97,7 +111,7 @@
                                     <!-- los tamaños de los textfields puede cambiar, con form-control-lg se hace mas grande y con form-control-sm se hace mas pequ -->
                                     <!-- tambien lo podemos tener en varios estados como puede ser readonly y disabled -->
                                     <label for="nombre">Nombre:</label>
-                                    <input type="text" name="" id="" class="form-control" maxlength="30">
+                                    <input type="text" name="nombre" id="" class="form-control" maxlength="30">
                                  </div>
                                  <div class="col-5 col-md-3 mb-2">
                                     <label for="letra">Letra:</label>
@@ -113,22 +127,29 @@
                                     <label for="categoria">Categorias:</label>
                                     <!-- Oopciones por defecto -->
                                     <select name="categoria" id="categoria" class="form-control">
-                                       <option value="hola">Junior</option>
-                                       <option value="como">Juvenil</option>
+                                       <?php    
+                                          $sql_leer = "select idCategoria, Categoria from categorias";
+                                          $resul = $conexion->consultar($sql_leer, array(''));
+                                          foreach ($resul as $campo) {
+                                             echo '<option value="'.$campo['idCategoria'].'">'.$campo['Categoria'].'</option>';
+                                          }
+                                        ?>
                                     </select>
                                  </div>
                                  <div class="col-6 col-md-3 mb-2">
                                     <label for="escuela">Escuela:</label>
                                     <select name="escuela" id="escuela" class="form-control">
-                                       <option value="Cebmo">Cebmo</option>
-                                       <option value="ajs">AJS</option>
-                                       <option value="al">Alsides Mujica</option>
-                                       <option value="yankes">Yankes</option>
-                                       <option value="cardenales">Cardenales</option>
-                                       <option value="dfc">DFC</option>
+                                       <?php    
+                                          $sql_leer = "select idEscuela, Escuela from escuelas";
+                                          $resul = $conexion->consultar($sql_leer, array(''));
+                                          foreach ($resul as $campo) {
+                                             echo '<option value="'.$campo['idEscuela'].'">'.$campo['Escuela'].'</option>';
+                                          }
+                                        ?>
                                     </select>
                                  </div>
                               </div>
+                              <Button type="submit" class="btn b1 b1-info" style="position: absolute; top:12px; right: 30px;"><i class="icon-mas mr-2"></i>Agregar</Button>
                               <div class="form-group row">
                                  <div class="col-md-1">
                                     <a href="#AgregarJugador" class="btn b1 b1-success btn-block mb-3"><i class="icon-jugador-mas"></i></a>

@@ -182,3 +182,5 @@ CREATE TABLE partidas (
 );
 
 ALTER TABLE direcciones ADD UNIQUE(idParroquia,Direccion);
+
+ALTER TABLE anotadores ADD UNIQUE (CI);

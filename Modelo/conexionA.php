@@ -23,11 +23,11 @@ class Conexion{
 		$gsent = null;
 	}
 
-	public function agregar(string $sql_incluir,array $valor){
+	public function agregar(string $sql_incluir,array $datos){
 		try {
 			$pdo = $this->conectar();
 			$gsent = $pdo->prepare($sql_incluir);
-			$gsent->execute($valor);
+			$gsent->execute($datos);
 			$this->desconectar($pdo, $gsent);
 		} catch (PDOException $e) {
 			echo "ERROR 1";
@@ -46,9 +46,4 @@ class Conexion{
 			echo "ERROR 2";			
 		}
  	}
-
-
 }
-
-
- ?>

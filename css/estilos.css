@@ -4,6 +4,9 @@
     --blue: #448aff;
     --red: #ff5252;
 }
+.pos{
+    position: relative; top: .1em; text-shadow: 1px 1px 1px #000
+}
 body {
     font-size: 16px;
 }

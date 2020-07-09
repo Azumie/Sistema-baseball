@@ -1,41 +1,36 @@
 <?php $nombre = "Hola"; 
       require_once 'includes/headerAdmin.php';
-      include_once '../Controlador/conexion.php';
+      include_once '../Modelo/conexionA.php';
       require '../Controlador/Table.php';
-      $sql_leer = 'SELECT equipo, escuela, numJ, temporada, ganadas FROM temporada';
-      //variable que guarda toda la conexion, llamando la conexion creada y pasandole la instruccion a seguir (mostrar)
-      $gsent = $pdo->prepare($sql_leer);
-      // Para que la ejecute
-      $gsent->execute();
-      $resultado = $gsent->fetchAll();
+
 
       // AGREGAR A BD
-      if(isset($_POST['btnAgregarTemp'])){
-         $ano = $_POST['Anio_Aniadir'];
-         $equipo = 'Carlos';
-         $numJ = '3';
-         $escuela = 'Linarez';
-         $sql_incluir = 'INSERT INTO temporada (equipo, escuela, numJ, temporada, ganadas) VALUES (?, ? , ?, ?, ?)';
-         $gsent = $pdo->prepare($sql_incluir);
-         $gsent->execute(array($equipo, $escuela, $numJ, $ano, $numJ));
-         unset($_POST, $gsent);
-      } //Buscar en Base de datos
-      else if (isset($_POST['btnBuscarTemp'])) {
-         $filtro = $_POST['FiltroBuscar'];
-         $sql_filtro = 'SELECT equipo, escuela, numJ, temporada, ganadas FROM temporada WHERE id = ?';
-         $gsent = $pdo->prepare($sql_filtro);
-         $gsent->execute(array($filtro));
-         $resultado1 = $gsent->fetchAll();
-         var_dump($resultado1);
-      } //Actualizar en BD
-      else if (isset($_POST['btnActualizarTemp'])) {
-         $ano = $_POST['Anio_Actualizar'];
-         $equipo = 'pdu';
-         $sql_editar = 'UPDATE temporada SET equipo = ? WHERE id = ?';
-         $gsent = $pdo->prepare($sql_editar);
-         $gsent->execute(array($equipo, $ano));
-         unset($_POST);
-      }
+      // if(isset($_POST['btnAgregarTemp'])){
+      //    $ano = $_POST['Anio_Aniadir'];
+      //    $equipo = 'Carlos';
+      //    $numJ = '3';
+      //    $escuela = 'Linarez';
+      //    $sql_incluir = 'INSERT INTO temporada (equipo, escuela, numJ, temporada, ganadas) VALUES (?, ? , ?, ?, ?)';
+      //    $gsent = $pdo->prepare($sql_incluir);
+      //    $gsent->execute(array($equipo, $escuela, $numJ, $ano, $numJ));
+      //    unset($_POST, $gsent);
+      // } //Buscar en Base de datos
+      // else if (isset($_POST['btnBuscarTemp'])) {
+      //    $filtro = $_POST['FiltroBuscar'];
+      //    $sql_filtro = 'SELECT equipo, escuela, numJ, temporada, ganadas FROM temporada WHERE id = ?';
+      //    $gsent = $pdo->prepare($sql_filtro);
+      //    $gsent->execute(array($filtro));
+      //    $resultado1 = $gsent->fetchAll();
+      //    var_dump($resultado1);
+      // } //Actualizar en BD
+      // else if (isset($_POST['btnActualizarTemp'])) {
+      //    $ano = $_POST['Anio_Actualizar'];
+      //    $equipo = 'pdu';
+      //    $sql_editar = 'UPDATE temporada SET equipo = ? WHERE id = ?';
+      //    $gsent = $pdo->prepare($sql_editar);
+      //    $gsent->execute(array($equipo, $ano));
+      //    unset($_POST);
+      // }
 ?>
 <div class="col fondo">
    <div class="row" >
@@ -87,7 +82,7 @@
                                  <th>Num Partidas</th>
                               </thead>
                               <tbody>
-                                 <?php addItemAdmin($resultado); ?>
+                                 <?php //addItemAdmin($resultado); ?>
                               </tbody>
                            </table>
                         </div>
@@ -233,7 +228,7 @@
                            <th>Ganadas</th>
                         </thead>
                         <tbody>
-                           <?php addItemAdmin($resultado); ?>
+                           <?php// addItemAdmin($resultado); ?>
                         </tbody>
                      </table>
                   </div>

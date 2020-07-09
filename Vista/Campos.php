@@ -1,21 +1,22 @@
 <?php require_once 'includes/headerAdmin.php';
-      require_once '../Modelo/conexionA.php';
+      require_once '../Modelo/Campo.php';
       require_once '../Controlador/Table.php';
-
       $conexion = new Conexion();
+      $direccion = new Direccion();
+      $campo = new Campo();
 
       if(isset($_POST['Nombre_Campo'])){
-         $datos = array($_POST['Nombre_Campo'],
-                        $_POST['Estado'],
-                        $_POST['Municipio'],
-                       );
-         $sql_incluir = "INSERT INTO direcciones (idParroquia ,Direccion) VALUES (?,?)";
-         $conexion->agregar($sql_incluir, array( $_POST['Parroquia'], $_POST['Direccion']));
-         $sql_leer = "SELECT idDireccion FROM direcciones WHERE idParroquia = ? AND Direccion = ?";
-         $r = $conexion->consultar($sql_leer, array( $_POST['Parroquia'], $_POST['Direccion']));
-         $s = $r[0];
-         $sql_incluir = "INSERT INTO campos (idDireccion, Campo) VALUES (?,?)";
-         $conexion->agregar($sql_incluir, array($s['idDireccion'], $_POST['Nombre_Campo'])); 
+         // PRIMERO DEBEREMOS INSERTAR LA DIRECCION A LA BD COLOCANDOLE EL VALOR DE LOS CAMPOS CON LOS SETTER
+         $direccion->setDireccion($_POST['Direccion']);
+         $direccion->setIdParroquia($_POST['Parroquia']);
+         $direccion->incluir($direccion);
+         // LUEGO AGREGAREMOS ESA DIRECCION A NUESTRO CAMPO CON LOS SETTERS
+         $campo->setDireccion($direccion);
+         // SE AGREGAN LOS DEMAS DATOS
+         $campo->setCampo($_POST['Nombre_Campo']);
+         // Y SE INSERTA EL CAMPO A LA BASE DE DATOS
+         $campo->incluir($campo);
+         
       }
 
 
@@ -52,15 +53,10 @@ donde se colocara el contenido de la pag-->
                      </thead>
                      <tbody>
                         <?php 
-
-                           $sql_leer = "SELECT c.campo, e.Estado, m.Municipio, p.Parroquia, d.Direccion 
-                                          FROM campos c 
-                                          INNER JOIN direcciones d ON d.idDireccion = c.idDireccion 
-                                          INNER JOIN parroquia p ON p.idParroquia = d.idParroquia 
-                                          INNER JOIN municipios m ON m.idMunicipio = p.idMunicipio 
-                                          INNER JOIN estados e ON e.idEstado = m.idEstado";
-                           $resul = $conexion->consultar($sql_leer, array(''));
-                           addItemAdmin($resul);
+                              // LLAMAMOS A LA FUNCION QUE RELLENA LAS TABLAS
+                              // Y LE PASSAMOS COMO PARAMETRO LO QUE DEVUELVE LE METODO LISTAR DEL OBJETO CAMPO
+                              // EL CUAL ESTA DEFINIDO EN SU RESPECTIVA CLASE 
+                              addItemAdmin($campo->listar()); 
                         ?>
                      </tbody>
                   </table>
