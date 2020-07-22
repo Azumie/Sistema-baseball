@@ -1,4 +1,5 @@
 <?php
+require_once 'includes/head.php';
 require_once 'includes/headerAdmin.php';
 ?>
 <div class="col fondo">
