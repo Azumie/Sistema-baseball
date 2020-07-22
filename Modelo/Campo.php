@@ -19,7 +19,7 @@ class Campo extends Conexion{
 
 	public function listar (){
 		// DEFINIMOS LA CONSULTA QUE SE REALIZARA
-		$sql_leer = "	SELECT c.campo, e.Estado, m.Municipio, p.Parroquia, d.Direccion 
+		$sql_leer = "	SELECT c.campo, e.Estado, m.Municipio, p.Parroquia, d.Direccion, c.idCampo as id
 						FROM campos c 
 						INNER JOIN direcciones d ON d.idDireccion = c.idDireccion 
 						INNER JOIN parroquia p ON p.idParroquia = d.idParroquia 
@@ -27,7 +27,27 @@ class Campo extends Conexion{
 						INNER JOIN estados e ON e.idEstado = m.idEstado";
 		// LLAMOS AL METODO CONSUTAR QUE TAMBIEN HEREDAMOS, EL CUAL DEVUELVE TODOS LOS REGISTROS QUE ENCUENTRE		
 		return $this->consultar($sql_leer, array(''));
+	}
 
+	public function obtenerCampo($idCampo){
+		$sql 	  =	"	SELECT c.Campo, d.idDireccion, d.Direccion, p.idParroquia, m.idMunicipio, e.idEstado, c.idCampo as id 
+						FROM campos c
+						INNER JOIN direcciones d ON d.idDireccion = c.idDireccion 
+						INNER JOIN parroquia p ON p.idParroquia = d.idParroquia 
+						INNER JOIN municipios m ON m.idMunicipio = p.idMunicipio 
+						INNER JOIN estados e ON e.idEstado = m.idEstado 
+						WHERE idCampo = ?";
+		return $this->obtener($sql, array($idCampo));
+	}
+
+	public function actualizar($datos){
+		$sql     = 	"UPDATE campos SET Campo = ? WHERE idCampo = ?;
+					 UPDATE direcciones SET Direccion = ?, idParroquia = ? WHERE idDireccion = ?;";
+		$this->agregar($sql, array(	$datos->Campo,
+									$datos->id,
+									$datos->Direccion,
+									$datos->idParroquia,
+									$datos->idDireccion));
 	}
 // 	GETTERS Y SETTERS
 
@@ -54,8 +74,8 @@ class Direccion extends Conexion{
 		$sql_incluir = 'INSERT INTO direcciones (idParroquia ,Direccion) VALUES (?,?)';
 		$this->agregar($sql_incluir, array(	$datos->getIdParroquia(), 
 											$datos->getDireccion()));
-		$id = $this->consultar('SELECT MAX(idDireccion) FROM direcciones', array(''));
-		$this->id = $id[0][0];
+		$id = $this->obtener('SELECT MAX(idDireccion) as id FROM direcciones', array(''));
+		$this->id = $id->id;
 	}
 
 // 	GETTERS Y SETTERS

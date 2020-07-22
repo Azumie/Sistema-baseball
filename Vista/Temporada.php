@@ -1,37 +1,4 @@
-<?php $nombre = "Hola"; 
-      require_once 'includes/headerAdmin.php';
-      include_once '../Modelo/conexionA.php';
-      require '../Controlador/Table.php';
 
-
-      // AGREGAR A BD
-      // if(isset($_POST['btnAgregarTemp'])){
-      //    $ano = $_POST['Anio_Aniadir'];
-      //    $equipo = 'Carlos';
-      //    $numJ = '3';
-      //    $escuela = 'Linarez';
-      //    $sql_incluir = 'INSERT INTO temporada (equipo, escuela, numJ, temporada, ganadas) VALUES (?, ? , ?, ?, ?)';
-      //    $gsent = $pdo->prepare($sql_incluir);
-      //    $gsent->execute(array($equipo, $escuela, $numJ, $ano, $numJ));
-      //    unset($_POST, $gsent);
-      // } //Buscar en Base de datos
-      // else if (isset($_POST['btnBuscarTemp'])) {
-      //    $filtro = $_POST['FiltroBuscar'];
-      //    $sql_filtro = 'SELECT equipo, escuela, numJ, temporada, ganadas FROM temporada WHERE id = ?';
-      //    $gsent = $pdo->prepare($sql_filtro);
-      //    $gsent->execute(array($filtro));
-      //    $resultado1 = $gsent->fetchAll();
-      //    var_dump($resultado1);
-      // } //Actualizar en BD
-      // else if (isset($_POST['btnActualizarTemp'])) {
-      //    $ano = $_POST['Anio_Actualizar'];
-      //    $equipo = 'pdu';
-      //    $sql_editar = 'UPDATE temporada SET equipo = ? WHERE id = ?';
-      //    $gsent = $pdo->prepare($sql_editar);
-      //    $gsent->execute(array($equipo, $ano));
-      //    unset($_POST);
-      // }
-?>
 <div class="col fondo">
    <div class="row" >
       <div class="col-12 my-3">
@@ -194,45 +161,44 @@
             </div>
             <div class="card-body">
                <!-- AGREGANDO TEMPORADA -->
-               <form method="POST">
-                  <div class="form-group row">
+               <form method="POST" action="?c=Temporada&m=guardar">
+                  <div class="form-group row justify-content-center">
                      <div class="col-12 col-md-3">
                         <h6>Temporada Número: <em>1</em></h6>
                      </div>
                      <div class="col-4 col-md-3 ">
-                        <input type="text" class="form-control" placeholder="Año" name="Anio_Aniadir" minlength="4" maxlength="4" required pattern="[0-9]+">
+                        <input type="text" class="form-control" placeholder="Año" name="Anio" minlength="4" maxlength="4" required pattern="[0-9]+">
                      </div>
-                     <div class="col-6 col-md-4">
-                        <select id="Equipos_Agregar" name="Equipos_Agregar" class="form-control">
-                           <option value="Equipo1">Equipo1</option>
-                        </select>
+                     <div class="col-4">
+                        <button class="btn b1 b1-primary btn-block" type="submit" name="btnAgregarTemp"><i class="far fa-plus-square fa-lg" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i></button>
                      </div>
-                     <div class="col-2">
-                        <button class="btn b1 b1-info btn-block" type="submit" name="btnAgregarTemp"><i class="far fa-plus-square fa-lg" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i></button>
+                     <div class="col-auto text-center">
+                        <h5><em><i class="fas fa-users fa-2x mr-1 text-info" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i>Añadir equipos <i class="fas fa-users fa-2x ml-1 text-info" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i></em></h5>
+                     </div>
+                  </div>
+                  <div class="form-group row justify-content-center">
+                     <div class="col-12 col-md-8 ">
+                        <table class="table mt-3 table-bordered table-sm table-hover table-responsive-sm">
+                           <thead class="table-primary">
+                              <th>Equipo</th>
+                              <th>Letra</th>
+                              <th>Escuela</th>
+                              <th>Num Jugadores</th>
+                              <!-- <th>Temporadas</th>
+                              <th>Ganadas</th> -->
+                              <th> </th>
+                           </thead>
+                           <tbody>
+                              <?php 
+                              $equipos = new Equipo();
+                              addItemAdminInput( $equipos->listar(), 'equipos'); 
+                              ?>
+                           </tbody>
+                        </table>
                      </div>
                   </div>
                </form>
-               <div class="row">
-                  <div class="col text-center">
-                     <h5><em><i class="fas fa-users fa-2x mr-1 text-info" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i>Equipos Añadidos <i class="fas fa-users fa-2x ml-1 text-info" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i></em></h5>
-                  </div>
-               </div>
-               <div class="form-group row justify-content-center">
-                  <div class="col-12 col-md-8 ">
-                     <table class="table mt-3 table-bordered table-sm table-hover table-responsive-sm" style="box-shadow: 2px 1px 2px #000">
-                        <thead class="table-primary">
-                           <th>Equipo</th>
-                           <th>Escuela</th>
-                           <th>Num Jugadores</th>
-                           <th>Temporadas</th>
-                           <th>Ganadas</th>
-                        </thead>
-                        <tbody>
-                           <?php// addItemAdmin($resultado); ?>
-                        </tbody>
-                     </table>
-                  </div>
-               </div>
+
             </div>
          </div>
       </div>
@@ -240,9 +206,4 @@
 </div>
 </div>
 </div>
-</div>
-</div>
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-</body>
-</html>
+

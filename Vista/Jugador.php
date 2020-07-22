@@ -1,7 +1,4 @@
-<?php require_once 'includes/headerCliente.php';
-      require_once '../Controlador/Table.php'; 
 
-?>
 <div class="container my-3">
   <div class="row">
     <div class="col-12">
@@ -10,7 +7,7 @@
           <div class="row justify-content-center">
             <div class="col-12 col-md-8">
               <div class="row justify-content-center">
-                <img src="../img/usuario.png">
+                <img src="assets/img/usuario.png">
               </div>
               <div class="row justify-content-center"><h4><i class="fas fa-baseball-ball fa-spin text-info"></i>-Datos Personales-<i class="fas fa-baseball-ball fa-spin text-primary"></i></h4></div>
               <div class="row justify-content-center"><h5>V-27554995</h5></div>
@@ -59,7 +56,7 @@
                 <div class="col-6 col-md-3"><h6>THR: <em>123</em></h6></div>
               </div>
             </div>
-            <div class="col-2"><img src="../img/Bateador.png"></div>
+            <div class="col-2"><img src="assets/img/Bateador.png"></div>
           </div>
         </div>
       </div>
@@ -85,7 +82,7 @@
                  <div class="tab-pane active" id="Bateador" role="tabpanel">
                     <div class="row">
                       <div class="col-2">
-                        <img src="../img/Bateador1.png">
+                        <img src="assets/img/Bateador1.png">
                       </div>
                        <div class="col-10">
                           <table
@@ -136,7 +133,7 @@
                  </div>
                  <div class="tab-pane" id="Defensa" role="tabpanel">
                     <div class="row">
-                      <div class="col-2"><img src="../img/Defensa.png"></div>
+                      <div class="col-2"><img src="assets/img/Defensa.png"></div>
                        <div class="col-10">
                           <table
                              class="table table-bordered table-sm table-hover table-responsive-sm">
@@ -164,7 +161,7 @@
                  </div>
                  <div class="tab-pane" id="Lanzador" role="tabpanel">
                     <div class="row">
-                      <div class="col-2"><img src="../img/Lanzador.png"></div>
+                      <div class="col-2"><img src="assets/img/Lanzador.png"></div>
                        <div class="col-10">
                         <br>
                           <table
@@ -244,7 +241,3 @@
     </div>
   </div>
 </div>
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-</body>
-</html>

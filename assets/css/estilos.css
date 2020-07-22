@@ -19,6 +19,7 @@ a {
 .Login{
     position: absolute;
     top: 25%;
+    left: 25%;
 }
 .fondoLogin{
     background-image: url(../img/Patron1.png);

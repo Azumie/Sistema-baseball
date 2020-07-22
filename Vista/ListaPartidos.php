@@ -1,5 +1,4 @@
-<?php require_once 'includes/headerCliente.php';
-require_once '../Controlador/Table.php'?>
+
 <div class="container my-3">
 	<div class="row">
 		<div class="col-12">
@@ -26,10 +25,11 @@ require_once '../Controlador/Table.php'?>
 						<button class="btn b1 b1-primary col-md-1 ">Buscar</button>
 					</div>
 					<table class="table table-bordered table-sm table-hover table-responsive-sm">
+						
 						<?php
 							$table = new Table(array('Fecha','Local','CL','Visitante','CV','Anotador','Campo'));
 							$table->createTable();
-							$table->addItem(array ('05-09-2020','Cebmo', 8,'AJS',7,'Pablo Escalona','Chino Canonico'), 'InfoPartido.php');
+							$table->addItem(array ('05-09-2020','Cebmo', 8,'AJS',7,'Pablo Escalona','Chino Canonico'), '?c=InfoPartido');
 						?>
 					</table>
 					
@@ -38,7 +38,3 @@ require_once '../Controlador/Table.php'?>
 		</div>
 	</div>
 </div>
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-</body>
-</html>

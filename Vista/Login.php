@@ -1,7 +1,6 @@
-<?php require_once 'includes/head.php' ?>
-<body class="fondoLogin">
-	<div class="container">
-		<div class="row Login bg-white">
+
+	<div class="container-fluid 	fondoLogin d-felx justify-content-center">
+		<div class="row Login bg-white ">
 			<div class="col-12 col-md-8">
 				<div class="carousel slide" id="principal-carousel" data-ride="carousel" >
 					<ol class="carousel-indicators">
@@ -12,16 +11,16 @@
 					</ol>
 					<div class="carousel-inner">
 						<div class="carousel-item active">
-							<img src="../img/Baseball.jpg" alt="">
+							<img src="assets/img/Baseball.jpg" alt="">
 						</div>
 						<div class="carousel-item">
-							<img src="../img/campo6.jpg" alt="">
+							<img src="assets/img/campo6.jpg" alt="">
 						</div>
 						<div class="carousel-item">
-							<img src="../img/carobaro.jpg" alt="">
+							<img src="assets/img/carobaro.jpg" alt="">
 						</div>
 						<div class="carousel-item">
-							<img src="../img/Partido2.jpg" alt="">
+							<img src="assets/img/Partido2.jpg" alt="">
 						</div>
 					</div>
 				</div>
@@ -29,18 +28,9 @@
 			<div class="col-12 col-md-4 bg-white">
 				<div class="card m-0 mt-2">
 					<div class="card-body justify-content-center text-center">
-						<form method="POST" >
+						<form method="POST" action="?c=Login&m=ingresar">
 							<!-- VALIDANDO AL USUARIO -->
-							<?php
-							if (!empty($_POST['Usuario'])) {
-								$User = $_POST['Usuario'];
-								$Password = $_POST['Contraseña'];
-								if ($User == "Admin" && $Password == "123456") {
-									header('location: Temporada.php');
-								} 
-								else echo "<div style='background-color: #FF9185' class='mt-2 mb-2'> Datos Incorrectos</div>";
-							}
-							?>
+	
 							<!-- INICIANDO SESIÓN -->
 							<!-- USUARIO -->
 							<h5 class="mb-4 mt-4">Inicio de Sesión</h5>
@@ -62,8 +52,8 @@
 								</div>
 							</div>
 							<div class="row justify-content-center mb-3">
-								<div class="col-6"><a href="Ranking.php" class="btn b1 b1-primary btn-block">Volver</a></div>
-								<div class="col-6"><input class="btn b1 b1-primary btn-block" type="submit" value="Ingresar"></div>
+								<div class="col-6"><a href="?c=Ranking" class="btn b1 b1-primary btn-block">Volver</a></div>
+								<div class="col-6"><button class="btn b1 b1-primary btn-block" type="submit" name="Ingresar">Ingresar</button></div>
 							</div>
 						</form>
 					</div>
@@ -71,7 +61,3 @@
 			</div>
 		</div>
 	</div>
-	<script src="../js/jquery-3.4.1.min.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
-</body>
-</html>

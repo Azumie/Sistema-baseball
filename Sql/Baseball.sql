@@ -4,7 +4,7 @@ use baseball;
 
 create table temporadas (
     idTemporada             int primary key not null auto_increment,
-    Suspendido_Temporada    TINYINT(1) NOT NULL DEFAULT 1,
+    Suspendido_Temporada    TINYINT(1) NOT NULL DEFAULT 0,
     AnioInicio              year not null UNIQUE
 );
 
@@ -69,13 +69,10 @@ create table anotadores (
 
 create table juegos (
     idJuego         int primary key not null auto_increment,
-    idTemporada     int not null,
     idAnotador      int not null,
     idCampo         int not null,
     juegoSuspendido TINYINT(1) NOT NULL DEFAULT 0,
     fechaHora datetime not null,
-    constraint fk_juegos_temporadas foreign key (idTemporada)
-        references temporadas (idTemporada) on delete cascade on update cascade,
     constraint fk_juegos_anotadores foreign key (idAnotador)
         references anotadores (idAnotador) on delete cascade on update cascade,
     constraint fk_juegos_campos foreign key (idCampo)
@@ -110,7 +107,7 @@ create table jugadores (
     idEquipo        int not null,
     Altura          int,
     Peso            int,
-    Activo          TINYINT(1) NOT NULL DEFAULT 0,
+    Activo          TINYINT(1) NOT NULL DEFAULT 1,
     BAT             char not null,
     THR             char not null,
     Num_Camisa      int not null,
@@ -132,7 +129,7 @@ create table posiciones (
 );
 
 create table posJugada (
-    idJuego        int not null auto_increment,
+    idJuego        int not null,
     idJugador      int not null,
     idPosicion     int not null,
     primary key (idJuego, idJugador, idPosicion),
@@ -171,14 +168,27 @@ create table posDominada (
         references posiciones (idPosicion) on delete cascade on update cascade
 );
 
+create table equipos_participantes(
+    idTemporada int not null,
+    idEquipo int not null,
+    primary key (idTemporada, idEquipo),
+    constraint fk_equiposP_equipos foreign key (idEquipo)
+    references equipos (idEquipo) on delete cascade on update cascade,
+    constraint fk_equiposp_temporadas foreign key (idTemporada)
+    references temporadas (idTemporada)
+);
+
 CREATE TABLE partidas (
-    idEquipo        int NOT NULL,
     idJuego         int NOT NULL,
-    primary key(idEquipo, idJuego),
-    constraint fk_partidas_equipos foreign key (idEquipo)
-        references equipos (idEquipo) on delete cascade on update cascade,
+    idEquipo        int NOT NULL,
+    idTemporada     int not null,
+    Visitante       TINYINT(1) NOT NULL DEFAULT 1,
+    primary key(idEquipo, idJuego, idTemporada),
+
     constraint fk_partidas_juegos foreign key (idJuego)
-        references juegos (idJuego) on delete cascade on update cascade
+        references juegos (idJuego) on delete cascade on update cascade,
+    constraint fk_partidas_equiposParticipanes foreign key (idEquipo, idTemporada)
+        references equipos_participantes (idEquipo, idTemporada) on delete cascade on update cascade
 );
 
 ALTER TABLE direcciones ADD UNIQUE(idParroquia,Direccion);
