@@ -120,7 +120,8 @@ create table jugadores (
 
 create table items (
     idItem          int primary key not null auto_increment,
-    nombre          varchar (20) not null
+    nombre          varchar (20) not null,
+    tipo 			varchar (1) not null
 );
 
 create table posiciones (
@@ -199,10 +200,73 @@ CREATE TABLE usuarios (
     Respuesta        varchar(30) NOT NULL,
     Activo           TINYINT(1) NOT NULL DEFAULT 1,
     CI               varchar(9) not null,
-    constraint fk_anotadores_personas foreign key (CI)
+    primary key(idUsuario, CI),
+    constraint fk_usuarios_personas foreign key (CI)
         references personas (CI) on delete cascade on update cascade
 );
 
-ALTER TABLE direcciones ADD UNIQUE(idParroquia,Direccion);
+INSERT INTO `estados` (`idEstado`, `Estado`) VALUES
+(1, 'Lara'),
+(2, 'Caracas'),
+(3, 'Zulia'),
+(4, 'Valencia');
+
+INSERT INTO `items` (`idItem`, `nombre`, `tipo`) VALUES
+(1, 'AL', 'b'),
+(2, 'VB', 'b'),
+(3, 'HC', 'b'),
+(4, '2B', 'b'),
+(5, '3B', 'b'),
+(6, 'HR', 'b'),
+(7, 'BA', 'b'),
+(8, 'CA', 'b'),
+(9, 'CI', 'b'),
+(10, 'K', 'b'),
+(11, 'B', 'b'),
+(12, 'BR', 'b'),
+(13, 'SF', 'b'),
+(14, 'GP', 'b'),
+(15, 'SH', 'b'),
+(16, 'O', 'd'),
+(17, 'A', 'd'),
+(18, 'E', 'd'),
+(19, 'VB', 'l'),
+(20, 'IP', 'l'),
+(21, 'JG', 'l'),
+(22, 'JE', 'l'),
+(23, 'JS', 'l'),
+(24, 'CP', 'l'),
+(25, 'CL', 'l'),
+(26, 'HC', 'l'),
+(27, '2B', 'l'),
+(28, '3B', 'l'),
+(29, 'HR', 'l'),
+(30, 'K', 'l'),
+(31, 'B', 'l'),
+(32, 'SH', 'l'),
+(33, 'SF', 'l'),
+(34, 'GP', 'l'),
+(35, 'WP', 'l'),
+(36, 'BK', 'l');
+
+INSERT INTO `municipios` (`idMunicipio`, `idEstado`, `Municipio`) VALUES
+(1, 1, 'Iribarren'),
+(2, 1, 'Torres');
+
+INSERT INTO `parroquia` (`idParroquia`, `idMunicipio`, `Parroquia`) VALUES
+(1, 1, 'Catedral'),
+(2, 1, 'Concepción');
+
+INSERT INTO `posiciones` (`idPosicion`, `nombre`) VALUES
+(1, 'Lanzador'),
+(2, 'Receptor'),
+(3, 'Primera Base'),
+(4, 'Segunda Base'),
+(5, 'Tercera Base'),
+(6, 'Campo corto'),
+(7, 'Jardinero Izquierdo'),
+(8, 'Jardinero Central'),
+(9, 'Jardinero Derecho'),
+(10, 'Bateador');
 
 ALTER TABLE anotadores ADD UNIQUE (CI);

@@ -13,7 +13,7 @@
 					<a href="?c=Anotador" class="btn btn-dark btn-block mt-0 "><i class="far fa-clipboard ml-1 mr-1"></i><span> Anotador</span></a>
 					<a href="?c=Partido" class="btn btn-dark btn-block mt-0 "><i class="icon-baseball   "></i><span>Partidos</span></a>
 					<a href="?c=Categoria" class="btn btn-dark btn-block mt-0 "><i class="icon-categoria  "></i><span>Categoria</span></a>
-					<a href="#" data-toggle="modal" data-target="#Alerta" class="btn btn-dark btn-block mt-0 "><i class="fas fa-tools mr-1"></i><span> Opciones</span></a>
+					<a href="?c=Opciones"  class="btn btn-dark btn-block mt-0 "><i class="fas fa-tools mr-1"></i><span> Opciones</span></a>
 				</div>
 			
 				<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="fm-modal-grid" aria-hidden="true">

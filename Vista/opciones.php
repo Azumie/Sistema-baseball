@@ -1,7 +1,3 @@
-<?php
-require_once 'includes/head.php';
-require_once 'includes/headerAdmin.php';
-?>
 <div class="col fondo">
 	<div class="row my-3 justify-content-center h-25">
 		<div class="col-11 mt-2 mb-2">
@@ -149,8 +145,9 @@ require_once 'includes/headerAdmin.php';
 										</div>
 									</form>
 								</div>
+								<!-- AGREGANDO USUARIO -->
 								<div class="tab-pane" id="tab4" role="tabpanel">
-									<form action="">
+									<form method="POST" action="?c=Opciones&m=guardar">
 										<h5>Agregar nuevos Usuarios que te ayudarán en tu Trabajo, recuerda que luego puedes bloqueárlos <i class="far fa-smile-wink"></i></h5>
 										<div class="row justify-content-center mb-3">
 											<input required type="text" name="User" id="User" class="form-control col-5 col-md-3 mr-1 mb-2" placeholder="Nick Nuevo Usuario">
@@ -209,9 +206,3 @@ require_once 'includes/headerAdmin.php';
 		</div>
 	</div>
 </div>
-</div>
-</div>
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-</body>
-</html>
