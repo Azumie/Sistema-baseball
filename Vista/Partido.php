@@ -1,20 +1,12 @@
 <?php $conexion = new Conexion();
-
 ?>
-         <!-- CONTENIDO DE LA PAG -->
-         <!-- con las columnas que sobraron hacemos una nueva columna que abarcara 10  que es
-            donde se colocara el contenido de la pag-->
-<div class="col fondo">
-
-   <!-- DENTRO DE ESTA COLUMNA crearemos una nueva fila para trabajar de manera mas comoda -->
+ <div class="col fondo">
    <div class="row">
       <div class="col-12 mt-3">
          <a href="#menu" class=" btn btn-info  icon-play" aria-expanded="false" aria-controls="menu"
             data-toggle="collapse">Ocultar</a>
       </div>
    </div>
-
-     
       <?php  if (!isset($_REQUEST['id'])):   ?>
    <div class="row mt-4">
 

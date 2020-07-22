@@ -1889,11 +1889,11 @@ pre code {
 }
 
 .table-hover .table-active:hover {
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: red;
 }
 .table-hover .table-active:hover > td,
 .table-hover .table-active:hover > th {
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: red;
 }
 
 .table .thead-dark th {
@@ -4306,10 +4306,10 @@ input[type=button].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color:rgba(255,255,255,0.9);
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
+  border-radius: 0.50rem;
 }
 .card > hr {
   margin-right: 0;
@@ -6165,7 +6165,7 @@ button.bg-dark:focus {
 }
 
 .border-dark {
-  border-color: #343a40 !important;
+  border-color: #757575 !important;
 }
 
 .border-white {
@@ -9890,3 +9890,18 @@ h3 {
     border-color: #dee2e6;
   }
 }
+
+tbody tr{
+  font-family: 'Oswald', sans-serif;
+}
+
+tbody a{
+  text-decoration: none;
+  color: black;
+}
+
+tbody:hover{
+  font-family: 'Oswald', sans-serif;
+}
+
+

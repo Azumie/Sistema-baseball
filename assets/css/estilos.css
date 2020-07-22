@@ -4,22 +4,20 @@
     --blue: #448aff;
     --red: #ff5252;
 }
-.pos{
-    position: relative; top: .1em; text-shadow: 1px 1px 1px #000
-}
 body {
     font-size: 16px;
+    font-family: 'Lato';
 }
 
+
 a {
-    color: grey;
+    color: #fff;
     display:block;
 }
 
 .Login{
     position: absolute;
     top: 25%;
-    left: 25%;
 }
 .fondoLogin{
     background-image: url(../img/Patron1.png);
@@ -29,11 +27,10 @@ a {
     min-height: 100vh;
 }
 .fondo {
-    background-image: url(../img/campo6.jpg);
+    background-image: url(../img/pelota.jpg);
     background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    min-height: 100vh;
+    height: 100%;
+    
 }
 
 /* BARRA LATERAL*/
@@ -325,7 +322,10 @@ a {
 
 .card .card-header {
     border-radius: 10px 0 20px 0;
-    background: #9ec2ff;
+    background: #C16A32;
+    color: #fff;
+    
+    
 }
 
 .collapsing {
@@ -375,4 +375,25 @@ a {
     .fondo {
         background-size: auto;
     }
+}
+
+.lato-font{
+    font-family: 'Lato', sans-serif;
+}
+
+.jumbotron-bg{
+    background-image: url(../img/jumbo.jpg);
+    background-size: cover;
+  }
+
+.logo-bg{
+    background-image: url(../img/field-trans.png);
+    background-size: cover;
+    
+}
+
+.logo:before{
+    content: "";
+    opacity: 0.75;
+    background: rgba(0, 0, 0, 0.25);
 }
