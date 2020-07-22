@@ -181,6 +181,18 @@ CREATE TABLE partidas (
         references juegos (idJuego) on delete cascade on update cascade
 );
 
+CREATE TABLE usuarios (
+    idUsuario        int NOT NULL auto_increment,
+    Usuario          varchar(10) NOT NULL,
+    Contraseña       varchar(10) NOT NULL,
+    Pregunta         varchar(30) NOT NULL,
+    Respuesta        varchar(30) NOT NULL,
+    Activo           TINYINT(1) NOT NULL DEFAULT 1,
+    CI               varchar(9) not null,
+    constraint fk_anotadores_personas foreign key (CI)
+        references personas (CI) on delete cascade on update cascade
+);
+
 ALTER TABLE direcciones ADD UNIQUE(idParroquia,Direccion);
 
 ALTER TABLE anotadores ADD UNIQUE (CI);
