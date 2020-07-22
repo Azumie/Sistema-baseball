@@ -1,5 +1,4 @@
-<?php require_once 'head.php';?>
-<body>
+
 	<div class="container-fluid">
 		<div class="row">
 			<!-- SIDE BAR  -->
@@ -8,12 +7,12 @@
 				
 				<div class="menu">
 					<a class="btn btn-dark btn-block mt-0 text-left text-white" data-toggle="modal" data-target="#modal"><i class="icon-inicio mr-2"></i><span>Inicio</span></a>
-					<a href="Temporada.php?nombre=Temporada" class="btn btn-dark btn-block mt-0 "><i class="icon-calendario "></i><span>Temporada</span></a>
-					<a href="Equipos.php?nombre=Equipos" class="btn btn-dark btn-block mt-0 "><i class="icon-equipo  "></i><span>Equipos</span></a>
-					<a href="Campos.php?nombre=Campos" class="btn btn-dark btn-block mt-0 "><i class="icon-estadio "></i><span>Campos</span></a>
-					<a href="Anotador.php?nombre=Anotador" class="btn btn-dark btn-block mt-0 "><i class="far fa-clipboard ml-1 mr-1"></i><span> Anotador</span></a>
-					<a href="Partidos.php?nombre=Partidos" class="btn btn-dark btn-block mt-0 "><i class="icon-baseball   "></i><span>Partidos</span></a>
-					<a href="Categorias.php?nombre=Categoria" class="btn btn-dark btn-block mt-0 "><i class="icon-categoria  "></i><span>Categoria</span></a>
+					<a href="?c=Temporada" class="btn btn-dark btn-block mt-0 "><i class="icon-calendario "></i><span>Temporada</span></a>
+					<a href="?c=Equipos" class="btn btn-dark btn-block mt-0 "><i class="icon-equipo  "></i><span>Equipos</span></a>
+					<a href="?c=Campos" class="btn btn-dark btn-block mt-0 "><i class="icon-estadio "></i><span>Campos</span></a>
+					<a href="?c=Anotador" class="btn btn-dark btn-block mt-0 "><i class="far fa-clipboard ml-1 mr-1"></i><span> Anotador</span></a>
+					<a href="?c=Partido" class="btn btn-dark btn-block mt-0 "><i class="icon-baseball   "></i><span>Partidos</span></a>
+					<a href="?c=Categoria" class="btn btn-dark btn-block mt-0 "><i class="icon-categoria  "></i><span>Categoria</span></a>
 					<a href="#" data-toggle="modal" data-target="#Alerta" class="btn btn-dark btn-block mt-0 "><i class="fas fa-tools mr-1"></i><span> Opciones</span></a>
 				</div>
 			
@@ -24,7 +23,7 @@
 								<h5 class="modal-title" id="">¿Seguro que desea salir?<i class="fas fa-question fa-2x"></i></h5>
 							</div>
 							<div class="modal-footer">
-								<a href="Ranking.php?nombre=Inicio" class="btn b1 b1-primary">Aceptar</a>
+								<a href="?c=Ranking" class="btn b1 b1-primary">Aceptar</a>
 								<button class="btn b1 b1-danger" data-dismiss="modal">Cancelar</button>
 							</div>
 						</div>

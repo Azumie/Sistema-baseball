@@ -1,11 +1,9 @@
-<?php require_once 'includes/headerCliente.php' ?>
-
       <div class="container my-3">
          <div class="row">
             <div class="col-12">
                <div class="card">
                   <div class="card-header">
-                     <h4><img src="../img/Trofeo.png">Ranking<img src="../img/Trofeo.png"></h4>
+                     <h4><img src="assets/img/Trofeo.png">Ranking<img src="assets/img/Trofeo.png"></h4>
                   </div>
                   <div class="card-body">
                      
@@ -41,7 +39,7 @@
                                  <tbody>
                                     <tr>
                                        <td>1</td>
-                                       <td><a href="InfoEquipos.php">PHILLIES</a></td>
+                                       <td><a href="?c=InfoEquipo">PHILLIES</a></td>
                                        <td>33</td>
                                        <td>27</td>
                                        <td>5</td>
@@ -52,7 +50,7 @@
                                     </tr>
                                     <tr>
                                        <td>1</td>
-                                       <td><a href="InfoEquipos.php">Cebmo</a></td>
+                                       <td><a href="?c=InfoEquipo">Cebmo</a></td>
                                        <td>33</td>
                                        <td>27</td>
                                        <td>5</td>
@@ -87,15 +85,15 @@
                            <tr>
                               <td>1</td>
                               <td>51</td>
-                              <td><a href="jugador.php">Nello Mujica</a></td>
-                              <td><a href="InfoEquipos.php">Cebmo</a></td>
+                              <td><a href="?c=jugador">Nello Mujica</a></td>
+                              <td><a href="?c=InfoEquipo">Cebmo</a></td>
                               <td>.900</td>
                            </tr>
                            <tr>
                               <td>1</td>
                               <td>51</td>
-                              <td><a href="jugador.php">Marcos Monroy</a></td>
-                              <td><a href="InfoEquipos.php">AJS</a></td>
+                              <td><a href="?c=jugador">Marcos Monroy</a></td>
+                              <td><a href="?c=InfoEquipo">AJS</a></td>
                               <td>.800</td>
                            </tr>
                         </tbody>
@@ -119,15 +117,15 @@
                            <tr>
                               <td>1</td>
                               <td>51</td>
-                              <td><a href="jugador.php">Nello Mujica</a></td>
-                              <td><a href="InfoEquipos.php">Cebmo</a></td>
+                              <td><a href="?c=jugador">Nello Mujica</a></td>
+                              <td><a href="?c=InfoEquipo">Cebmo</a></td>
                               <td>.900</td>
                            </tr>
                            <tr>
                               <td>1</td>
                               <td>51</td>
-                              <td><a href="jugador.php">Marcos Monroy</a></td>
-                              <td><a href="InfoEquipos.php">AJS</a></td>
+                              <td><a href="?c=jugador">Marcos Monroy</a></td>
+                              <td><a href="?c=InfoEquipo">AJS</a></td>
                               <td>.800</td>
                            </tr>
                         </tbody>
@@ -151,15 +149,15 @@
                            <tr>
                               <td>1</td>
                               <td>51</td>
-                              <td><a href="jugador.php">Nello Mujica</a></td>
-                              <td><a href="InfoEquipos.php">Cebmo</a></td>
+                              <td><a href="?c=jugador">Nello Mujica</a></td>
+                              <td><a href="?c=InfoEquipo">Cebmo</a></td>
                               <td>.900</td>
                            </tr>
                            <tr>
                               <td>1</td>
                               <td>51</td>
-                              <td><a href="jugador.php">Marcos Monroy</a></td>
-                              <td><a href="InfoEquipos.php">AJS</a></td>
+                              <td><a href="?c=jugador">Marcos Monroy</a></td>
+                              <td><a href="?c=InfoEquipo">AJS</a></td>
                               <td>.800</td>
                            </tr>
                         </tbody>
@@ -183,15 +181,15 @@
                            <tr>
                               <td>1</td>
                               <td>51</td>
-                              <td><a href="jugador.php">Nello Mujica</a></td>
-                              <td><a href="InfoEquipos.php">Cebmo</a></td>
+                              <td><a href="?c=jugador">Nello Mujica</a></td>
+                              <td><a href="?c=InfoEquipo">Cebmo</a></td>
                               <td>.900</td>
                            </tr>
                            <tr>
                               <td>1</td>
                               <td>51</td>
-                              <td><a href="jugador.php">Marcos Monroy</a></td>
-                              <td><a href="InfoEquipos.php">AJS</a></td>
+                              <td><a href="?c=jugador">Marcos Monroy</a></td>
+                              <td><a href="?c=InfoEquipo">AJS</a></td>
                               <td>.800</td>
                            </tr>
                         </tbody>
@@ -202,9 +200,3 @@
             
          </div>
       </div>
-
-   <script src="../js/jquery-3.4.1.min.js"></script>
-   <script src="../js/bootstrap.min.js"></script>
-</body> 
-
-</html>

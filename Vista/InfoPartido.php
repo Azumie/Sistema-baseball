@@ -1,4 +1,4 @@
-<?php require_once 'includes/headerCliente.php' ?>
+
 
       <div class="container mt-3">
          <div class="row mt-5">
@@ -489,7 +489,3 @@
             </div>
          </div>
       </div>
-      <script src="../js/jquery-3.4.1.min.js"></script>
-      <script src="../js/bootstrap.min.js"></script>
-   </body>
-</html>

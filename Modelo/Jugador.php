@@ -20,17 +20,33 @@ class Jugador extends Conexion{
 	function __construct(){}
 
 	public function icluir(Jugador $datos){
-		$sql_incluir = 'INSERT INTO jugadores (CI, idEquipo, Altura, Peso, Activo, BAT, THR, Num_Camisa, Letra) VALUES (?,?,?,?,?,?,?,?,?)';
+		$sql_incluir = 'INSERT INTO jugadores (CI, idEquipo, Altura, Peso, BAT, THR, Num_Camisa, Letra) VALUES (?,?,?,?,?,?,?,?)';
 		$this->agregar($sql_incluir, array(	$datos->getCI(),
 											$datos->getIdEquipo(),
 											$datos->getAltura(),
 											$datos->getPeso(),
-											$datos->getActivo(),
 											$datos->getBAT(),
 											$datos->getTHR(),
 											$datos->getNumCamisa(),
-											$datos->Letra()			));
+											$datos->getLetra()			));
 	}
+
+	public function listarPorEquipo($idEquipo){
+		$sql_leer = '	SELECT p.CI, p.Nombre, p.Apellido, j.Num_Camisa, j.Letra, j.idJugador as id
+						FROM personas p INNER JOIN jugadores j ON j.CI = p.CI 
+						WHERE j.idEquipo = ?';
+		return $this->consultar($sql_leer, array($idEquipo));
+	}
+
+	
+
+
+
+
+
+
+
+
 
 	public function setCI		($CI)			{ $this->CI = $CI; }
 	public function getCI 		()				{ return $this->CI; }

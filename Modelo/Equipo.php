@@ -22,11 +22,33 @@ class Equipo extends Conexion
 	}
 
 	public function listar(){
-		$sql_leer 	= '	SELECT eq.Nombre, eq.Letra_E, c.Categoria, e.Escuela
+		$sql_leer 	= '	SELECT eq.Nombre, eq.Letra_E, c.Categoria, e.Escuela, eq.idEquipo as id
 						FROM equipos eq INNER JOIN categorias c ON eq.idCategoria = c.idCategoria
 						INNER JOIN escuelas e ON eq.idEscuela = e.idEscuela';
 		return $this->consultar($sql_leer, array(''));
 
+	}
+
+	public function listarPorCategoria($idCategoria){
+		$sql_leer 	= '	SELECT eq.Nombre, eq.Letra_E, c.Categoria, e.Escuela, eq.idEquipo as id
+						FROM equipos eq INNER JOIN categorias c ON eq.idCategoria = c.idCategoria
+						INNER JOIN escuelas e ON eq.idEscuela = e.idEscuela
+						WHERE eq.idCategoria = ?';
+		return $this->consultar($sql_leer, array($idCategoria));
+
+	}
+
+	public function obtenerEquipo($id){
+		$sql_leer = 'SELECT Nombre, Letra_E, idCategoria, idEquipo, idEscuela
+						FROM equipos WHERE idEquipo = ?';
+		return $this->obtener($sql_leer, array($id));
+	}
+
+	public function actualizar($datos){
+		$sql 	= ' UPDATE equipos SET Nombre = ?, Letra_E = ?, idCategoria = ?, idEscuela = ?
+					WHERE idEquipo = ?';
+		$this->agregar($sql, array(	$datos->Nombre, $datos->Letra_E, $datos->idCategoria, $datos->idEscuela,
+									$datos->idEquipo  )); 
 	}
 
 	public function setIdEquipo		($idEquipo)		{ $this->idEquipo = $idEquipo; }

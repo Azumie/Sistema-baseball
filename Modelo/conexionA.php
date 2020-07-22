@@ -2,7 +2,7 @@
 
 class Conexion{
 
-	private $link 		= 'mysql:host=localhost;dbname=baseball';
+	private $link 		= 'mysql:host=localhost;dbname=baseball;charset=utf8';
 	private $usuario 	= 'root';
 	private $pass 		= '123456';
 
@@ -11,10 +11,10 @@ class Conexion{
 	private function conectar(){
 		try {
 			$pdo = new PDO($this->link , $this->usuario, $this->pass);
+			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			return $pdo;
 		} catch (PDOException $e) {
-			print "Error : " . $e->getMessage() ."<br>";
-			die();
+			die($e->getMessage());
 		}
 	}
 
@@ -30,7 +30,7 @@ class Conexion{
 			$gsent->execute($datos);
 			$this->desconectar($pdo, $gsent);
 		} catch (PDOException $e) {
-			echo "ERROR 1";
+			die($e->getMessage());
 		}
 	}
 
@@ -39,11 +39,24 @@ class Conexion{
 			$pdo = $this->conectar();
 			$gsent = $pdo->prepare($sql_leer);
 			$gsent->execute($datos);
-			$datos = $gsent->fetchAll();
+			$datos = $gsent->fetchAll(PDO::FETCH_OBJ);
 			$this->desconectar($pdo, $gsent);
 			return $datos;
 		} catch (PDOException $e) {
-			echo "ERROR 2";			
+			die($e->getMessage());	
+		}
+ 	}
+ 	
+ 	public function obtener(string $sql_leer,array $datos){	
+		try {
+			$pdo = $this->conectar();
+			$gsent = $pdo->prepare($sql_leer);
+			$gsent->execute($datos);
+			$datos = $gsent->fetch(PDO::FETCH_OBJ);
+			$this->desconectar($pdo, $gsent);
+			return $datos;
+		} catch (PDOException $e) {
+			die($e->getMessage());	
 		}
  	}
 }

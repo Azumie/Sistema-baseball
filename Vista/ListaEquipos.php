@@ -1,5 +1,4 @@
-<?php require_once 'includes/headerCliente.php';
-require_once '../Controlador/Table.php'?>
+
 <div class="container my-3">
 	<div class="row">
 		<div class="col-12">
@@ -28,7 +27,7 @@ require_once '../Controlador/Table.php'?>
 						<?php
 							$table = new Table(array('Equipo','J','G','P','E','CA','CP','SLG','AVE'));
 							$table->createTable();
-							$table->addItem(array ('Cebmo',14,7,7,0,30,15,.120,.800),'InfoEquipos.php');
+							$table->addItem(array ('Cebmo',14,7,7,0,30,15,.120,.800),'?c=InfoEquipo');
 						?>
 					</table>
 				</div>
@@ -36,7 +35,3 @@ require_once '../Controlador/Table.php'?>
 		</div>
 	</div>
 </div>
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-</body>
-</html>

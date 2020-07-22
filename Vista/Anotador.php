@@ -1,45 +1,13 @@
-<?php require_once 'includes/headerAdmin.php' ;
-      require '../Controlador/Table.php';;
-      require_once '../Modelo/Persona.php';
-      require_once '../Modelo/Anotador.php';
-      require_once '../Modelo/Campo.php';
-
-      
-      $anotador = new Anotador();
-      // AGREGAR A BD
-      if(isset($_POST['Nacionalidad'])){
-         $persona = new Persona();
-         $direccion = new Direccion();
-
-         $direccion->setIdParroquia ( $_POST['Parroquia'] );
-         $direccion->setDireccion   ( $_POST['Direccion'] );
-         $direccion->incluir        ( $direccion );
-
-
-         $persona->setCI            ( $_POST['Cedula_Anotador'] );
-         $persona->setNombre        ( $_POST['Nombre_Anotador'] );
-         $persona->setApellido      ( $_POST['Apellido_Anotador'] );
-         $persona->setNacido        ( $_POST['Inicio_Anotador'] );
-         $persona->setSexo          ( $_POST['Sexo'] );
-         $persona->setNacionalidad  ( $_POST['Nacionalidad'] );
-         $persona->setIdDireccion   ( $direccion->getId() );
-         $persona->incluir($persona);
-
-         $anotador->setCI($persona->getCI());
-         $anotador->incluir($anorador);
-      }
-
-?>
 <!-- CONTENIDO DE LA PAG -->
 <!-- con las columnas que sobraron hacemos una nueva columna que abarcara 10  que es donde se colocara el contenido de la pag-->
 <div class="col fondo">
    <!-- DENTRO DE ESTA COLUMNA crearemos una nueva fila para trabajar de manera mas comoda -->
-   
    <div class="row">
       <div class="col-12 mt-3">
          <a href="#menu" class=" btn btn-info icon-play" aria-expanded="false" aria-controls="menu"
          data-toggle="collapse">Ocultar</a>
       </div>
+   <?php if (!isset($_REQUEST['id'])): ?>
       <div class="col-12">
          <div class="card mt-3">
             <div class="card-header">
@@ -65,62 +33,29 @@
                         </thead>
                         <tbody>
                               <?php 
-                                   addItemAdmin($anotador->listar()); 
+                                   addItemAdminActu($anotadores, '?c=anotador'); 
                               ?>        
                         </tbody>
                      </table>
                   </div>
                </div>
-               <!-- ACTUALIZANDO ANOTADOOOOOR -->
-               <form method="POST">
-                  <div class="form-group row justify-content-center">
-                     <div class="col-6 col-md-3 mb-2">
-                        <input type="text" placeholder="Cédula" class="form-control" id="Cedula_Anotador" maxlength="9" readonly value="29587834" name="ActualizarCedula_Anotador">
-                     </div>
-                     <div class="col-6 col-md-4">
-                        <input type="text" name="Nombre_Anotador" id="Nombre_Anotador" placeholder="Nombre" maxlength="30" class="form-control" required>
-                     </div>
-                     <div class=" col-9 col-md-4">
-                        <input type="text" name="Apellido_Anotador" id="Apellido_Anotador" placeholder="Apellido" maxlength="30" class="form-control" required>
-                     </div>
-                  </div>
-                  <div class="row justify-content-center mb-2">
-                     <div class="col-6 col-md-3">
-                        <label for="Inicio_Anotador">Inicio en el campo</label>
-                        <input type="date" name="Inicio_Anotador" id="Inicio_Anotador" class="form-control" required max="2020-06-30">
-                     </div>
-                     <div class="col-4 col-md-2 mt-4">
-                        <div class="form-check">
-                           <label class="form-check-label mr-5">
-                              <input type="radio" name="sexo" id="Mujer" class="form-check-input" value="Mujer">Mujer
-                           </label>
-                        </div>
-                        <div class="form-check">
-                           <label class="form-check-label">
-                              <input type="radio" name="sexo" id="Hombre" class="form-check-input mr-2" value="Hombre">Hombre
-                           </label>
-                        </div>
-                     </div>
-
-                     <div class="col-12 col-md-4 mt-4 align-self-md-center">
-                        <button name="Actualizar" type="submit" class="btn b1 b1-primary btn-block"  data-toggle="modal" data-target="#Alerta" ><i class="fas fa-redo-alt fa-lg mr-2" style="text-shadow: 1px 1px 1px #000"></i>Actualizar</button>
-                     </div>
-                  </div>
-               </form>
             </div>
          </div>
       </div>
+   <?php endif; ?>
    </div>
+            <!-- AGREGANDO ANOTADOOOOR -->
+
    <div class="row ">
       <div class="col">
          <div class="card mt-3"  id="AgregarAnotador">
             <div class="card-header">
-               <h5><svg class="bi bi-folder-plus" width="1em" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9.828 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91H9v1H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181L15.546 8H14.54l.265-2.91A1 1 0 0 0 13.81 4H9.828zm-2.95-1.707L7.587 3H2.19c-.24 0-.47.042-.684.12L1.5 2.98a1 1 0 0 1 1-.98h3.672a1 1 0 0 1 .707.293z"/><path fill-rule="evenodd" d="M13.5 10a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z"/><path fill-rule="evenodd" d="M13 12.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/></svg>Agregar Anotador</h5>
+               <h5><svg class="bi bi-folder-plus" width="1em" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9.828 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91H9v1H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181L15.546 8H14.54l.265-2.91A1 1 0 0 0 13.81 4H9.828zm-2.95-1.707L7.587 3H2.19c-.24 0-.47.042-.684.12L1.5 2.98a1 1 0 0 1 1-.98h3.672a1 1 0 0 1 .707.293z"/><path fill-rule="evenodd" d="M13.5 10a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z"/><path fill-rule="evenodd" d="M13 12.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/></svg>
+                  <?php echo isset($actu) ? 'Actualizar Anotador': 'Agregar Anotador' ?></h5>
             </div>
             <div class="card-body">
-               <!-- AGREGANDO ANOTADOOOOR -->
-               <form method="POST" id="Agregando_Anotador">
-                  <div class="form-group row">
+               <form method="POST" id="Agregando_Anotador" action="?c=Anotador&m=guardar<?php echo isset($actu) ? "&id=$actu->CI": '' ?>">
+                  <div class="form-group row <?php echo isset($actu) ? 'd-none': '' ?>">
                      <div class="col">
                         <h6><em><i class="far fa-clipboard fa-2x mr-2" style="position: relative; top: .1em;"></i>Ingrese los siguientes datos:</em></h6>
                      </div>
@@ -128,32 +63,34 @@
                   <div class="form-group row justify-content-center">
                      <div class="col-1">
                         <select name="Nacionalidad" id="Estado" class="form-control">
-                           <option value="V">V</option>
-                           <option value="E">E</option>
+                           <option value="V" 
+                           <?php echo isset($actu) && $actu->Nacionalidad = 'V' ? 'selected': '' ?>>V</option>
+                           <option value="E" <?php echo isset($actu) && $actu->Nacionalidad = 'E' ? 'selected': '' ?>>E</option>
                         </select>
                      </div>
                      <div class="col-6 col-md-3 mb-2">
-                        <input  id="Cedula_Anotador" type="text" placeholder="Cédula" class="form-control" name="Cedula_Anotador" maxlength="9" required>
+                        <input  id="Cedula_Anotador" type="text" placeholder="Cédula" class="form-control" name="Cedula_Anotador" maxlength="9" required value="<?php echo isset($actu) ? $actu->CI: '' ?>">
                      </div>
                      <div class="col-6 col-md-3">
-                        <input type="text" name="Nombre_Anotador" id="Nombre_Anotador" placeholder="Nombre" maxlength="30" class="form-control" required>
+                        <input type="text" name="Nombre_Anotador" id="Nombre_Anotador" placeholder="Nombre" maxlength="30" class="form-control" required value="<?php echo isset($actu) ? $actu->Nombre: '' ?>">
                      </div>
                      <div class=" col-9 col-md-3">
-                        <input id=""  type="text" name="Apellido_Anotador" id="Apellido_Anotador" placeholder="Apellido" maxlength="30" class="form-control" required>
+                        <input id=""  type="text" name="Apellido_Anotador" id="Apellido_Anotador" placeholder="Apellido" maxlength="30" class="form-control" required value="<?php echo isset($actu) ? $actu->Apellido: '' ?>">
                      </div>
                   </div>
                   <div class="row justify-content-center mb-2">
                      <div class="col-6 col-md-3">
                         <label for="Inicio_Anotador">Inicio en el campo</label>
-                        <input id=""  type="date" name="Inicio_Anotador" id="Inicio_Anotador" class="form-control" required max="2020-06-30">
+                        <input id=""  type="date" name="Inicio_Anotador" id="Inicio_Anotador" class="form-control" required max="2020-06-30" value="<?php echo isset($actu) ? $actu->Nacido: '' ?>">
                      </div>
                      <div class="col-4 col-md-2 mt-4">
                         <div  class="custom-control custom-radio mr-2">
-                           <input type="radio" name="Sexo" id="mujer" class="custom-control-input" checked value="Mujer">
+                           <input type="radio" name="Sexo" id="mujer" class="custom-control-input"  value="Mujer" checked>
                            <label for="mujer" class="custom-control-label">Mujer</label>
                         </div>
                         <div class="custom-control custom-radio ">
-                           <input value="Hombre" type="radio" name="Sexo" id="hombre" class="custom-control-input">
+                           <input value="Hombre" type="radio" name="Sexo" id="hombre" class="custom-control-input"
+                           <?php echo isset($actu) && ucwords($actu->Sexo) == 'H' ? 'checked': '' ?>>
                            <label for="hombre" class="custom-control-label">Hombre</label>
                         </div>
                      </div>
@@ -175,17 +112,29 @@
                         <input type="text" name="Municipio" id="Municipio" placeholder="Municipio" class="form-control" required>
                      </div>
                      <div class="col-4 col-md-3">
-                        <label for="Parroquia">Parroquia:</label>
-                        <input type="text" name="Parroquia" id="Parroquia" placeholder="Parroquia" class="form-control" required>
+                        <label for="Parroquia">Parroquia</label>
+                        <select class="form-control" id="Parroquia" name="Parroquia">
+                           <?php    
+                              $sql_leer = "select idParroquia, Parroquia from Parroquia";
+                              $resul = $conexion->consultar($sql_leer, array(''));
+                              foreach ($resul as $campo) {
+                                 if ($campo->idParroquia == $actu->idParroquia){
+                                    echo "<option value='$campo->idParroquia' selected> $campo->Parroquia </option>";
+                                 }else {
+                                    echo "<option value='$campo->idParroquia'> $campo->Parroquia </option>";
+                                 }
+                              }
+                            ?>
+                        </select>
                      </div>
                   </div>
 
                   <div class="row justify-content-center mt-3">
                      <div class="col-10 col-md-7 mb-2">
-                           <textarea class="form-control" name="Direccion" id="Direccion" placeholder="Ingrese la Dirección actual del jugador, por favor" maxlength="45" required cols="60" rows="3" style="width: 100%"></textarea>
+                           <textarea class="form-control" name="Direccion" id="Direccion" placeholder="Ingrese la Dirección actual del jugador, por favor" maxlength="45" required cols="60" rows="3" style="width: 100%"><?php echo isset($actu) ? $actu->Direccion: '' ?></textarea>
                      </div>
                      <div class="col-12 col-md-4 mt-4 align-self-md-center">
-                        <button id="btnRegistrar" type="submit" class="btn b1 b1-primary btn-block"><i class="icon-mas fa-lg" style="text-shadow: 1px 1px 1px #000"></i> Agregar</button>
+                        <button id="btnRegistrar" type="submit" class="btn b1 b1-primary btn-block"><i class="icon-mas fa-lg" style="text-shadow: 1px 1px 1px #000"></i> <?php echo isset($actu) ? 'Actualizar': 'Agregar' ?></button>
                      </div>
                      
                   </div> 
@@ -198,8 +147,3 @@
 </div>
 </div>
 </div>
-<script src="../Controlador/app.js"></script>
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-</body>
-</html>

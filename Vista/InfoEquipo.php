@@ -1,4 +1,4 @@
-<?php require_once 'includes/headerCliente.php' ?>
+
 <div class="container mt-3">
    <div class="form-group row justify-content-center">
       <div class="col-5 col-md-3">
@@ -18,7 +18,7 @@
       <div class="col-12">
          <div class="card">
             <div class="card-header">
-               <h4><img src="../img/Partidos.png" style="position: relative;bottom: .2em">Partidos<img src="../img/Partidos3.png" class="ml-1"></h4>
+               <h4><img src="assets/img/Partidos.png" style="position: relative;bottom: .2em">Partidos<img src="assets/img/Partidos3.png" class="ml-1"></h4>
             </div>
             <div class="card-body">
                <div class="row">
@@ -46,8 +46,8 @@
                         <tbody>
                            <tr>
                               <td>1</td>
-                              <td><a href="InfoPartido.php">2020-05-19</a></td>
-                              <td><a href="InfoEquipos.php">Cardenales</a></td>
+                              <td><a href="?c=InfoPartido">2020-05-19</a></td>
+                              <td><a href="?c=InfoEquipo">Cardenales</a></td>
                               <td>1</td>
                               <td>1</td>
                               <td>1</td>
@@ -75,7 +75,7 @@
       <div class="col-12">
          <div class="card">
             <div class="card-header">
-               <h4><img src="../img/Partidos2.png">Jugadores<img src="../img/Partido4.jpg"></h4>
+               <h4><img src="assets/img/Partidos2.png">Jugadores<img src="assets/img/Partido4.jpg"></h4>
             </div>
             <div class="card-body">
                <div class="row">
@@ -96,7 +96,7 @@
                         </thead>
                         <tbody>
                            <tr>
-                              <td><a href="jugador.php">29587834</a></td>
+                              <td><a href="?c=jugador">29587834</a></td>
                               <td></td>
                               <td></td>
                               <td></td>
@@ -120,7 +120,3 @@
       </div>
    </div>
 </div>
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-</body>
-</html>

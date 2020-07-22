@@ -44,8 +44,8 @@ class Categoria extends Conexion
       	return $this->consultar($sql_leer, array(''));
 	}
 
-	public function getcampo	()			{return $this->campo;}
-	public function setcampo	($campo)	{$this->campo = $campo;}
+	public function getCampo	()			{return $this->campo;}
+	public function setCampo	($campo)	{$this->campo = $campo;}
 	public function getId 		()			{return $this->id;}
 	public function setId 		($id)		{$this->id = $id;}
 }

@@ -1,37 +1,6 @@
-<?php require_once 'includes/headerAdmin.php';
-      require_once '../Modelo/Escuela.php';
-      require '../Controlador/Table.php';
-      $escuelas = new Escuela();
-      //MOSTRANDO EN LAS TABLAS
-      // $sql_leer = 'SELECT Categoria FROM categorias';
-      // $gsent = $pdo->prepare($sql_leer);
-      // $gsent->execute();
-      // $resultado = $gsent->fetchAll();
-      $categorias = new Categoria();
-      // $gsent = $pdo->prepare($sql_leer);
-      // $gsent->execute();
-      // $resultado1 = $gsent->fetchAll();
-      // AGREGAR A BD
-      // if(isset($_POST['btnAgregarCategoria'])){
-      //    try {
-      //       $categoria = $_POST['Nombre_Categoria'];
-      //       $sql_incluir = 'INSERT INTO categorias (Categoria) VALUES (?)';
-      //       $gsent = $pdo->prepare($sql_incluir);
-      //       $gsent->execute(array($categoria));
-      //       $sql_incluir = null; $pdo = null; $gsent = null;
-      //       unset($_POST, $gsent);
-      //    } catch (PDOException $e) {
-      //       print "Error : " . $e->getMessage() ."<br>";
-      //       die();
-      //       echo "error";
-      //    }
-      if(isset($_POST['btnAgregarEscuela'])){
-        $escuelas->setNombre($_POST['Nombre_Escuela']);
-        $escuelas->incluir($escuelas);
-      } else if (isset($_POST['btnAgregarCategoria'])){
-        $categorias->setNombre($_POST['Nombre_Categoria']);
-        $categorias->incluir($categorias);
-      }
+
+<?php 
+      
 ?>
 <div class="col fondo">
   <div class="row">
@@ -45,7 +14,7 @@
           <h4><i class="fas fa-indent mr-1" style="position: relative; top: .1em;"></i>Categorías<i class="fas fa-outdent ml-1" style="position: relative; top: .1em;"></i></h4>
         </div>
         <div class="card-body">
-          <form method="POST">
+          <form method="POST" action="?c=Categoria&m=guardar">
             <div class="row">
               <div class="col-6">
                 <div class="row">
@@ -71,7 +40,7 @@
                     <th>Cant. Equipos</th>
                   </thead>
                   <tbody>
-                    <?php addItemAdmin($categorias->listar()); ?>
+                    <?php addItemAdmin($this->categoria->listar()); ?>
                   </tbody>
                 </table>
               </div>
@@ -84,7 +53,7 @@
           <h4><i class="fas fa-school mr-1"></i>Escuelas<i class="fas fa-school ml-1"></i></h4>
         </div>
         <div class="card-body">
-          <form method="POST">
+          <form method="POST" action="?c=Categoria&m=guardar">
             <div class="row">
               <div class="col-6">
                 <table class="table table-bordered table-sm table-hover table-responsive-sm" >
@@ -94,7 +63,7 @@
                   </thead>
                   <tbody>
                     <?php
-                    addItemAdmin($escuelas->listar());
+                    addItemAdmin($this->escuela->listar());
                     ?>
                   </tbody>
                 </table>
@@ -126,7 +95,3 @@
 
 </div>
 </div>
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-</body>
-</html>
