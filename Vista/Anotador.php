@@ -1,12 +1,10 @@
-<!-- CONTENIDO DE LA PAG -->
-<!-- con las columnas que sobraron hacemos una nueva columna que abarcara 10  que es donde se colocara el contenido de la pag-->
 <div class="col fondo">
-   <!-- DENTRO DE ESTA COLUMNA crearemos una nueva fila para trabajar de manera mas comoda -->
    <div class="row">
       <div class="col-12 mt-3">
          <a href="#menu" class=" btn btn-info icon-play" aria-expanded="false" aria-controls="menu"
          data-toggle="collapse">Ocultar</a>
       </div>
+   <!-- MOSTRANDO ANOTADORES EXISTENTES -->
    <?php if (!isset($_REQUEST['id'])): ?>
       <div class="col-12">
          <div class="card mt-3">
@@ -44,8 +42,7 @@
       </div>
    <?php endif; ?>
    </div>
-            <!-- AGREGANDO ANOTADOOOOR -->
-
+   <!-- AGREGANDO ANOTADOOOOR -->
    <div class="row ">
       <div class="col">
          <div class="card mt-3"  id="AgregarAnotador">
@@ -54,12 +51,14 @@
                   <?php echo isset($actu) ? 'Actualizar Anotador': 'Agregar Anotador' ?></h5>
             </div>
             <div class="card-body">
+               <!-- EMPIEZA FORMULARIO DE AGREGAR -->
                <form method="POST" id="Agregando_Anotador" action="?c=Anotador&m=guardar<?php echo isset($actu) ? "&id=$actu->CI": '' ?>">
                   <div class="form-group row <?php echo isset($actu) ? 'd-none': '' ?>">
                      <div class="col">
                         <h6><em><i class="far fa-clipboard fa-2x mr-2" style="position: relative; top: .1em;"></i>Ingrese los siguientes datos:</em></h6>
                      </div>
                   </div>
+                  <!-- DATOS PERSONALES -->
                   <div class="form-group row justify-content-center">
                      <div class="col-1">
                         <select name="Nacionalidad" id="Estado" class="form-control">
@@ -69,19 +68,19 @@
                         </select>
                      </div>
                      <div class="col-6 col-md-3 mb-2">
-                        <input  id="Cedula_Anotador" type="text" placeholder="Cédula" class="form-control" name="Cedula_Anotador" maxlength="9" required value="<?php echo isset($actu) ? $actu->CI: '' ?>">
+                        <input  id="Cedula_Anotador" type="text" placeholder="Cédula" class="form-control" name="Cedula_Anotador" maxlength="8" pattern="[0-9]+" required value="<?php echo isset($actu) ? $actu->CI: '' ?>">
                      </div>
                      <div class="col-6 col-md-3">
-                        <input type="text" name="Nombre_Anotador" id="Nombre_Anotador" placeholder="Nombre" maxlength="30" class="form-control" required value="<?php echo isset($actu) ? $actu->Nombre: '' ?>">
+                        <input type="text" name="Nombre_Anotador" id="Nombre_Anotador" placeholder="Nombre" minlength="2" maxlength="30" pattern="[A-Za-z]+" class="form-control" required value="<?php echo isset($actu) ? $actu->Nombre: '' ?>">
                      </div>
                      <div class=" col-9 col-md-3">
-                        <input id=""  type="text" name="Apellido_Anotador" id="Apellido_Anotador" placeholder="Apellido" maxlength="30" class="form-control" required value="<?php echo isset($actu) ? $actu->Apellido: '' ?>">
+                        <input id=""  type="text" name="Apellido_Anotador" id="Apellido_Anotador" placeholder="Apellido" minlength="4" maxlength="30" pattern="[A-Za-z]+" class="form-control" required value="<?php echo isset($actu) ? $actu->Apellido: '' ?>">
                      </div>
                   </div>
                   <div class="row justify-content-center mb-2">
                      <div class="col-6 col-md-3">
                         <label for="Inicio_Anotador">Inicio en el campo</label>
-                        <input id=""  type="date" name="Inicio_Anotador" id="Inicio_Anotador" class="form-control" required max="2020-06-30" value="<?php echo isset($actu) ? $actu->Nacido: '' ?>">
+                        <input id=""  type="date" name="Inicio_Anotador" id="Inicio_Anotador" class="form-control" required min="1960-01-01" max="2020-06-30" value="<?php echo isset($actu) ? $actu->Nacido: '' ?>">
                      </div>
                      <div class="col-4 col-md-2 mt-4">
                         <div  class="custom-control custom-radio mr-2">
@@ -95,7 +94,7 @@
                         </div>
                      </div>
                   </div>
-
+                  <!-- Direccion del anotador -->
                   <div class="row justify-content-center">
                         <div class="col-auto">
                         <h6><em><i class="fas fa-map-signs fa-3x" style="position: relative; top: .2em;"></i>Dirección Actual:</em></h6>
@@ -109,7 +108,10 @@
                      </div>
                      <div class="col-4 col-md-3">
                         <label for="Municipio">Municipio:</label>
-                        <input type="text" name="Municipio" id="Municipio" placeholder="Municipio" class="form-control" required>
+                        <select name="Municipio" id="Municipio" class="form-control">
+                           <option value="Iribarren">Iribarren</option>
+                           <option value="Palavecino">Palavecino</option>
+                        </select>
                      </div>
                      <div class="col-4 col-md-3">
                         <label for="Parroquia">Parroquia</label>
@@ -128,17 +130,14 @@
                         </select>
                      </div>
                   </div>
-
                   <div class="row justify-content-center mt-3">
                      <div class="col-10 col-md-7 mb-2">
-                           <textarea class="form-control" name="Direccion" id="Direccion" placeholder="Ingrese la Dirección actual del jugador, por favor" maxlength="45" required cols="60" rows="3" style="width: 100%"><?php echo isset($actu) ? $actu->Direccion: '' ?></textarea>
+                           <textarea class="form-control" name="Direccion" id="Direccion" placeholder="Ingrese la Dirección actual del jugador, por favor" minlength="10" maxlength="45" pattern="[A-Za-z0-9]+" required cols="60" rows="3" style="width: 100%"><?php echo isset($actu) ? $actu->Direccion: '' ?></textarea>
                      </div>
                      <div class="col-12 col-md-4 mt-4 align-self-md-center">
                         <button id="btnRegistrar" type="submit" class="btn b1 b1-primary btn-block"><i class="icon-mas fa-lg" style="text-shadow: 1px 1px 1px #000"></i> <?php echo isset($actu) ? 'Actualizar': 'Agregar' ?></button>
                      </div>
-                     
                   </div> 
-
                </form>
             </div>
          </div>
