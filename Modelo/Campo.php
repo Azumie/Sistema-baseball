@@ -58,35 +58,3 @@ class Campo extends Conexion{
 	public function setCampo		($Campo)		{$this->Campo = $Campo;}
 	public function getCampo		()				{return $this->Campo;}
 }
-
-/**
- * 
- */
-class Direccion extends Conexion{	
-	
-	private $id;
-	private $Direccion;
-	private $idParroquia;
-
-	function __construct(){}
-
-	public function incluir(Direccion $datos){
-		$sql_incluir = 'INSERT INTO direcciones (idParroquia ,Direccion) VALUES (?,?)';
-		$this->agregar($sql_incluir, array(	$datos->getIdParroquia(), 
-											$datos->getDireccion()));
-		$id = $this->obtener('SELECT MAX(idDireccion) as id FROM direcciones', array(''));
-		$this->id = $id->id;
-	}
-
-// 	GETTERS Y SETTERS
-	
-	public function setDireccion	($Direccion)	{$this->Direccion = $Direccion;}
-	public function getDireccion	()				{return $this->Direccion;}
-
-	public function getId			()				{return $this->id;}
-	public function setIdParroquia	($idParroquia)	{$this->idParroquia = $idParroquia;}
-	public function getIdParroquia	()				{return $this->idParroquia;}
-
-
-
-}
