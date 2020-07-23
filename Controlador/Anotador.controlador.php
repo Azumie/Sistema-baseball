@@ -2,6 +2,7 @@
 require_once 'Modelo/Temporada.php';
 include_once 'Modelo/Persona.php';
 require_once 'Modelo/Anotador.php';
+require_once 'Modelo/Direccion.php';
 require_once 'Modelo/Campo.php';
 require 'Controlador/Table.php';
 

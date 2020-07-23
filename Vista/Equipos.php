@@ -1,6 +1,3 @@
-            <!-- CONTENIDO DE LA PAG -->
-            <!-- con las columnas que sobraron hacemos una nueva columna que abarcara 10  que es
-            donde se colocara el contenido de la pag-->
 <div class="col fondo">
    <!-- DENTRO DE ESTA COLUMNA crearemos una nueva fila para trabajar de manera mas comoda -->
    <div class="row" >
@@ -55,9 +52,7 @@
                </div>
             </div>
             <div class="card-body">
-
                <!-- AGREGAR EQUIPO -->
-
                   <div class="row text-center">
                      <div class="col-12">
                         <h6>Ingrese los siguientes datos:</h6>
@@ -68,7 +63,7 @@
                         <!-- los tamaños de los textfields puede cambiar, con form-control-lg se hace mas grande y con form-control-sm se hace mas pequ -->
                         <!-- tambien lo podemos tener en varios estados como puede ser readonly y disabled -->
                         <label for="nombre">Nombre: </label>
-                        <input type="text" name="nombre" id="" class="form-control" maxlength="30" value="<?php echo isset($equipox) ? $equipox->Nombre:'' ?>">
+                        <input type="text" name="nombre" class="form-control" required minlength="2" maxlength="30" pattern="[A-Za-z]+" value="<?php echo isset($equipox) ? $equipox->Nombre:'' ?>">
                      </div>
                      <div class="col-5 col-md-3 mb-2">
                         <label for="letra">Letra:</label>
@@ -132,8 +127,7 @@
                         </table>
                      </div>
                      <?php endif; ?>
-                  </div>                  
-               
+                  </div>  
             </div>
          </div>
       </form>
@@ -165,16 +159,15 @@
                         </select>
                      </div>
                      <div class="col-auto col-md-2 mb-2 mb-md-0">
-                        <input type="text" class="form-control" maxlength="8" placeholder="Cédula" required name="Cedula">
+                        <input type="text" class="form-control" minlength="8" maxlength="8" pattern="[0-9]+" placeholder="Cédula" required name="Cedula">
                      </div>
                      <div class="col-6 col-md-4">
-                        <input type="text"class="form-control"  maxlength="30" placeholder="Nombre" required name="Nombre">
+                        <input type="text"class="form-control" minlength="2" maxlength="30" pattern="[A-Za-z]+" placeholder="Nombre" required name="Nombre">
                      </div>
                      <div class="col-6 col-md-4">
-                        <input type="text" class="form-control" maxlength="30" placeholder="Apellido" required name="Apellido">
+                        <input type="text" class="form-control" minlength="2" maxlength="30" pattern="[A-Za-z]+" placeholder="Apellido" required name="Apellido">
                      </div>
                   </div>
-
                   <div class="form-group row justify-content-center">
                      <div class="col-3 form-inline">
                         <label for="Mujer" class="mr-2 mb-0">Sexo:</label>
@@ -198,7 +191,7 @@
                      </div>
                      <div class="col-2">
                         <label class="mt-4 mt-md-0" for="Peso">Peso</label>
-                        <input type="text" class="form-control" maxlength="3" name="Peso">
+                        <input type="number" class="form-control" step="0,01" min="10" max="100" name="Peso">
                      </div>
                   </div>
 

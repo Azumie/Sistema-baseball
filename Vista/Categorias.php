@@ -1,4 +1,3 @@
-
 <?php 
       
 ?>
@@ -24,7 +23,7 @@
                 </div>
                 <div class="row">
                   <div class="col-12">
-                    <input type="text" name="Nombre_Categoria"  placeholder="Ingrese Nombre" class="form-control" required>
+                    <input type="text" name="Nombre_Categoria"  placeholder="Ingrese Nombre" class="form-control" required maxlength="15" minlength="5" pattern="[A-Za-z]+">
                   </div>
                 </div>
                 <div class="row mt-3 mb-3">
@@ -76,7 +75,7 @@
                 </div>
                 <div class="row">
                   <div class="col">
-                    <input type="text" name="Nombre_Escuela"  placeholder="Ingrese Nombre" class="form-control" required>
+                    <input type="text" name="Nombre_Escuela"  placeholder="Ingrese Nombre" class="form-control" required maxlength="15" minlength="5" pattern="[A-Za-z]+">
                   </div>
                 </div>
                 <div class="row mt-3 justify-content-end">

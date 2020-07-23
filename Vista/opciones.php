@@ -18,7 +18,7 @@
 								<li class="nav-item mt-md-4">
 									<a href="#tab2" id="1" class="nav-link" data-toggle="tab"><i class="fas fa-user-shield"></i>Seguridad</a>
 								</li>
-								<li class="nav-item">
+								<li class="nav-item mt-md-4">
 									<a href="#tab3" class="nav-link" data-toggle="tab"><i class="fas fa-user-cog"></i>Datos y Personalización</a>
 								</li>
 								<li class="nav-item  mt-md-4">

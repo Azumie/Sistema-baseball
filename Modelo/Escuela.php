@@ -1,4 +1,5 @@
 <?php 
+// ENCONTRAMOS A ESCUELA Y CATEGORÍA
 require_once 'conexionA.php';
 
 class Escuela extends Conexion{
@@ -25,7 +26,7 @@ class Escuela extends Conexion{
 }
 
 /**
- * 		CLASE PARA LAS ATEGORIAS NO SE SI PONERLA EN UN DOCUMENTO APARTE
+ * 		CLASE PARA LAS CATEGORIAS
  */
 class Categoria extends Conexion
 {

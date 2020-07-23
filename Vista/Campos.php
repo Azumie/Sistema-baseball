@@ -2,13 +2,10 @@
       $conexion = new Conexion();
 
 ?>
-<!-- CONTENIDO DE LA PAG -->
-<!-- con las columnas que sobraron hacemos una nueva columna que abarcara 10  que es
-donde se colocara el contenido de la pag-->
 <div class="col fondo">
    <div class="row" >
       <div class="col-12 mt-3">
-         <a href="#menu" class=" btn btn-info icon-play" aria-expanded="false" aria-controls="menu" data-toggle="collapse">Ocultar</a>
+         <a href="#menu" class="btn btn-info icon-play" aria-expanded="false" aria-controls="menu" data-toggle="collapse">Ocultar</a>
       </div>
       <?php if(!isset($_REQUEST['id'])): ?>
       <div class="col-12">
@@ -64,7 +61,7 @@ donde se colocara el contenido de la pag-->
                   <div class="form-group row">
                      <div class="col-7 col-md-3 mb-1">
                         <label for="Nombre_Campo">Nombre del Campo</label>
-                        <input type="text" class="form-control" name="Nombre_Campo" required id="Nombre_Campo"
+                        <input type="text" class="form-control" name="Nombre_Campo" required minlength="4" maxlength="30"  pattern="[A-Za-z]+" id="Nombre_Campo"
                         value="<?php echo isset($campox) != null ? $campox->Campo : '' ?>">
                      </div>
                      <div class="col-5 col-md-3 mb-1">
@@ -121,7 +118,7 @@ donde se colocara el contenido de la pag-->
                         <button type="submit" class="btn b1 b1-primary btn-block"> <i class="icon-mas fa-lg" style="text-shadow: 1px 1px 1px #000"></i><?php echo isset($campox) ? 'Actualizar': 'Aceptar' ?></button>
                      </div>
                      <div class="col-7">
-                        <textarea class="form-control" name="Direccion" id="Direccion" placeholder="Ingrese la Dirección del Campo por favor" maxlength="40" required cols="60" rows="3" ><?php echo isset($campox) != null ? $campox->Direccion : ''; ?></textarea>
+                        <textarea class="form-control" name="Direccion" id="Direccion" placeholder="Ingrese la Dirección del Campo por favor" minlength="20" maxlength="40" required cols="60" rows="3" pattern="[A-Za-z0-9]+"><?php echo isset($campox) != null ? $campox->Direccion : ''; ?></textarea>
                      </div>
                   </div>
                </form>

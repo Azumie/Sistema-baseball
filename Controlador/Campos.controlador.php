@@ -2,7 +2,9 @@
 
 require_once 'Modelo/Temporada.php';
 include_once 'Modelo/Campo.php';
+require_once 'Modelo/Direccion.php';
 require 'Controlador/Table.php';
+
 
 class CamposControlador{
 	

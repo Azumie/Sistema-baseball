@@ -3,6 +3,7 @@
 require_once 'Modelo/Temporada.php';
 include_once 'Modelo/Equipo.php';
 include_once 'Modelo/Jugador.php';
+require_once 'Modelo/Direccion.php';
 require 'Controlador/Table.php';
 
 class EquiposControlador{

@@ -31,7 +31,7 @@
                               </select>
                            </div>
                            <div class="col-6 col-md-4 mt-4 align-self-md-end">
-                              <input autofocus type="text" class="form-control mt-2 mt-md-0" placeholder="Respuesta" name="FiltroBuscar" required>
+                              <input autofocus type="number" min="1" max="100" class="form-control mt-2 mt-md-0" placeholder="Respuesta" name="FiltroBuscar" required>
                            </div>
                            <div class="col-12 col-md-4 mt-4">
                               <button class="btn b1 b1-info btn-block mt-md-2" type="submit" name="btnBuscarTemp"><i class="fas fa-search fa-lg" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i></button>
@@ -71,9 +71,9 @@
                   <div class="row">
                      <div class="col-12 col-md-5">
                         <div class="form-group row justify-content-center">
-                           <div class="col-7 form-inline">
+                           <div class="col-6 form-inline">
                               <label for="Anio_temporada">Año de la temporada</label>
-                              <input type="text" class="form-control" name="Anio_Actualizar" id="Anio_Actualizar"  required  value="1960">
+                              <input type="number" class="form-control" name="Anio_Actualizar" id="Anio_Actualizar" min="1" max="100" required>
                            </div>
                         </div>
                         <div class="row">
@@ -167,7 +167,7 @@
                         <h6>Temporada Número: <em>1</em></h6>
                      </div>
                      <div class="col-4 col-md-3 ">
-                        <input type="text" class="form-control" placeholder="Año" name="Anio" minlength="4" maxlength="4" required pattern="[0-9]+">
+                        <input type="number" class="form-control" placeholder="Año" name="Anio" min="1" max="100" required>
                      </div>
                      <div class="col-4">
                         <button class="btn b1 b1-primary btn-block" type="submit" name="btnAgregarTemp"><i class="far fa-plus-square fa-lg" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i></button>

@@ -60,7 +60,7 @@
                   </div>
                   <!-- DATOS PERSONALES -->
                   <div class="form-group row justify-content-center">
-                     <div class="col-1">
+                     <div class="col-auto">
                         <select name="Nacionalidad" id="Estado" class="form-control">
                            <option value="V" 
                            <?php echo isset($actu) && $actu->Nacionalidad = 'V' ? 'selected': '' ?>>V</option>
@@ -68,13 +68,13 @@
                         </select>
                      </div>
                      <div class="col-6 col-md-3 mb-2">
-                        <input  id="Cedula_Anotador" type="text" placeholder="Cédula" class="form-control" name="Cedula_Anotador" maxlength="8" pattern="[0-9]+" required value="<?php echo isset($actu) ? $actu->CI: '' ?>">
+                        <input  id="Cedula_Anotador" type="text" placeholder="Cédula" class="form-control" name="Cedula_Anotador" minlength="8" maxlength="8" pattern="[0-9]+" required value="<?php echo isset($actu) ? $actu->CI: '' ?>">
                      </div>
                      <div class="col-6 col-md-3">
                         <input type="text" name="Nombre_Anotador" id="Nombre_Anotador" placeholder="Nombre" minlength="2" maxlength="30" pattern="[A-Za-z]+" class="form-control" required value="<?php echo isset($actu) ? $actu->Nombre: '' ?>">
                      </div>
                      <div class=" col-9 col-md-3">
-                        <input id=""  type="text" name="Apellido_Anotador" id="Apellido_Anotador" placeholder="Apellido" minlength="4" maxlength="30" pattern="[A-Za-z]+" class="form-control" required value="<?php echo isset($actu) ? $actu->Apellido: '' ?>">
+                        <input type="text" name="Apellido_Anotador" id="Apellido_Anotador" placeholder="Apellido" minlength="4" maxlength="30" pattern="[A-Za-z]+" class="form-control" required value="<?php echo isset($actu) ? $actu->Apellido: '' ?>">
                      </div>
                   </div>
                   <div class="row justify-content-center mb-2">

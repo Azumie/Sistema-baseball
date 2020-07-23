@@ -30,7 +30,11 @@
 					<div class="card-body justify-content-center text-center">
 						<form method="POST" action="?c=Login&m=ingresar">
 							<!-- VALIDANDO AL USUARIO -->
-	
+							<?php
+							if(!empty($this->ERROR)){
+								echo "<div style='background-color: #FF9185' class='mt-2 mb-2'> Datos Incorrectos</div>";
+							} 
+							?>
 							<!-- INICIANDO SESIÓN -->
 							<!-- USUARIO -->
 							<h5 class="mb-4 mt-4">Inicio de Sesión</h5>

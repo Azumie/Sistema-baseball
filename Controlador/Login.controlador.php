@@ -1,7 +1,7 @@
 <?php 
 
 class LoginControlador{
-	
+	public $ERROR = "";
 	function __construct(){}
 
 	public function index(){
@@ -17,7 +17,10 @@ class LoginControlador{
 			if ($User == "Admin" && $Password == "123456") {
 				header('location:?c=Temporada');
 			} 
-			else echo "<div style='background-color: #FF9185' class='mt-2 mb-2'> Datos Incorrectos</div>";
+			else {
+				$this->ERROR = "Alguno de los campos no coinciden";
+				$this->index();
+			}
 		}
 	}
 }
