@@ -49,18 +49,17 @@ function addItemAdminActu (array $registros, string $link){
 		echo "<tr>";
 		$registro = (array)$registro;
 		
-		foreach ($registro as $value) {
+		foreach ($registro as $key =>$value) {
 
-			if (($registro['id'] == $value) && (key($registro) != 'CI') ) {
+			if (($registro['id'] == $value) && ($key != 'CI') ) {
 				echo "	<td>
 							<a href='$link&id=$value'>
-								<i class='far fa-edit fa-2x'></i>
+								<i class='far fa-edit'></i>
 							</a>
 						</td>";
 			} else {
 				echo "<td>$value</td>";
 			}
-			next($registro);
 		}
 		echo "</tr>";
 	}

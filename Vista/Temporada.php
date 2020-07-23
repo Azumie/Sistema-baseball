@@ -5,6 +5,7 @@
          <a href="#menu" class=" btn btn-info icon-play" aria-expanded="false" aria-controls="menu"
          data-toggle="collapse">Ocultar</a>
       </div>
+      <?php if(!isset($_REQUEST['id'])) :?>
       <div class="col-12 mt-3">
          <div class="card">
             <div class="card-header">
@@ -19,19 +20,16 @@
             </div>
             <div class="card-body">
                <div class="row justify-content-center">
-                  <div class="col-12 col-md-7">
+                  <div class="col-12 col-md-10">
                      <!-- BUSCAR POR FILTRO A UNA TEMPORADA -->
                      <form method="POST">
                         <div class="form-group row justify-content-center">
                            <div class="col-6 col-md-4">
                               <label for="Filtro">Filtro</label>
-                              <select  class="form-control d-block" id="Filtro">
+                              <select  class="form-control d-block" id="Filtro" name="ftemp">
                                  <option value="Anio">Año</option>
                                  <option value="Temporada">Num Temporada</option>
                               </select>
-                           </div>
-                           <div class="col-6 col-md-4 mt-4 align-self-md-end">
-                              <input autofocus type="number" min="1" max="100" class="form-control mt-2 mt-md-0" placeholder="Respuesta" name="FiltroBuscar" required>
                            </div>
                            <div class="col-12 col-md-4 mt-4">
                               <button class="btn b1 b1-info btn-block mt-md-2" type="submit" name="btnBuscarTemp"><i class="fas fa-search fa-lg" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i></button>
@@ -46,108 +44,23 @@
                                  <th>Temporada</th>
                                  <th>Año</th>
                                  <th>Num Equipos</th>
-                                 <th>Num Partidas</th>
+                                 <!-- <th>Num Partidas</th> -->
                               </thead>
                               <tbody>
-                                 <?php //addItemAdmin($resultado); ?>
+                                 <?php addItemAdminActu($temporadas, '?c=temporada'); ?>
+
                               </tbody>
                            </table>
                         </div>
                      </div>
                   </div>
                </div>
-               <!-- ACTUALIZANDO CAMPOS DE TEMPORADA -->
-               <form method="POST">
-                  <div class="row text-center">
-                     <div class="col-12 ">
-                        <h4>Temporada Número: <em>1</em></h4>
-                     </div>
-                  </div>
-                  <div class="row justify-content-center mb-3">
-                     <div class="col text-center">
-                        <h5><em>¿Qué datos desea actualizar?</em></h5>
-                     </div>
-                  </div>
-                  <div class="row">
-                     <div class="col-12 col-md-5">
-                        <div class="form-group row justify-content-center">
-                           <div class="col-6 form-inline">
-                              <label for="Anio_temporada">Año de la temporada</label>
-                              <input type="number" class="form-control" name="Anio_Actualizar" id="Anio_Actualizar" min="1" max="100" required>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-12 text-center mb-4">
-                              <em>¿Qué equipos formaron parte de ella?</em>
-                           </div>
-                        </div>
-                        <div class="form-group row">
-                           <div class="col-9 col-md-6 mb-2">
-                              <select class="form-control">
-                                 <option value="">Cebmo</option>
-                                 <option value="">Cardenales</option>
-                                 <option value="3">Guaros</option>
-                              </select>
-                           </div>
-                           <div class="col-3 col-md-2">
-                              <button class="btn b1 b1-primary" type="submit" name="btnActualizarTemp"><i class="icon-mas" style="text-shadow: 1px 1px 1px #000"></i></button>
-                           </div>
-                           <div class="col-12 col-md-4">
-                              <a href="Partidos.php" class="btn btn-block b1 b1-info"><i class="fas fa-baseball-ball fa-spin"></i>Partidas</a>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col">
-                              <button data-toggle="modal" data-target="#Alerta" class="btn b1 b1-primary btn-block"> <i class="fas fa-redo-alt fa-lg mr-2 fa-spin" style="text-shadow: 1px 1px 1px #000"></i>Actualizar</button>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-12 col-md-7">
-                        <div class="row">
-                           <div class="col-12">
-                              <table class="table mt-3 table-bordered table-sm table-hover table-responsive-sm" style="box-shadow: 4px 1px 2px #000">
-                                 <thead class="table-primary">
-                                    <th>Equipo</th>
-                                    <th>Escuela</th>
-                                    <th>Num Jugadores</th>
-                                    <th>Temporadas</th>
-                                    <th>Ganadas</th>
-                                 </thead>
-                                 <tbody>
-                                    <tr>
-                                       <td>Cebmo</td>
-                                       <td>Santa Teresita</td>
-                                       <td>10</td>
-                                       <td>5</td>
-                                       <td>2</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Cardenales</td>
-                                       <td>IUJO</td>
-                                       <td>10</td>
-                                       <td>5</td>
-                                       <td>2</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Guaros</td>
-                                       <td>Salvador Garmendia</td>
-                                       <td>10</td>
-                                       <td>5</td>
-                                       <td>2</td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </form>
             </div>
          </div>
       </div>
-   </div>
-   <div class="row my-4">
-      <div class="col-12">
+               <!-- AGREGANDO TEMPORADA -->
+
+      <div class="col-12 mt-3">
          <div class="card" id="AgregarTemporada">
             <div class="card-header">
                <div class="row justify-content-between">
@@ -160,23 +73,32 @@
                </div>
             </div>
             <div class="card-body">
-               <!-- AGREGANDO TEMPORADA -->
                <form method="POST" action="?c=Temporada&m=guardar">
                   <div class="form-group row justify-content-center">
                      <div class="col-12 col-md-3">
-                        <h6>Temporada Número: <em>1</em></h6>
+                        <h6>Temporada Número: <em>
+                           <?php 
+                           $id = $this->temporada->obtener('SELECT MAX(idTemporada) as idTemporada FROM temporadas', array(''));
+                           echo $id->idTemporada+1; 
+                           ?></em></h6>
                      </div>
                      <div class="col-4 col-md-3 ">
-                        <input type="number" class="form-control" placeholder="Año" name="Anio" min="1" max="100" required>
+                        <input type="text" class="form-control" placeholder="Año" name="Anio" minlength="4" maxlength="4" required pattern="[0-9]+">
                      </div>
                      <div class="col-4">
                         <button class="btn b1 b1-primary btn-block" type="submit" name="btnAgregarTemp"><i class="far fa-plus-square fa-lg" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i></button>
                      </div>
-                     <div class="col-auto text-center">
+                     <!-- <div class="col-auto text-center">
                         <h5><em><i class="fas fa-users fa-2x mr-1 text-info" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i>Añadir equipos <i class="fas fa-users fa-2x ml-1 text-info" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i></em></h5>
                      </div>
+                     <div class="col-auto">
+                        <select name="categoria">
+                           <?php  ?>
+                        </select>
+                     </div> -->
                   </div>
-                  <div class="form-group row justify-content-center">
+
+                  <!-- <div class="form-group row justify-content-center">
                      <div class="col-12 col-md-8 ">
                         <table class="table mt-3 table-bordered table-sm table-hover table-responsive-sm">
                            <thead class="table-primary">
@@ -184,8 +106,8 @@
                               <th>Letra</th>
                               <th>Escuela</th>
                               <th>Num Jugadores</th>
-                              <!-- <th>Temporadas</th>
-                              <th>Ganadas</th> -->
+                              <th>Temporadas</th>
+                              <th>Ganadas</th>
                               <th> </th>
                            </thead>
                            <tbody>
@@ -196,13 +118,109 @@
                            </tbody>
                         </table>
                      </div>
-                  </div>
+                  </div> -->
                </form>
 
             </div>
          </div>
       </div>
+   <?php else: ?>
+      <!-- ACTUALIZAR Y AGREGAR EQUIPOS  -->
+      
+      <div class="col-12 mt-3">
+         <div class="card-group">
+            <div class="card">
+               <div class="card-header" style="border-radius: 10px 0 0 0;">
+                  <h5>Equipos Participantes en la temporada</h5>
+               </div>
+               <div class="card-body row">
+                  <div class="col-12">
+                     <!-- <h5 >Actualizar Temporada <?php echo $_REQUEST['id'] ?></h5> -->
+                  </div>
+                     
+                  <form method="post" class="col-12 form-inline" action="?c=temporada&id=<?php echo $_REQUEST['id']; ?>">
+                     <select name="fcategoria" class="form-control mr-2 mb-2">
+                        <?php 
+                           $sql = 'SELECT * FROM categorias';
+                           $categorias = $this->temporada->consultar($sql, array(''));
+                           foreach ($categorias as $categoria) {
+                              if ($_REQUEST['fcategoria'] == $categoria->idCategoria) {
+                                 echo "<option value='$categoria->idCategoria' selected >$categoria->Categoria</option>";
+                              }else{
+                                 echo "<option value='$categoria->idCategoria'>$categoria->Categoria</option>";
+                              }
+                           }
+                        ?>
+                     </select>
+                  
+                     <button type="submit" class="btn b1 b1-primary mb-2">Filtrar</button>   
+                  </form>
+
+                  <div class="col-12 mt-3">
+                     <table class="table table-bordered table-sm table-hover table-responsive-sm">
+                        <thead class="table-primary">
+                           <th>Equipo</th>
+                           <th>Letra</th>
+                           <th>Escuela</th>
+                           <th>id</th>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($equiposp as $key => $value):?>
+                           <tr>
+                              <td><?php echo $value->Nombre ?></td>
+                              <td><?php echo $value->Letra_E ?></td>
+                              <td><?php echo $value->Escuela ?></td>
+                              <td>
+                              <a href="?c=temporada&m=eliminar&id=<?php echo $_REQUEST['id']."&ide=".$value->id.'&fcategoria='.$_REQUEST['fcategoria']; ?>">
+                              <i class="fas fa-trash-alt"></i></a></td>
+                           </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+            <div class="card" style="border-radius: 0 10px 10px 0;">
+               <div class="card-header" style="border-radius: 0 10px 0 0;">
+                  <h5>Agregar Equipos a la temporada</h5>
+               </div>
+               <form class="card-body row justify-content-end" method="post" action="?c=temporada&m=agregarEquipo&id=<?php echo $_REQUEST['id']."&fcategoria=".$_REQUEST['fcategoria'] ?>">
+                  <div class="col-7 mb-3">
+                     <button type="submit" class="btn b1 b1-primary btn-block">Agregar Equipo</button>
+                  </div>
+                  <div class="col-12">
+                     <table class="table table-bordered table-sm table-hover table-responsive-sm align-self-end">
+                        <thead class="table-primary">
+                           <th>Equipo</th>
+                           <th>Letra</th>
+                           <th>Categoria</th>
+                           <th>Escuela</th>
+                           <th>Agregar</th>
+                        </thead>
+                        <tbody>
+                           <?php 
+                              foreach ($equiposp as $equipop) {
+                                 foreach ($equipos as $key => $equipo) {
+                                    if ($equipop->id == $equipo->id) {
+                                       unset($equipos[$key]);
+                                    }
+                                 }
+                              }
+
+                              addItemAdminInput($equipos, 'equipos'); 
+
+                           ?>
+                        </tbody>
+                     </table>
+                  </div>
+               </form>
+            </div>
+         </div>
    </div>
+   <?php endif; ?>
+   </div>
+
+
 </div>
 </div>
 </div>
