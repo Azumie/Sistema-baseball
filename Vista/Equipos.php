@@ -172,11 +172,11 @@
                      <div class="col-3 form-inline">
                         <label for="Mujer" class="mr-2 mb-0">Sexo:</label>
                         <div class="custom-control custom-radio mr-2">
-                           <input type="radio" name="Sexo" id="mujer" class="custom-control-input" checked value="Mujer">
+                           <input type="radio" name="Sexo" id="mujer" class="custom-control-input" checked value="M">
                            <label for="mujer" class="custom-control-label">Mujer</label>
                         </div>
                         <div class="custom-control custom-radio ">
-                           <input type="radio" name="Sexo" id="hombre" class="custom-control-input" value="Hombre">
+                           <input type="radio" name="Sexo" id="hombre" class="custom-control-input" value="H">
                            <label for="hombre" class="custom-control-label">Hombre</label>
                         </div>
                      </div>
@@ -187,7 +187,7 @@
                      
                      <div class="col-2">
                         <label class="mt-4 mt-md-0" for="Altura">Altura</label>
-                        <input type="text" class="form-control" maxlength="2" name="Altura">
+                        <input type="text" class="form-control" maxlength="4" name="Altura">
                      </div>
                      <div class="col-2">
                         <label class="mt-4 mt-md-0" for="Peso">Peso</label>

@@ -60,7 +60,7 @@
                         </thead>
                         <tbody>
                            <?php 
-                              addItemAdminActu($this->juego->listar(), 'Partidos.php?nombre=Partidos');
+                              addItemAdminActu($this->juego->listar(), '');
                             ?>
                         </tbody>
                      </table>

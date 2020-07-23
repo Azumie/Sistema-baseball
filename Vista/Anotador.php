@@ -71,10 +71,10 @@
                         <input  id="Cedula_Anotador" type="text" placeholder="Cédula" class="form-control" name="Cedula_Anotador" minlength="8" maxlength="8" pattern="[0-9]+" required value="<?php echo isset($actu) ? $actu->CI: '' ?>">
                      </div>
                      <div class="col-6 col-md-3">
-                        <input type="text" name="Nombre_Anotador" id="Nombre_Anotador" placeholder="Nombre" minlength="2" maxlength="30" pattern="[A-Za-z]+" class="form-control" required value="<?php echo isset($actu) ? $actu->Nombre: '' ?>">
+                        <input type="text" name="Nombre_Anotador" id="Nombre_Anotador" placeholder="Nombre" minlength="2" maxlength="30" pattern="[A-Za-z ]+" class="form-control" required value="<?php echo isset($actu) ? $actu->Nombre: '' ?>">
                      </div>
                      <div class=" col-9 col-md-3">
-                        <input type="text" name="Apellido_Anotador" id="Apellido_Anotador" placeholder="Apellido" minlength="4" maxlength="30" pattern="[A-Za-z]+" class="form-control" required value="<?php echo isset($actu) ? $actu->Apellido: '' ?>">
+                        <input type="text" name="Apellido_Anotador" id="Apellido_Anotador" placeholder="Apellido" minlength="4" maxlength="30" pattern="[A-Za-z ]+" class="form-control" required value="<?php echo isset($actu) ? $actu->Apellido: '' ?>">
                      </div>
                   </div>
                   <div class="row justify-content-center mb-2">
@@ -84,11 +84,11 @@
                      </div>
                      <div class="col-4 col-md-2 mt-4">
                         <div  class="custom-control custom-radio mr-2">
-                           <input type="radio" name="Sexo" id="mujer" class="custom-control-input"  value="Mujer" checked>
+                           <input type="radio" name="Sexo" id="mujer" class="custom-control-input"  value="M" checked>
                            <label for="mujer" class="custom-control-label">Mujer</label>
                         </div>
                         <div class="custom-control custom-radio ">
-                           <input value="Hombre" type="radio" name="Sexo" id="hombre" class="custom-control-input"
+                           <input value="H" type="radio" name="Sexo" id="hombre" class="custom-control-input"
                            <?php echo isset($actu) && ucwords($actu->Sexo) == 'H' ? 'checked': '' ?>>
                            <label for="hombre" class="custom-control-label">Hombre</label>
                         </div>
@@ -132,7 +132,7 @@
                   </div>
                   <div class="row justify-content-center mt-3">
                      <div class="col-10 col-md-7 mb-2">
-                           <textarea class="form-control" name="Direccion" id="Direccion" placeholder="Ingrese la Dirección actual del jugador, por favor" minlength="10" maxlength="45" pattern="[A-Za-z0-9]+" required cols="60" rows="3" style="width: 100%"><?php echo isset($actu) ? $actu->Direccion: '' ?></textarea>
+                           <textarea class="form-control" name="Direccion" id="Direccion" placeholder="Ingrese la Dirección actual del jugador, por favor" minlength="10" maxlength="45" pattern="[A-Za-z0-9 ]+" required cols="60" rows="3" style="width: 100%"><?php echo isset($actu) ? $actu->Direccion: '' ?></textarea>
                      </div>
                      <div class="col-12 col-md-4 mt-4 align-self-md-center">
                         <button id="btnRegistrar" type="submit" class="btn b1 b1-primary btn-block"><i class="icon-mas fa-lg" style="text-shadow: 1px 1px 1px #000"></i> <?php echo isset($actu) ? 'Actualizar': 'Agregar' ?></button>

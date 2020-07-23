@@ -32,23 +32,32 @@ class AnotadorControlador{
 
 	public function guardar(){
 		if (!isset($_REQUEST['id'])) {
-			$this->direccion->setIdParroquia ( $_POST['Parroquia'] );
-			$this->direccion->setDireccion   ( $_POST['Direccion'] );
-			$this->direccion->incluir        ( $this->direccion );
+			if(isset($_POST['Parroquia'],$_POST['Direccion'],$_POST['Cedula_Anotador'], $_POST['Nombre_Anotador'], $_POST['Apellido_Anotador'],$_POST['Inicio_Anotador'],$_POST['Sexo'], $_POST['Nacionalidad'])){
+				$CI = $_POST['Cedula_Anotador'];
+				if (condition) {
+					# code...
+				}
+				
+				$actu   = $this->anotador->obtenerAnotador('false');
+				// if($actu)
+				// $this->direccion->setIdParroquia ( $_POST['Parroquia'] );
+				// $this->direccion->setDireccion   ( $_POST['Direccion'] );
+				// $this->direccion->incluir        ( $this->direccion );
 
 
-			$this->persona->setCI            ( $_POST['Cedula_Anotador'] );
-			$this->persona->setNombre        ( $_POST['Nombre_Anotador'] );
-			$this->persona->setApellido      ( $_POST['Apellido_Anotador'] );
-			$this->persona->setNacido        ( $_POST['Inicio_Anotador'] );
-			$this->persona->setSexo          ( $_POST['Sexo'] );
-			$this->persona->setNacionalidad  ( $_POST['Nacionalidad'] );
-			$this->persona->setIdDireccion   ( $this->direccion->getId() );
-			$this->persona->incluir($this->persona);
+				// $this->persona->setCI            ( $_POST['Cedula_Anotador'] );
+				// $this->persona->setNombre        ( $_POST['Nombre_Anotador'] );
+				// $this->persona->setApellido      ( $_POST['Apellido_Anotador'] );
+				// $this->persona->setNacido        ( $_POST['Inicio_Anotador'] );
+				// $this->persona->setSexo          ( $_POST['Sexo'] );
+				// $this->persona->setNacionalidad  ( $_POST['Nacionalidad'] );
+				// $this->persona->setIdDireccion   ( $this->direccion->getId() );
+				// $this->persona->incluir($this->persona);
 
-			$this->anotador->setCI($this->persona->getCI());
-			$this->anotador->incluir($this->anotador);
-			$this->index();
+				// $this->anotador->setCI($this->persona->getCI());
+				// $this->anotador->incluir($this->anotador);
+				// $this->index();
+			}
 		} else {
 			$actu   = $this->anotador->obtenerAnotador($_REQUEST['id']);
 			$actu->Nacionalidad = $_REQUEST['Nacionalidad'];

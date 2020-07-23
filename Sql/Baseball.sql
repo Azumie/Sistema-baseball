@@ -1,6 +1,7 @@
 create database baseball;
 
 use baseball;
+select * from personas;
 
 create table temporadas (
     idTemporada             int primary key not null auto_increment,
