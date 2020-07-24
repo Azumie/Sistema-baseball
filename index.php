@@ -1,4 +1,5 @@
 <?php 
+// AGREGAR EN HELPER
 function getVarName($var){
 	foreach ($GLOBALS as $varName => $value) {
 		if ($value === $var) {
@@ -7,6 +8,7 @@ function getVarName($var){
 	}
 	return;
 }
+require_once 'Helper/Helper.php';
 // aplicando MVC 
 // PRIMERO CREAREMOS UNA VARIABLE QUE ALMACENARA EL NOMBRE DEL CONTROLADOR QUE SE ABRIRA POR DEFECTO
 $controlador = 'Ranking';

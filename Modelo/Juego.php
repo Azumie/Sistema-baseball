@@ -68,16 +68,17 @@ class Juego extends Conexion{
 	}
 
 	public function listarJugadores($idJuego){
-		$sql = 'SELECT j.CI, p.Nombre, p.Apellido, j.idJugador as id 
+		$sql = 'SELECT j.CI, p.Nombre, p.Apellido, e.idEquipo, j.idJugador as id 
 				FROM posjugada pj 
 				INNER JOIN jugadores j 	ON j.idJugador = pj.idJugador 
 				INNER JOIN personas p 	ON p.CI = j.CI 
+				INNER JOIN equipos e 	ON j.idEquipo = e.idEquipo
 				WHERE pj.idJuego = ?';
 		return $this->consultar($sql, array( $idJuego ));
 	}
 
 	public function obtenerEquipos($idJuego){
-		$sql = 'SELECT p.idEquipo as equipo1, p1.idEquipo as equipo2 
+		$sql = 'SELECT p.idEquipo as equipo1, p1.idEquipo as equipo2
 				FROM juegos j 
 				INNER JOIN partidas p ON j.idJuego = p.idJuego AND p.Visitante = 1 
 				INNER JOIN partidas p1 ON j.idJuego = p1.idJuego AND p1.Visitante = 0 
@@ -85,7 +86,14 @@ class Juego extends Conexion{
 		return $this->consultar($sql, array($idJuego));
 	}
 
-
+	public function obtenerJuego($idJuego){
+		$sql = 'SELECT p.idEquipo as equipo1, p1.idEquipo as equipo2
+				FROM juegos j 
+				INNER JOIN partidas p ON j.idJuego = p.idJuego AND p.Visitante = 1 
+				INNER JOIN partidas p1 ON j.idJuego = p1.idJuego AND p1.Visitante = 0 
+				WHERE j.idJuego = ?';
+		return $this->consultar($sql, array($idJuego));
+	}
 
 	public function setIdAnotador	($idAnotador)	{ $this->idAnotador = $idAnotador; }
 	public function getIdAnotador 	()				{ return $this->idAnotador; }

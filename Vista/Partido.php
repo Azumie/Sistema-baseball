@@ -1,5 +1,8 @@
 <?php $conexion = new Conexion();
 ?>
+<style type="text/css">input {
+     padding: 1px !important;
+   }</style>
  <div class="col fondo">
    <div class="row">
       <div class="col-12 mt-3">
@@ -60,7 +63,7 @@
                         </thead>
                         <tbody>
                            <?php 
-                              addItemAdminActu($this->juego->listar(), '');
+                              addItemAdminActu($this->juego->listar(), '?c=partido');
                             ?>
                         </tbody>
                      </table>
@@ -75,25 +78,60 @@
       <div class="col-12">
          <div class="card" id="AgregarPartido">
             <div class="card-header">
-               <h4><svg class="bi bi-folder-plus" width="1em" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9.828 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91H9v1H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181L15.546 8H14.54l.265-2.91A1 1 0 0 0 13.81 4H9.828zm-2.95-1.707L7.587 3H2.19c-.24 0-.47.042-.684.12L1.5 2.98a1 1 0 0 1 1-.98h3.672a1 1 0 0 1 .707.293z"/><path fill-rule="evenodd" d="M13.5 10a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z"/><path fill-rule="evenodd" d="M13 12.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/></svg>Agregar Partido</h4>
+               <form class="row justify-content-between" method="post" action="?c=partido">
+                  <h4 class="col-auto"><svg class="bi bi-folder-plus" width="1em" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9.828 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91H9v1H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181L15.546 8H14.54l.265-2.91A1 1 0 0 0 13.81 4H9.828zm-2.95-1.707L7.587 3H2.19c-.24 0-.47.042-.684.12L1.5 2.98a1 1 0 0 1 1-.98h3.672a1 1 0 0 1 .707.293z"/><path fill-rule="evenodd" d="M13.5 10a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z"/><path fill-rule="evenodd" d="M13 12.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/></svg>Agregar Partido</h4>
+                  <!-- FILTRANDO -->
+                  <div class="col-6 col-md-auto form-inline">
+                     <label for="Temporada">Temporada</label>
+                     <select class="form-control mr-2" id="Temporada" name="Temporada">
+                        <?php    
+                           $sql_leer = "select idTemporada, AnioInicio from temporadas";
+                           $resul = $conexion->consultar($sql_leer, array(''));
+                           foreach ($resul as $campo) {
+                              echo '<option value="'.$campo->idTemporada.'">'.$campo->AnioInicio.'</option>';
+                           }
+                         ?>
+                     </select>
+                     <label for="Temporada">Categoria</label>
+                     <select class="form-control mr-2" name="Categoria">
+                        <?php 
+                           $sql = 'SELECT * FROM categorias';
+                           $categorias = $this->juego->consultar($sql, array(''));
+                           foreach ($categorias as $categoria) {
+                                 echo "<option value='$categoria->idCategoria' selected >$categoria->Categoria</option>";
+                           }
+                        ?>
+                     </select>
+                     <button type="submit" class="btn b1 b1-info">Filtrar</button>
+                  </div>
+               </form>
+               
             </div>
             <div class="card-body">
                <div class="row text-center">
                   <div class="col-12">
                      <h5><em>Ingrese los siguientes datos:</em></h5>
                   </div>
+                  <div class="col-12">
+                     <?php 
+                     if (!empty($this->ERROR)) {
+                        Error($this->ERROR); 
+                     }
+                     ?>
+                  </div>
                </div>
-               <form method="POST" action="?c=partido&m=guardarPartido">
+               <form method="POST" action="?c=partido&m=guardarPartido<?php echo isset($_REQUEST['Temporada']) ?  '&Temporada='.$_REQUEST['Temporada'] : '' ;?>">
                   <div class="row mt-3 text-center justify-content-center">
                      <div class="col-5 col-md-4 text-center">
                         <h6><em>Equipo Local</em></h6>
-                        <select class="form-control" name="Agregar_Equipo1">
+                        <select class="form-control" name="Agregar_Equipo1" required>
                            <?php    
-                              $sql_leer = "select idEquipo, Nombre from equipos";
-                              $resul = $conexion->consultar($sql_leer, array(''));
-                              foreach ($resul as $campo) {
-                                 echo '<option value="'.$campo->idEquipo.'">'.$campo->Nombre.'</option>';
+                           if (isset($equipos)) {
+                              foreach ($equipos as $equipo) {
+                                 $equipo->Letra_E = ucwords($equipo->Letra_E);
+                                 echo "<option value='$equipo->id'>$equipo->Nombre - $equipo->Letra_E</option>";
                               }
+                           }
                             ?>
                         </select>
                      </div>
@@ -102,35 +140,24 @@
                      </div>
                      <div class="col-5 col-md-4 text-center">
                         <h6><em>Equipo Visitante</em></h6>
-                        <select class="form-control" name="Agregar_Equipo2">
+                        <select class="form-control" name="Agregar_Equipo2" required>
                            <?php    
-                              $sql_leer = "select idEquipo, Nombre from equipos";
-                              $resul = $conexion->consultar($sql_leer, array(''));
-                              foreach ($resul as $campo) {
-                                 echo '<option value="'.$campo->idEquipo.'">'.$campo->Nombre.'</option>';
+                           if (isset($equipos)) {
+                              foreach ($equipos as $equipo) {
+                                 echo "<option value='$equipo->id'>$equipo->Nombre - $equipo->Letra_E</option>";
                               }
+                           }
                             ?>
                         </select>
                      </div>
                   </div>
                   <div class="row justify-content-center mt-4">
-                     <div class="col-6 col-md-2">
-                        <label for="Temporada">Temporada</label>
-                        <select class="form-control" id="Temporada" name="Temporada">
-                           <?php    
-                              $sql_leer = "select idTemporada, AnioInicio from temporadas";
-                              $resul = $conexion->consultar($sql_leer, array(''));
-                              foreach ($resul as $campo) {
-                                 echo '<option value="'.$campo->idTemporada.'">'.$campo->AnioInicio.'</option>';
-                              }
-                            ?>
-                        </select>
-                     </div>
-                     <div class="col-6 col-md-2">
+                     
+                     <div class="col-6 col-md-3">
                         <label for="Fecha_Partido">Fecha del Partido</label>
                         <input type="date" name="Fecha_Partido" class="form-control" min="2000-01-01" max="2020-12-31" value="2020-06-22">
                      </div>
-                     <div class="col-6 col-md-2">
+                     <div class="col-6 col-md-3">
                         <label for="Hora_Partido">Hora del Partido</label>
                         <input type="time" id="Hora_Partido" name="Hora_Partido" class="form-control" value="07:08">
                      </div>
@@ -198,7 +225,8 @@
                      <div class="col-12 ">
                         <div class="row text-center">
                            <div class="col-12">
-                              <h5><em>Equipo 1</em></h5>
+                              <h5><em><?php $e1 = $this->equipo->obtenerEquipo($datos[0]->equipo1);
+                                       echo $e1->Nombre.'-'.ucwords($e1->Letra_E); ?></em></h5>
                            </div>
                         </div>
                         <div class="row mt-3">
@@ -215,7 +243,15 @@
                                  <tbody>
                                     <?php 
                                        $jugadores = new Jugador();
-                                       addItemAdminInput($jugadores->listarPorEquipo($datos[0]->equipo1), 'equipo1');
+                                       $jugadores = $jugadores->listarPorEquipo($datos[0]->equipo1);
+                                       foreach ($jugadoresP as $jugador) {
+                                          foreach ($jugadores as $key2 => $value) {
+                                             if ($value->id == $jugador->id) {
+                                                unset($jugadores[$key2]);
+                                             }
+                                          }
+                                       }
+                                       addItemAdminInput($jugadores, 'equipo1');
                                     ?>
                                  </tbody>
                               </table>
@@ -225,7 +261,8 @@
                      <div class="col-12">
                         <div class="row text-center">
                            <div class="col-12">
-                              <h5><em>Equipo 2</em></h5>
+                              <h5><em><?php $e1 = $this->equipo->obtenerEquipo($datos[0]->equipo2);
+                                       echo $e1->Nombre.'-'.ucwords($e1->Letra_E); ?></em></h5>
                            </div>
                         </div>
                         <div class="row mt-3">
@@ -241,7 +278,16 @@
                                  </thead>
                                  <tbody>
                                     <?php 
-                                       addItemAdminInput($jugadores->listarPorEquipo($datos[0]->equipo2), 'equipo2');
+                                    $jugadores = new Jugador();
+                                    $jugadores = $jugadores->listarPorEquipo($datos[0]->equipo2);
+                                    foreach ($jugadoresP as $jugador) {
+                                          foreach ($jugadores as $key2 => $value) {
+                                             if ($value->id == $jugador->id) {
+                                                unset($jugadores[$key2]);
+                                             }
+                                          }
+                                       }
+                                       addItemAdminInput($jugadores, 'equipo2');
                                     ?>
                                  </tbody>
                               </table>
@@ -294,7 +340,11 @@
                                  <div class="col-12">
                                     <div class="form-group row">
                                        <div class="col-12">
-                                          <h6><em><i class="fas fa-check fa-lg text-success" style="text-shadow: 1px 1px 1px #000"></i>Equipo 1</em></h6>
+                                          <?php if (!empty($this->ERROR)) {
+                                             Error($this->ERROR);
+                                          } ?>
+                                          <h6><em><i class="fas fa-check fa-lg text-success" style="text-shadow: 1px 1px 1px #000"></i><?php $e1 = $this->equipo->obtenerEquipo($datos[0]->equipo1);
+                                       echo $e1->Nombre.'-'.ucwords($e1->Letra_E); ?></em></h6>
                                        </div>
                                     </div>
                                     <div class="row">
@@ -303,8 +353,6 @@
                                              class="table table-bordered table-hover table-sm table-responsive-sm">
                                              <thead class="table-info">
                                                 <th>CI</th>
-                                                <th>Nombre</th>
-                                                <th>Apellido</th>
                                                 <th>AL</th>
                                                 <th>VB</th>
                                                 <th>HC</th>
@@ -320,29 +368,43 @@
                                                 <th>SF</th>
                                                 <th>GP</th>
                                                 <th>SH</th>
-                                                <th>SLG</th>
-                                                <th>AVE</th>
                                              </thead>
                                              <tbody>
                                                 <?php 
-                                                $jugadores = $this->juego->listarJugadoresPorEquipo($datos[0]->equipo1, $_REQUEST['id'], 10);
                                                 $items = $this->items->listarPorTipo('b');
-                                                foreach($jugadores as $jugador){
+                                                $itemsConsulta = $this->items->listarEst($_REQUEST['id'],'b');
+
+                                                // foreach($jugadoresP as $jugador){
+                                                //    if ($jugador->idEquipo == $datos[0]->equipo1) {
+                                                //       echo '<tr>';
+                                                //       echo '<td>'.$jugador->CI.'</td>';
+                                                //       foreach ($itemsConsulta as $key => $item) {
+                                                //          if(is_null($item->idItem)){
+                                                //             echo '<td><input type="text" name="est['.$jugador->id.']['.$item->idItem.']" class="form-control"></td>';
+                                                //          }else {
+                                                //             echo '<td><input type="text" name="est['.$jugador->id.']['.$item->idItem.']" class="form-control" value="'.$item->valor.'"></td>';                        
+                                                //          }
+                                                //       }
+                                                //    }
+                                                // } 
+                                                foreach($jugadoresP as $jugador){
                                                    echo '<tr>';
                                                    echo '<td>'.$jugador->CI.'</td>';
-                                                   echo '<td>'.$jugador->Nombre.'</td>';
-                                                   echo '<td>'.$jugador->Apellido.'</td>';
                                                    
-                                                   foreach ($items as $item) {
-                                                      echo '<td><input type="text" name="est['.$jugador->id.']['.$item->idItem.']" class="form-control"></td>';
+                                                   foreach ($itemsConsulta as $key => $item) {
+                                                      if ($jugador->id == $item->idJugador){
+                                                         echo "<td><input type='text' name='est[$jugador->id][$item->idItem]' class='form-control' value='$item->valor'></td>";
+                                                         unset($itemsConsulta[$key]);
+                                                      }
                                                      
                                                    }
-                                                   echo '<td><input type="text" class="form-control" disabled></td>';
-                                                   echo '<td><input type="text" class="form-control" disabled></td>';
                                                    echo '</tr>';
                                                 } 
+                                                      // foreach ($itemsConsulta as $Consulta) {
+                                                      //    }
                                                 ?>
-
+                                                
+         
                                              </tbody>
                                           </table>
                                        </div>
@@ -353,7 +415,8 @@
                                  <div class="col-12">
                                     <div class="form-group row">
                                        <div class="col-12">
-                                          <h6><em><i class="fas fa-check fa-lg text-success" style="text-shadow: 1px 1px 1px #000"></i>Equipo 2</em></h6>
+                                          <h6><em><i class="fas fa-check fa-lg text-success" style="text-shadow: 1px 1px 1px #000"></i><?php $e1 = $this->equipo->obtenerEquipo($datos[0]->equipo2);
+                                       echo $e1->Nombre.'-'.ucwords($e1->Letra_E); ?></em></h6>
                                        </div>
                                     </div>
                                     <div class="form-group row">
@@ -362,8 +425,6 @@
                                              class="table table-bordered table-sm table-hover table-responsive-sm">
                                              <thead class="table-danger">
                                                 <th>CI</th>
-                                                <th>Nombre</th>
-                                                <th>Apellido</th>
                                                 <th>AL</th>
                                                 <th>VB</th>
                                                 <th>HC</th>
@@ -379,27 +440,22 @@
                                                 <th>SF</th>
                                                 <th>GP</th>
                                                 <th>SH</th>
-                                                <th>SLG</th>
-                                                <th>AVE</th>
                                              </thead>
                                              <tbody>
                                                 <?php 
-                                                $jugadores = $this->juego->listarJugadoresPorEquipo($datos[0]->equipo2, $_REQUEST['id'], 10);
                                                 $items = $this->items->listarPorTipo('b');
-                                                foreach($jugadores as $jugador){
+                                                foreach($jugadoresP as $jugador){
                                                    echo '<tr>';
                                                    echo '<td>'.$jugador->CI.'</td>';
-                                                   echo '<td>'.$jugador->Nombre.'</td>';
-                                                   echo '<td>'.$jugador->Apellido.'</td>';
                                                    
-                                                   foreach ($items as $item) {
-                                                      echo '<td><input type="text" name="est['.$jugador->id.']['.$item->idItem.']" class="form-control"></td>';
+                                                   foreach ($itemsConsulta as $item) {
+                                                      if ($jugador->id == $item->idJugador){
+                                                         echo "<td><input type='text' name='est[$jugador->id][$item->idItem]' class='form-control' value='$item->valor'></td>";
+                                                      }
                                                      
                                                    }
-                                                   echo '<td><input type="text" class="form-control" disabled></td>';
-                                                   echo '<td><input type="text" class="form-control" disabled></td>';
                                                    echo '</tr>';
-                                                } 
+                                                }
                                                 ?>
                                              </tbody>
                                           </table>
@@ -423,7 +479,8 @@
                               <div class="col-12">
                                  <div class="form-group row">
                                     <div class="col-12">
-                                       <h6><em><i class="fas fa-check fa-lg text-success" style="text-shadow: 1px 1px 1px #000"></i>Equipo 1</em></h6>
+                                       <h6><em><i class="fas fa-check fa-lg text-success" style="text-shadow: 1px 1px 1px #000"></i><?php $e1 = $this->equipo->obtenerEquipo($datos[0]->equipo1);
+                                       echo $e1->Nombre.'-'.ucwords($e1->Letra_E); ?></em></h6>
                                     </div>
                                  </div>
                                  <div class="row">
@@ -432,10 +489,6 @@
                                           class="table table-bordered table-sm table-hover table-responsive-sm">
                                           <thead class="table-info">
                                              <th>CI</th>
-                                             <th>POS</th>
-                                             <th>O</th>
-                                             <th>A</th>
-                                             <th>E</th>
                                              <th>POS</th>
                                              <th>O</th>
                                              <th>A</th>
@@ -453,7 +506,7 @@
                                              foreach($jugadores as $jugador){
                                                 echo '<tr>';
                                                 echo '<td>'.$jugador->CI.'</td>';
-                                                for ($i=0; $i < 3; $i++) { 
+                                                for ($i=0; $i < 2; $i++) { 
                                                    echo '<td><select class="form-control w-100" name="'.$jugador->id.'[]"><option value = 0> ...Elegir </option>';
                                                    foreach ($pos as $value) {
                                                       echo ' <option value="'.$value->idPosicion.'">'.$value->nombre.'</option>';
@@ -477,7 +530,8 @@
                               <div class="col-12">
                                  <div class="form-group row">
                                     <div class="col-12">
-                                       <h6><em><i class="fas fa-check fa-lg text-success" style="text-shadow: 1px 1px 1px #000"></i>Equipo 2</em></h6>
+                                       <h6><em><i class="fas fa-check fa-lg text-success" style="text-shadow: 1px 1px 1px #000"></i><?php $e1 = $this->equipo->obtenerEquipo($datos[0]->equipo2);
+                                       echo $e1->Nombre.'-'.ucwords($e1->Letra_E); ?></em></h6>
                                     </div>
                                  </div>
                                  <div class="row">
@@ -486,10 +540,6 @@
                                           class="table table-bordered table-sm table-hover table-responsive-sm">
                                           <thead class="table-danger">
                                              <th>CI</th>
-                                             <th>POS</th>
-                                             <th>O</th>
-                                             <th>A</th>
-                                             <th>E</th>
                                              <th>POS</th>
                                              <th>O</th>
                                              <th>A</th>
@@ -507,7 +557,7 @@
                                              foreach($jugadores as $jugador){
                                                 echo '<tr>';
                                                 echo '<td>'.$jugador->CI.'</td>';
-                                                for ($i=0; $i < 3; $i++) { 
+                                                for ($i=0; $i < 2; $i++) { 
                                                    echo '<td><select class="form-control w-100" name="'.$jugador->id.'[]"><option value = 0> ...Elegir </option>';
                                                    foreach ($pos as $value) {
                                                       echo ' <option value="'.$value->idPosicion.'">'.$value->nombre.'</option>';
@@ -542,7 +592,8 @@
                               <div class="col-12">
                                  <div class="form-group row">
                                     <div class="col-12">
-                                       <h6><em><i class="fas fa-check fa-lg text-success" style="text-shadow: 1px 1px 1px #000"></i>Equipo 1</em></h6>
+                                       <h6><em><i class="fas fa-check fa-lg text-success" style="text-shadow: 1px 1px 1px #000"></i><?php $e1 = $this->equipo->obtenerEquipo($datos[0]->equipo1);
+                                       echo $e1->Nombre.'-'.ucwords($e1->Letra_E); ?></em></h6>
                                     </div>
                                  </div>
                                  <div class="row">
@@ -595,7 +646,8 @@
                               <div class="col-12">
                                  <div class="form-group row">
                                     <div class="col-12">
-                                       <h6><em><i class="fas fa-check fa-lg text-success" style="text-shadow: 1px 1px 1px #000"></i>Equipo 2</em></h6>
+                                       <h6><em><i class="fas fa-check fa-lg text-success" style="text-shadow: 1px 1px 1px #000"></i><?php $e1 = $this->equipo->obtenerEquipo($datos[0]->equipo2);
+                                       echo $e1->Nombre.'-'.ucwords($e1->Letra_E); ?></em></h6>
                                     </div>
                                  </div>
                                  <div class="row">

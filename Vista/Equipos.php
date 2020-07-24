@@ -159,7 +159,7 @@
                         </select>
                      </div>
                      <div class="col-auto col-md-2 mb-2 mb-md-0">
-                        <input type="text" class="form-control" minlength="8" maxlength="8" pattern="[0-9]+" placeholder="Cédula" required name="Cedula">
+                        <input type="text" class="form-control" minlength="7" maxlength="8" pattern="[0-9]+" placeholder="Cédula" required name="Cedula">
                      </div>
                      <div class="col-6 col-md-4">
                         <input type="text"class="form-control" minlength="2" maxlength="30" pattern="[A-Za-z]+" placeholder="Nombre" required name="Nombre">

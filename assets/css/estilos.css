@@ -4,6 +4,10 @@
     --blue: #448aff;
     --red: #ff5252;
 }
+/*
+input {
+     padding: 0px !important;
+   }*/
 body {
     font-size: 16px;
     font-family: 'Lato';
