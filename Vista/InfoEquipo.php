@@ -3,27 +3,34 @@
       <div class="col-12">
          <div class="card">
             <div class="card-header">
-               <h4><img src="assets/img/Partidos.png" style="position: relative;bottom: .2em">Partidos<img src="assets/img/Partidos3.png" class="ml-1"></h4>
+               <div class="row justify-content-between">
+                  <h4 class="col-auto"><img src="assets/img/Partidos.png" style="position: relative;bottom: .2em">Partidos<img src="assets/img/Partidos3.png" class="ml-1"></h4>
+                  <h4 class="mr-2"><em>Ha ingresado a las estadísticas del Equipo: <?php foreach ($Partidos as $key => $value) {
+                     if($_REQUEST['id'] == $value->idEquipo)
+                     echo $value->Con ;
+                  }?></em></h4>
+               </div>
             </div>
             <div class="card-body">
-               <div class="row">
+               <div class="row text-right justify-content-end text-info">
+                  <h6><em>Si quiere saber qué significa cada uno de las estadísticas, solo basta con posicionar el ratón por encima del dato que quiere entender</em></h6>
                   <div class="col-12">
                      <table class="table table-bordered table-sm table-hover table-responsive-sm" >
                         <thead class="table-primary">
                            <th>J</th>
-                           <th>Fecha</th>
-                           <th>VS</th>
-                           <th>AL</th>
-                           <th>VB</th>
-                           <th>HC</th>
-                           <th>2B</th>
-                           <th>3B</th>
-                           <th>CA</th>
-                           <th>BR</th>
-                           <th>SF</th>
-                           <th>K</th>
-                           <th>SLG</th>
-                           <th>AVG</th>
+                           <th title="Fecha del Partido">Fecha</th>
+                           <th title="Equipo contra el que compitió">VS</th>
+                           <th title="Apariciones legales">AL</th>
+                           <th title="Veces al Bate">VB</th>
+                           <th title="Hits del Equipo">HC</th>
+                           <th title="Los Double en el Partido">2B</th>
+                           <th title="Los Triples en el Partido">3B</th>
+                           <th title="Carreras que anoto el Equipo">CA</th>
+                           <th title="Las Bases Robadas">BR</th>
+                           <th title="Jugadas de Sacrificios">SF</th>
+                           <th title="Ponches">K</th>
+                           <th title="Poder de un bateador">SLG</th>
+                           <th title="El promedio de Bateo del Equipo">AVG</th>
                         </thead>
                         <tbody>
 

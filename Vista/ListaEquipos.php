@@ -9,19 +9,22 @@
 					</div>
 				</div>
 				<div class="card-body">
+					<h6 class="text-info text-center"><em>Para filtrar la información por Categoría y Temporada</em></h6>
 					<div class="form-inline row mb-3 justify-content-center">
 						<label for="temporada" class="col-auto aling-self-center">Temporada</label>
 						<select class="form-control col-3" id="temporada">
 							<option>2020</option>
 							<option>2019</option>
 						</select>
-						<label for="categoria" class="col-auto">Categoria</label>
+						<label for="categoria" class="col-auto">Categoría</label>
 						<select name="categoria" id="categoria" class="form-control col-3 mr-4">
 							<option>Juvenil</option>
 							<option>Junior</option>
 						</select>
 						<button class="btn b1 b1-primary col-md-1"><i class="fas fa-search fa-lg" style="text-shadow: 1px 1px 1px #000"></i></button>
 					</div>
+						<h6 class="text-info text-right col-auto"><em>¡Si quiere información más precisa sobre <br> algún equipo, solo basta con que presione su nombre! <br>O posicione el ratón encima del dato que desea conocer</em></h6>
+					
 					<table class="table table-bordered table-sm table-hover table-responsive-sm">
 						<?php
 							$table = new Table(array('Equipo','J','G','P','E','CA','CP','SLG','AVE'));

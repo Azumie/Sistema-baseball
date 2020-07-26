@@ -13,7 +13,7 @@ class ListaPartidosControlador{
 
 	public function index(){
 		$conexion = new Conexion();
-		$sql = "SELECT j.fechaHora, e.nombre, e1.Nombre, c.Campo, pr.Nombre as Nombrep, j.idJuego as id
+		$sql = "SELECT j.fechaHora, e.nombre, e.idEquipo, e1.idEquipo as Visitante, e1.Nombre, c.Campo, pr.Nombre as Nombrep, j.idJuego as id
 				FROM juegos j 
 				INNER JOIN partidas p 	ON j.idJuego = p.idJuego AND p.Visitante = 1 
 				INNER JOIN partidas p1 	ON j.idJuego = p1.idJuego AND p1.Visitante = 0 
@@ -25,6 +25,7 @@ class ListaPartidosControlador{
 				where e1.idCategoria = ? and p.idTemporada = ?";
 		if (isset($_REQUEST['Categoria'],$_REQUEST['Temporada'])) {
 			$partidos = $conexion->consultar($sql, array($_REQUEST['Categoria'], $_REQUEST['Temporada']));
+			$Categoria = $_REQUEST['Categoria']; $Temporada = $_REQUEST['Temporada'];
 		}else {
 			$partidos = $conexion->consultar($sql, array(1,1));
 		}

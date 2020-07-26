@@ -11,7 +11,7 @@
 				<div class="card-body">
 					<form class="form-inline row mb-3" method="post" action="?c=ListaPartidos">
 						
-						<label for="temporada" class="col-2 aling-self-center">Temporada</label>
+						<label for="temporada" class="col-2 aling-self-center">Temporada:</label>
 						<select class="form-control col-3" id="temporada" name="Temporada">
 							<?php    
 	                           $sql_leer = "select idTemporada, AnioInicio from temporadas";
@@ -43,12 +43,13 @@
 							foreach ($partidos as $key => $value):?>
 								<tr>
 								<td><a href="?c=InfoPartido<?php echo "&id=$value->id"?> "><?php echo "$value->fechaHora"; ?></a></td>
-								<td><?php echo "$value->nombre"; ?></td>
-								<td><?php echo "$value->Nombre"; ?></td>
-								<td><?php echo "$value->Campo"; ?></td>
+								<td><a href="?c=InfoEquipo<?php echo "&id=$value->idEquipo&Categoria=1&Temporada=1"?>"><?php echo "$value->nombre"; ?></a></td>
 								<td><?php echo "$value->id"; ?></td>
-								<td><?php echo "$value->Nombrep"; ?></td>
+								<td><a href="?c=InfoEquipo<?php echo "&id=$value->Visitante&Categoria=1&Temporada=1"?>"><?php echo "$value->Nombre"; ?></a></td>
+								<td><?php echo "$value->id"; ?></td>
+								<td><?php echo "$value->Campo"; ?></td>
 								<td>Matequitos</td>
+
 								</tr>
 							<?php endforeach; ?>
 						</tbody>
