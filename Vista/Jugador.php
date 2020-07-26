@@ -110,12 +110,10 @@
 if (isset($_REQUEST['id'])) {
    foreach ($Jugador1 as  $value) {
       $SumasEstadisticas = array();
-      $idEquipo, $idJugador,$idCategoria, $idTipo, $idItem
-      array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', 2));
-      array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', 6));
-      array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', 8));
-      array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', 9));
-      array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', 10));
+      //  $idJugador,$idCategoria, $idTipo, $idItem
+      for ($i=1; $i < 16; $i++) { 
+        array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', $i));
+      }
       $SLG = (Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', 7)->Suma);
       if ($SumasEstadisticas[0]->Suma == 0) {
          $SLG = 0;
@@ -124,19 +122,15 @@ if (isset($_REQUEST['id'])) {
          $SLG = ($SLG / $SumasEstadisticas[0]->Suma)*1000;
          $AVG = ((Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', 3)->Suma) / $SumasEstadisticas[0]->Suma)*1000;
       }
-      
-         echo "<tr>
-               <td><a href='?c=jugador&id=$value->idJugador'>$value->CI</a></td>
-               <td>$value->Nombre</td>
-               <td>$value->Apellido</td>
-               <td>".$SumasEstadisticas[0]->Suma."</td>
-               <td>".$SumasEstadisticas[1]->Suma."</td>
-               <td>".$SumasEstadisticas[2]->Suma."</td>
-               <td>".$SumasEstadisticas[3]->Suma."</td>
-               <td>".$SumasEstadisticas[4]->Suma."</td>
-               <td>".$SLG."</td>
-               <td>".$AVG."</td>
-               </tr>";
+      echo "<tr>";
+         
+      foreach ($SumasEstadisticas as $key => $Mostrar) {
+        echo "<td>".$SumasEstadisticas[$key]->Suma."</td>";
+      }         
+      echo "</tr>";         
+      // <td>".$SLG."</td>
+      // <td>".$AVG."</td>
+               
       
    }
 }

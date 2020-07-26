@@ -127,9 +127,9 @@ if (isset($_REQUEST['Temporada']) && isset($_REQUEST['Categoria'])) {
          $SLG = ($SLG / $SumasEstadisticas[0]->Suma)*1000;
          $AVG = ((Jugadores($_REQUEST['id'], $value->idJugador, $_REQUEST['Categoria'],$_REQUEST['Temporada'], 'b', 3)->Suma) / $SumasEstadisticas[0]->Suma)*1000;
       }
-      
+      $Categoria =$_REQUEST['Categoria'];
          echo "<tr>
-               <td><a href='?c=jugador&id=$value->idJugador&Categoria=$value->idCategoria'>$value->CI</a></td>
+               <td><a href='?c=jugador&id=$value->idJugador&Categoria=$Categoria'>$value->CI</a></td>
                <td>$value->Nombre</td>
                <td>$value->Apellido</td>
                <td>".$SumasEstadisticas[0]->Suma."</td>

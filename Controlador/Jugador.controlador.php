@@ -22,15 +22,16 @@ class JugadorControlador{
 			// $this->temporada->listarEquiposP($_REQUEST['Temporada'], $_REQUEST['Categoria']);
 		}else {
 			echo "¡No existe ID!";
-		
+		}
 		require_once 'Vista/includes/head.php';
 		require_once 'Vista/includes/headerCliente.php';
 		require_once 'Controlador/Table.php';
 		require_once 'Vista/Jugador.php';
 		require_once 'Vista/includes/footer.php';
+		
 	}
 }
-function Jugadores($idEquipo, $idJugador,$idCategoria, $idTipo, $idItem){
+function Jugadores($idJugador,$idCategoria, $idTipo, $idItem){
 	$conexion = new Conexion();
 	$sqlJugadores = 'SELECT j.*, sum(e.valor) as Suma
 					from estadistica e 
@@ -39,8 +40,7 @@ function Jugadores($idEquipo, $idJugador,$idCategoria, $idTipo, $idItem){
 					inner join partidas p on p.idEquipo = j.idEquipo
 					inner join personas per on per.CI = j.CI
 					inner join items i on i.idItem = e.idItem
-					where j.idEquipo = ? AND j.idJugador=?  AND eq.idCategoria = ?  AND i.Tipo =? AND e.idItem =?
-					';
-	$Jugadores = $conexion->obtener($sqlJugadores, array($idEquipo, $idJugador,$idCategoria, $idTipo, $idItem));
+					where  j.idJugador=?  AND eq.idCategoria = ?  AND i.Tipo =? AND e.idItem =?';
+	$Jugadores = $conexion->obtener($sqlJugadores, array($idJugador,$idCategoria, $idTipo, $idItem));
 	return $Jugadores;
 }
