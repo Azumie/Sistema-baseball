@@ -48,11 +48,11 @@
 								<td><?php echo "$value->Campo"; ?></td>
 								<td><?php echo "$value->id"; ?></td>
 								<td><?php echo "$value->Nombrep"; ?></td>
+								<td>Matequitos</td>
 								</tr>
 							<?php endforeach; ?>
 						</tbody>
 					</table>
-					
 				</div>
 			</div>
 		</div>

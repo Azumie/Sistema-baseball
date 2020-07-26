@@ -38,9 +38,6 @@ class InfoEquipoControlador{
 			$Partidos = $conexion->consultar($sqlPartidos, array($_REQUEST['Categoria'], $_REQUEST['Temporada']));
 			$Jugador = $conexion->consultar($sql_leer, array($_REQUEST['id']));
 			// $this->temporada->listarEquiposP($_REQUEST['Temporada'], $_REQUEST['Categoria']);
-		}else {
-			echo "No existe";
-			// $equipos = $this->temporada->listarEquiposP(1, 1);
 		}
 		require_once 'Vista/includes/head.php';
 		require_once 'Vista/includes/headerCliente.php';

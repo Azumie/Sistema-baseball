@@ -1,4 +1,8 @@
-
+<style>
+	.barra-lateral .menu{
+		height: 100vh;
+	}
+</style>
 	<div class="container-fluid">
 		<div class="row">
 			<!-- SIDE BAR  -->
@@ -7,13 +11,13 @@
 				
 				<div class="menu">
 					<a class="btn btn-dark btn-block mt-0 text-left text-white" data-toggle="modal" data-target="#modal"><i class="icon-inicio mr-2"></i><span>Inicio</span></a>
-					<a href="?c=Temporada" class="btn btn-dark btn-block mt-0 "><i class="icon-calendario "></i><span>Temporada</span></a>
-					<a href="?c=Equipos" class="btn btn-dark btn-block mt-0 "><i class="icon-equipo  "></i><span>Equipos</span></a>
-					<a href="?c=Campos" class="btn btn-dark btn-block mt-0 "><i class="icon-estadio "></i><span>Campos</span></a>
-					<a href="?c=Anotador" class="btn btn-dark btn-block mt-0 "><i class="far fa-clipboard ml-1 mr-1"></i><span> Anotador</span></a>
-					<a href="?c=Partido" class="btn btn-dark btn-block mt-0 "><i class="icon-baseball   "></i><span>Partidos</span></a>
-					<a href="?c=Categoria" class="btn btn-dark btn-block mt-0 "><i class="icon-categoria  "></i><span>Categoria</span></a>
-					<a href="?c=Opciones"  class="btn btn-dark btn-block mt-0 "><i class="fas fa-tools mr-1"></i><span> Opciones</span></a>
+					<a href="?c=Temporada" class="btn btn-<?php echo $Titulo == "Temporada" ?"primary": "dark";?> btn-block mt-0 "><i class="icon-calendario "></i><span>Temporada</span></a>
+					<a href="?c=Equipos" class="btn btn-<?php echo $Titulo == "Equipos" ?"primary": "dark";?> btn-block mt-0 "><i class="icon-equipo  "></i><span>Equipos</span></a>
+					<a href="?c=Campos" class="btn btn-<?php echo $Titulo == "Campos" ?"primary": "dark";?> btn-block mt-0 "><i class="icon-estadio "></i><span>Campos</span></a>
+					<a href="?c=Anotador" class="btn btn-<?php echo $Titulo == "Anotador" ?"primary": "dark";?> btn-block mt-0 "><i class="far fa-clipboard ml-1 mr-1"></i><span> Anotador</span></a>
+					<a href="?c=Partido" class="btn btn-<?php echo $Titulo == "Partido" ?"primary": "dark";?> btn-block mt-0 "><i class="icon-baseball   "></i><span>Partidos</span></a>
+					<a href="?c=Categoria" class="btn btn-<?php echo $Titulo == "Categoria" ?"primary": "dark";?> btn-block mt-0 "><i class="icon-categoria  "></i><span>Categoria</span></a>
+					<a href="?c=Opciones"  class="btn btn-<?php echo $Titulo == "Opciones" ?"primary": "dark";?> btn-block mt-0 "><i class="fas fa-tools mr-1"></i><span> Opciones</span></a>
 				</div>
 			
 				<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="fm-modal-grid" aria-hidden="true">

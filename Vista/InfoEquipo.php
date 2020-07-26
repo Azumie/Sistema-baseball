@@ -145,25 +145,12 @@ if (isset($_REQUEST['Temporada']) && isset($_REQUEST['Categoria'])) {
 }
 
 ?>
-                          <!-- <tr>
-                              <td><a href="?c=jugador">29587834</a></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                           </tr> -->
                         </tbody>
                      </table>
                   </div>
                </div>
                <form class="row justify-content-center mt-3" method="post" action="?c=pdf&ideq=<?php echo $_REQUEST['id'].'&Temporada='.$_REQUEST['Temporada'].'&Categoria='.$_REQUEST['Categoria']; ?>">
-                  <button class="col-4 btn b1 b1-primary" data-toggle="modal" data-target="#Alerta"><i class="fas fa-print fa-lg mr-1"></i>Imprimir Reporte<i class="fas fa-print fa-lg ml-1"></i></button>
+                  <button class="col-4 btn b1 b1-primary"><i class="fas fa-print fa-lg mr-1"></i>Imprimir Reporte<i class="fas fa-print fa-lg ml-1"></i></button>
                </form>
             </div>
          </div>

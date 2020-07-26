@@ -1,3 +1,8 @@
+<style type="text/css">
+  a{
+    color: black;
+  }
+</style>
 <div class="container my-3">
   <div class="row">
     <div class="col-12">
@@ -111,6 +116,7 @@ if (isset($_REQUEST['id'])) {
    foreach ($Jugador1 as  $value) {
       $SumasEstadisticas = array();
       //  $idJugador,$idCategoria, $idTipo, $idItem
+      echo "<tr>";
       for ($i=1; $i < 16; $i++) { 
         array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', $i));
       }
@@ -122,40 +128,17 @@ if (isset($_REQUEST['id'])) {
          $SLG = ($SLG / $SumasEstadisticas[0]->Suma)*1000;
          $AVG = ((Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', 3)->Suma) / $SumasEstadisticas[0]->Suma)*1000;
       }
-      echo "<tr>";
-         
       foreach ($SumasEstadisticas as $key => $Mostrar) {
         echo "<td>".$SumasEstadisticas[$key]->Suma."</td>";
       }         
-      echo "</tr>";         
-      // <td>".$SLG."</td>
-      // <td>".$AVG."</td>
-               
+         
+      echo "<td>".$SLG."</td>
+      <td>".$AVG."</td>";     
       
+      echo "</tr>"; 
    }
 }
-
-
  ?>
-                               <!--  <tr>
-                                   <td><span id="">1</span></td>
-                                   <td><strong>1</strong></td>
-                                   <td><span id="">1</span></td>
-                                   <td><span id="">1</span></td>
-                                   <td><span id="">1</span></td>
-                                   <td><span id="">1</span></td>
-                                   <td><span id="">1</span></td>
-                                   <td><span id="">1</span></td>
-                                   <td><span id="">1</span></td>
-                                   <td><span id="">1</span></td>
-                                   <td><span id="">1</span></td>
-                                   <td><span id="">1</span></td>
-                                   <td><span id="">1</span></td>
-                                   <td><span id="">1</span></td>
-                                   <td><span id="">1</span></td>
-                                   <td><span id="">1</span></td>
-                                   <td><span id="">1</span></td>
-                                </tr> -->
                              </tbody>
                           </table>
                        </div>
@@ -174,16 +157,23 @@ if (isset($_REQUEST['id'])) {
                                 <th>E</th>
                              </thead>
                              <tbody>
-                                <tr>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                </tr>
+<?php 
+if (isset($_REQUEST['id'])) {
+ foreach ($Jugador1 as  $value) {
+      $SumasEstadisticas = array();
+      //  $idJugador,$idCategoria, $idTipo, $idItem
+      echo "<tr>";
+      for ($i=16; $i < 19; $i++) { 
+        array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'd', $i));
+      }
+      echo "<td>1</td>";
+foreach ($SumasEstadisticas as $key => $Mostrar) {
+        echo "<td>".$SumasEstadisticas[$key]->Suma."</td>";
+      } 
+echo "</tr>"; 
+   }
+}
+ ?>
                              </tbody>
                           </table>
                         </div>
@@ -215,47 +205,30 @@ if (isset($_REQUEST['id'])) {
                                 <th>GP</th>
                                 <th>WP</th>
                                 <th>BK</th>
+                                <th>EFEC</th>
                              </thead>
                              <tbody>
-                                <tr>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                   <td><span id="">10</span>
-                                   </td>
-                                </tr>
-                             </tbody>
+<?php 
+if (isset($_REQUEST['id'])) {
+   foreach ($Jugador1 as  $value) {
+      $SumasEstadisticas = array();
+      //  $idJugador,$idCategoria, $idTipo, $idItem
+      echo "<tr>";
+      for ($i=19; $i < 37; $i++) { 
+        array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'l', $i));
+      }
+      if($SumasEstadisticas[2]->Suma != 0){
+      $Efec = ($SumasEstadisticas[7]->Suma*7)/$SumasEstadisticas[2]->Suma;
+      } else $Efec = 0;
+      foreach ($SumasEstadisticas as $key => $Mostrar) {
+        echo "<td>".$SumasEstadisticas[$key]->Suma."</td>";
+      }         
+      echo "<td>".$Efec."</td>";     
+      
+      echo "</tr>"; 
+   }
+}
+ ?>                          </tbody>
                           </table>
                        </div>
                     </div>

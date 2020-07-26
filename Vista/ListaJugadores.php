@@ -33,7 +33,7 @@
 							<?php
 							foreach ($jugador as $key => $value):?>
 								<tr>
-								<td><a href="?c=Jugador<?php echo "&id=$value->id"?> "><?php echo "$value->CI"; ?></a></td>
+								<td><a href="?c=Jugador<?php echo "&id=$value->id&Categoria=1"?> "><?php echo "$value->CI"; ?></a></td>
 								<td><?php echo "$value->Nombre"; ?></td>
 								<td><?php echo "$value->Apellido"; ?></td>
 								<td><?php echo "$value->Num_Camisa"; ?></td>
