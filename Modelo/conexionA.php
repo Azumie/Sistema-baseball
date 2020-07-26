@@ -24,14 +24,10 @@ class Conexion{
 	}
 
 	public function agregar(string $sql_incluir,array $datos){
-		try {
 			$pdo = $this->conectar();
 			$gsent = $pdo->prepare($sql_incluir);
 			$gsent->execute($datos);
 			$this->desconectar($pdo, $gsent);
-		} catch (PDOException $e) {
-			die($e->getMessage());
-		}
 	}
 
 	public function consultar(string $sql_leer,array $datos){	

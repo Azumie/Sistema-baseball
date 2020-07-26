@@ -56,8 +56,6 @@
                         <thead class="table-primary">
                            <th>Hora y Fecha</th>
                            <th>Local</th>
-                           <th>Carrera</th>
-                           <th>Carrera</th>
                            <th>Visitante</th>
                            <th>Estadio</th>
                         </thead>

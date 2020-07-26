@@ -4,41 +4,7 @@
       <div class="col-12 col-md-4 mt-4">
          <a href="#menu" class=" btn btn-info icon-play" aria-expanded="false" aria-controls="menu" data-toggle="collapse">Ocultar</a>
       </div>
-      <?php if(!isset($_GET['id'])): ?>
-      <!-- Tabla de equipos  -->
-      <div class="col-12 mt-4">
-         <div class="card" id="Inicio">
-            <div class="card-header">
-               <div class="row justify-content-between">
-                  <div class="col-auto">
-                     <h4><i class="icon-equipo"></i>Equipos</h4>
-                  </div>
-                  <div class="col-4">
-                     <a href="#agregarEquipo" class="btn b1 b1-info btn-block"><i class="fas fa-share fa-lg mr-1" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i>Agregar</a>
-                  </div>
-               </div>
-            </div>
-            <div class="card-body">
-               <table class=" table table-bordered table-sm table-hover table-responsive-sm">
-                  <thead class="table-primary">
-                     <th>Nombre</th>
-                     <th>Letra</th>
-                     <th>Categoría</th>
-                     <th>Escuela</th>
-                     <th>Temporadas</th>
-                  </thead>
-                  <tbody>
-                     <?php    
-                        addItemAdminActu($equipos,'?c=Equipos');
-                      ?>
-                  </tbody>
-               </table>
-            </div>
-         </div>
-      </div>
-      <!-- Formulario para Agregar Equipos -->
-      <?php endif; ?>
-      <form class="col-12 my-3" action="?c=Equipos&m=guardar<?php echo isset($equipox) ? "&id=$equipox->idEquipo":'' ?>" method="POST">
+       <form class="col-12 my-3" action="?c=Equipos&m=guardar<?php echo isset($equipox) ? "&id=$equipox->idEquipo":'' ?>" method="POST">
          <div class="card">
             <div class="card-header" id="agregarEquipo">
                <div class="mb-0 row justify-content-between">
@@ -59,11 +25,17 @@
                      </div>
                   </div>
                   <div class="form-group row">
+                     <div class="col-12">
+                        <?php 
+                        if (!empty($this->ERROR)) {
+                           Error($this->ERROR)  ;
+                        }?>
+                     </div>
                      <div class="col-6 col-md-3 mb-2 ">
                         <!-- los tamaños de los textfields puede cambiar, con form-control-lg se hace mas grande y con form-control-sm se hace mas pequ -->
                         <!-- tambien lo podemos tener en varios estados como puede ser readonly y disabled -->
                         <label for="nombre">Nombre: </label>
-                        <input type="text" name="nombre" class="form-control" required minlength="2" maxlength="30" pattern="[A-Za-z]+" value="<?php echo isset($equipox) ? $equipox->Nombre:'' ?>">
+                        <input type="text" name="nombre" class="form-control" required minlength="2" maxlength="30" pattern="[A-Za-z ]+" value="<?php echo isset($equipox) ? $equipox->Nombre:'' ?>">
                      </div>
                      <div class="col-5 col-md-3 mb-2">
                         <label for="letra">Letra:</label>
@@ -108,7 +80,14 @@
                         </select>
                      </div>
                      <?php if(isset($_REQUEST['id'])): ?>
-                     <div class="col-12 mt-3">
+                        <p class="col-12 mt-2">Agregar/ Eliminar Jugadores</p>
+                        <div class="col-12">
+                           <?php 
+                              if (!empty($this->ERROR4)) {
+                                 Error($this->ERROR4)  ;
+                              }?>
+                        </div>
+                     <div class="col-12 mt-2">
                         <table id="tbJugadores" class="table table-bordered table-sm table-hover table-responsive-sm">
                            <thead class="table-info">
                               <th>CI</th>
@@ -116,13 +95,21 @@
                               <th>Apellido</th>
                               <th>N° Camisa</th>
                               <th>Letra</th>
-                              <th> id</th>
                            </thead>
                            <tbody>
                               <?php
                                  $jugadores = $this->jugador->listarPorEquipo($_REQUEST['id']);
-                                 additemAdmin($jugadores); 
                               ?>
+                              <?php foreach ($jugadores as $key => $jugador): ?>
+                                 <tr>
+                                    <td><?php echo "$jugador->CI"; ?></td>
+                                    <td><?php echo "$jugador->Nombre"; ?></td>
+                                    <td><?php echo "$jugador->Apellido"; ?></td>
+                                    <td><?php echo "$jugador->Num_Camisa"; ?></td>
+                                    <td><?php echo "$jugador->Letra"; ?></td>
+                                    <td><a href="?c=equipos&m=eliminar&idj=<?php echo $jugador->id."&id=".$_REQUEST['id'] ?>" class="text-center"> <i class="fas fa-trash-alt"></i></a></td>
+                                 </tr>
+                              <?php endforeach ?>
                            </tbody>
                         </table>
                      </div>
@@ -131,7 +118,40 @@
             </div>
          </div>
       </form>
-
+      <?php if(!isset($_GET['id'])): ?>
+      <!-- Tabla de equipos  -->
+      <div class="col-12 mt-4">
+         <div class="card" id="Inicio">
+            <div class="card-header">
+               <div class="row justify-content-between">
+                  <div class="col-auto">
+                     <h4><i class="icon-equipo"></i>Equipos</h4>
+                  </div>
+                  <div class="col-4">
+                     <a href="#agregarEquipo" class="btn b1 b1-info btn-block"><i class="fas fa-share fa-lg mr-1" style="position: relative; top: .1em; text-shadow: 1px 1px 1px #000"></i>Agregar</a>
+                  </div>
+               </div>
+            </div>
+            <div class="card-body">
+               <table class=" table table-bordered table-sm table-hover table-responsive-sm">
+                  <thead class="table-primary">
+                     <th>Nombre</th>
+                     <th>Letra</th>
+                     <th>Categoría</th>
+                     <th>Escuela</th>
+                     <th>Temporadas</th>
+                  </thead>
+                  <tbody>
+                     <?php    
+                        addItemAdminActu($equipos,'?c=Equipos');
+                      ?>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <!-- Formulario para Agregar Equipos -->
+      <?php endif; ?>
       <!-- Formulario para agregar Jugaedores -->
       <?php if (isset($_REQUEST['id'])):?>
       <div class="col-12 my-3">
@@ -152,6 +172,12 @@
                      </div>
                   </div>
                   <div class="form-group row justify-content-center">
+                     <div class="col-12">
+                        <?php 
+                        if (!empty($this->ERROR2)) {
+                           Error($this->ERROR2)  ;
+                        }?>
+                     </div>
                      <div class="col-auto">
                         <select name="Nacionalidad" id="Nacionalidad" class="form-control">
                            <option value="V">V</option>
@@ -159,13 +185,13 @@
                         </select>
                      </div>
                      <div class="col-auto col-md-2 mb-2 mb-md-0">
-                        <input type="text" class="form-control" minlength="7" maxlength="8" pattern="[0-9]+" placeholder="Cédula" required name="Cedula">
+                        <input type="text" class="form-control" minlength="7" maxlength="8" pattern="[0-9]+" placeholder="Cédula" required name="Cedula" value="<?php echo isset($_REQUEST['Cedula']) ? $_REQUEST['Cedula']: ''; ?>">
                      </div>
                      <div class="col-6 col-md-4">
-                        <input type="text"class="form-control" minlength="2" maxlength="30" pattern="[A-Za-z]+" placeholder="Nombre" required name="Nombre">
+                        <input type="text"class="form-control" minlength="2" maxlength="30" pattern="[A-Za-z ]+" placeholder="Nombre" required name="Nombre" value="<?php echo isset($_REQUEST['Nombre']) ? $_REQUEST['Nombre']: ''; ?>">
                      </div>
                      <div class="col-6 col-md-4">
-                        <input type="text" class="form-control" minlength="2" maxlength="30" pattern="[A-Za-z]+" placeholder="Apellido" required name="Apellido">
+                        <input type="text" class="form-control" minlength="2" maxlength="30" pattern="[A-Za-z ]+" placeholder="Apellido" required name="Apellido" value="<?php echo isset($_REQUEST['Apellido']) ? $_REQUEST['Apellido']: ''; ?>">
                      </div>
                   </div>
                   <div class="form-group row justify-content-center">
@@ -182,31 +208,31 @@
                      </div>
                      <div class="col-3 col-md-3">
                         <label for="Nacido">Día de Nacimiento</label>
-                        <input type="date" name="Fecha_n" class="form-control" required placeholder="Fecha">
+                        <input type="date" name="Fecha_n" class="form-control" required placeholder="Fecha" value="<?php echo isset($_REQUEST['Fecha_n']) ? $_REQUEST['Fecha_n']: ''; ?>">
                      </div>
                      
                      <div class="col-2">
                         <label class="mt-4 mt-md-0" for="Altura">Altura</label>
-                        <input type="text" class="form-control" maxlength="4" name="Altura">
+                        <input type="text" class="form-control" maxlength="4" name="Altura" value="<?php echo isset($_REQUEST['Altura']) ? $_REQUEST['Altura']: ''; ?>">
                      </div>
                      <div class="col-2">
                         <label class="mt-4 mt-md-0" for="Peso">Peso</label>
-                        <input type="number" class="form-control" step="0,01" min="10" max="100" name="Peso">
+                        <input type="number" class="form-control" step="0,01" min="10" max="100" name="Peso" value="<?php echo isset($_REQUEST['Peso']) ? $_REQUEST['Peso']: ''; ?>">
                      </div>
                   </div>
 
                   <div class="form-group row justify-content-center">
                      <div class="col-3 col-md-2">
                         <label for="BAT">BAT</label>
-                        <input type="text" class="form-control" maxlength="3" name="BAT" required>
+                        <input type="text" class="form-control" maxlength="3" name="BAT" required value="<?php echo isset($_REQUEST['BAT']) ? $_REQUEST['BAT']: ''; ?>">
                      </div>
                      <div class="col-3 col-md-2">
                         <label for="THR">THR</label>
-                        <input type="text" class="form-control" maxlength="3" name="THR" required>
+                        <input type="text" class="form-control" maxlength="3" name="THR" required value="<?php echo isset($_REQUEST['THR']) ? $_REQUEST['THR']: ''; ?>">
                      </div>
                      <div class="col-4 col-md-2">
                         <label for="Num_Camisa">N de Camisa</label>
-                        <input type="text" class="form-control" maxlength="2" name="Num_Camisa" required>
+                        <input type="text" class="form-control" maxlength="2" name="Num_Camisa" required value="<?php echo isset($_REQUEST['Num_Camisa']) ? $_REQUEST['Num_Camisa']: ''; ?>">
                      </div>
                      <div class="col-2 col-md-2">
                         <label for="letra">Letra</label>
@@ -218,6 +244,12 @@
                   </div>
 
                   <div class="row justify-content-center">
+                     <div class="col-12">
+                        <?php 
+                        if (!empty($this->ERROR1)) {
+                           Error($this->ERROR1)  ;
+                        }?>
+                     </div>
                      <div class="col-12 col-md-auto align-self-md-center">
                         <h6><em><i class="fas fa-map-signs fa-3x" style="position: relative; top: .2em;"></i>Dirección Actual:</em></h6>
                      </div>
@@ -261,7 +293,7 @@
 
                   <div class="row justify-content-center mt-3">
                      <div class="col-10 col-md-7 mb-2">
-                           <textarea class="form-control" name="Direccion" id="Direccion" placeholder="Ingrese la Dirección actual del jugador, por favor" maxlength="45" required cols="60" rows="3" style="width: 100%"></textarea>
+                           <textarea class="form-control" name="Direccion" id="Direccion" placeholder="Ingrese la Dirección actual del jugador, por favor" maxlength="45" required cols="60" rows="3" style="width: 100%"><?php echo isset($_REQUEST['Direccion']) ? $_REQUEST['Direccion']: ''; ?></textarea>
                      </div>
                      <div class="col-10 col-md-4 align-self-md-center">
                         <button type="submit" class="btn b1 b1-primary btn-block" >Agregar Jugador</button>

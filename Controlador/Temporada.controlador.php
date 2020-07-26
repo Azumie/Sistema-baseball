@@ -4,7 +4,7 @@ include_once 'Modelo/Equipo.php';
 require 'Controlador/Table.php';
 
 class TemporadaControlador{
-	
+	public $ERROR = "";
 	private $temporada;
 	private $equipo;
 	function __construct(){
@@ -32,8 +32,13 @@ class TemporadaControlador{
 
 	public function guardar(){
 		if (isset($_POST['btnAgregarTemp'])) {
-			$this->temporada->setAnioInicio($_POST['Anio']);
-			$this->temporada->incluir($this->temporada);
+			try {
+				$this->temporada->setAnioInicio($_POST['Anio']);
+				$this->temporada->incluir($this->temporada);
+			} catch (PDOException $e) {
+				$this->ERROR = 'El Año '.$_POST['Anio'].' ya le pertenece a una categoria';
+			}
+			
 			$this->index();
       	}
 	}

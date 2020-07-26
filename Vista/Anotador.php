@@ -4,51 +4,18 @@
          <a href="#menu" class=" btn btn-info icon-play" aria-expanded="false" aria-controls="menu"
          data-toggle="collapse">Ocultar</a>
       </div>
-   <!-- MOSTRANDO ANOTADORES EXISTENTES -->
-   <?php if (!isset($_REQUEST['id'])): ?>
+
+      <!-- AGREGANDO ANOTADOOOOR -->
+
       <div class="col-12">
-         <div class="card mt-3">
-            <div class="card-header">
-               <div class="row justify-content-between">
-                  <div class="col-auto">
-                     <h5><i class="fas fa-greater-than-equal" style="position: relative; top: .1em;"></i>Anotadores Agregados</h5>
-                  </div>
-                  <div class="col-4">
-                     <a href="#AgregarAnotador" class="btn b1 b1-info btn-block"><i class="fas fa-share fa-lg mr-2 pos"></i>Agregar</a>
-                  </div>
-               </div>
-            </div>
-            <div class="card-body">
-               <div class="row">
-                  <div class="col-12">
-                     <table id="tbAnotador" class="table table-bordered table-sm table-hover table-responsive-sm">
-                        <thead class="table-info">
-                           <th>CI</th>
-                           <th>Nombre</th>
-                           <th>Apellido</th>
-                           <th>Anotando</th>
-                           <th>Sexo</th>
-                        </thead>
-                        <tbody>
-                              <?php 
-                                   addItemAdminActu($anotadores, '?c=anotador'); 
-                              ?>        
-                        </tbody>
-                     </table>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   <?php endif; ?>
-   </div>
-   <!-- AGREGANDO ANOTADOOOOR -->
-   <div class="row ">
-      <div class="col">
          <div class="card mt-3"  id="AgregarAnotador">
             <div class="card-header">
-               <h5><svg class="bi bi-folder-plus" width="1em" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9.828 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91H9v1H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181L15.546 8H14.54l.265-2.91A1 1 0 0 0 13.81 4H9.828zm-2.95-1.707L7.587 3H2.19c-.24 0-.47.042-.684.12L1.5 2.98a1 1 0 0 1 1-.98h3.672a1 1 0 0 1 .707.293z"/><path fill-rule="evenodd" d="M13.5 10a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z"/><path fill-rule="evenodd" d="M13 12.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/></svg>
+               <div class="row justify-content-between">
+                  <h5 col-auto><svg class="bi bi-folder-plus" width="1em" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9.828 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91H9v1H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181L15.546 8H14.54l.265-2.91A1 1 0 0 0 13.81 4H9.828zm-2.95-1.707L7.587 3H2.19c-.24 0-.47.042-.684.12L1.5 2.98a1 1 0 0 1 1-.98h3.672a1 1 0 0 1 .707.293z"/><path fill-rule="evenodd" d="M13.5 10a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z"/><path fill-rule="evenodd" d="M13 12.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/></svg>
                   <?php echo isset($actu) ? 'Actualizar Anotador': 'Agregar Anotador' ?></h5>
+                  <a href="?c=Anotador" class="btn b1 b1-danger btn-block col-3">Cancelar</a>
+               </div>
+               
             </div>
             <div class="card-body">
                <!-- EMPIEZA FORMULARIO DE AGREGAR -->
@@ -57,6 +24,11 @@
                      <div class="col">
                         <h6><em><i class="far fa-clipboard fa-2x mr-2" style="position: relative; top: .1em;"></i>Ingrese los siguientes datos:</em></h6>
                      </div>
+                  </div>
+                  <div class="col-12">
+                     <?php if (!empty($this->ERROR1)) {
+                         Error($this->ERROR1);
+                     } ?>
                   </div>
                   <!-- DATOS PERSONALES -->
                   <div class="form-group row justify-content-center">
@@ -68,7 +40,7 @@
                         </select>
                      </div>
                      <div class="col-6 col-md-3 mb-2">
-                        <input  id="Cedula_Anotador" type="text" placeholder="Cédula" class="form-control" name="Cedula_Anotador" minlength="7" maxlength="8" pattern="[0-9]+" required value="<?php echo isset($actu) ? $actu->CI: '' ?>">
+                        <input  id="Cedula_Anotador" type="text" placeholder="Cédula" class="form-control" name="Cedula_Anotador" minlength="7" maxlength="8" pattern="[0-9]+" required value="<?php echo isset($actu) ? $actu->CI.'" disabled': '' ?>">
                      </div>
                      <div class="col-6 col-md-3">
                         <input type="text" name="Nombre_Anotador" id="Nombre_Anotador" placeholder="Nombre" minlength="2" maxlength="30" pattern="[A-Za-z ]+" class="form-control" required value="<?php echo isset($actu) ? $actu->Nombre: '' ?>">
@@ -95,6 +67,11 @@
                      </div>
                   </div>
                   <!-- Direccion del anotador -->
+                  <div class="col-12">
+                     <?php if (!empty($this->ERROR)) {
+                         Error($this->ERROR);
+                     } ?>
+                  </div>
                   <div class="row justify-content-center">
                         <div class="col-auto">
                         <h6><em><i class="fas fa-map-signs fa-3x" style="position: relative; top: .2em;"></i>Dirección Actual:</em></h6>
@@ -142,7 +119,46 @@
             </div>
          </div>
       </div>
+
+   <!-- MOSTRANDO ANOTADORES EXISTENTES -->
+   <?php if (!isset($_REQUEST['id'])): ?>
+      <div class="col-12">
+         <div class="card mt-3">
+            <div class="card-header">
+               <div class="row justify-content-between">
+                  <div class="col-auto">
+                     <h5><i class="fas fa-greater-than-equal" style="position: relative; top: .1em;"></i>Anotadores Agregados</h5>
+                  </div>
+                  <div class="col-4">
+                     <a href="#AgregarAnotador" class="btn b1 b1-info btn-block"><i class="fas fa-share fa-lg mr-2 pos"></i>Agregar</a>
+                  </div>
+               </div>
+            </div>
+            <div class="card-body">
+               <div class="row">
+                  <div class="col-12">
+                     <table id="tbAnotador" class="table table-bordered table-sm table-hover table-responsive-sm">
+                        <thead class="table-info">
+                           <th>CI</th>
+                           <th>Nombre</th>
+                           <th>Apellido</th>
+                           <th>Anotando</th>
+                           <th>Sexo</th>
+                        </thead>
+                        <tbody>
+                              <?php 
+                                   addItemAdminActu($anotadores, '?c=anotador'); 
+                              ?>        
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   <?php endif; ?>
    </div>
+   
 </div>
 </div>
 </div>
