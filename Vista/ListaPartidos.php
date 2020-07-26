@@ -9,9 +9,9 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<form class="form-inline row mb-3" method="post" action="?c=ListaPartidos">
+					<form class="form-inline justify-content-center row mb-3" method="post" action="?c=ListaPartidos">
 						
-						<label for="temporada" class="col-2 aling-self-center">Temporada:</label>
+						<label for="temporada" class="col-auto aling-self-center">Temporada:</label>
 						<select class="form-control col-3" id="temporada" name="Temporada">
 							<?php    
 	                           $sql_leer = "select idTemporada, AnioInicio from temporadas";

@@ -13,13 +13,23 @@
 					<div class="form-inline justify-content-center row mb-3">
 						<label for="temporada" class="col-auto">Equipo:</label>
 						<select class="form-control col-3" id="temporada">
-							<option>Cebmo</option>
-							<option>AJS</option>
+							<?php 
+                           $sqlEquipo = 'SELECT * FROM equipos';
+                           $Equipos = $conexion ->consultar($sqlEquipo, array(''));
+                           foreach ($Equipos as $Equipo) {
+                                 echo "<option value='$Equipo->Nombre' selected >$Equipo->Nombre</option>";
+                           }
+                        ?>
 						</select>
 						<label for="categoria" class="col-auto">Categoria</label>
 						<select name="categoria" id="categoria" class="form-control col-3 mr-4">
-							<option>Juvenil</option>
-							<option>Junior</option>
+							<?php 
+                           $sql = 'SELECT * FROM categorias';
+                           $categorias = $conexion ->consultar($sql, array(''));
+                           foreach ($categorias as $categoria) {
+                                 echo "<option value='$categoria->idCategoria' selected >$categoria->Categoria</option>";
+                           }
+                        ?>
 						</select>
 						<button class="btn b1 b1-primary col-md-1 "><i class="fas fa-search fa-lg" style="text-shadow: 1px 1px 1px #000"></i></button>
 					</div>
@@ -30,7 +40,7 @@
 								<?php
 									$table = new Table(array('CI','Nombre','Apellido','N° Camisa','Letra'));
 									$table->createTable();?>
-							<?php
+								<?php
 							foreach ($jugador as $key => $value):?>
 								<tr>
 								<td><a href="?c=Jugador<?php echo "&id=$value->id&Categoria=1"?> "><?php echo "$value->CI"; ?></a></td>
