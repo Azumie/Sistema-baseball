@@ -16,13 +16,7 @@ class RankingControlador
 // INNER JOIN partidas p on p.idJuego = e.idJuego 
 // INNER JOIN equipos eq on eq.idEquipo=p.idEquipo
 // WHERE p.idTemporada = ? AND eq.idCategoria = ?
-		$sql = 'SELECT e.* , j.idEquipo, eq.idCategoria
-				from estadistica e
-				inner join jugadores j on e.idJugador=j.idJugador
-				inner join equipos   eq on eq.idEquipo = j.idEquipo
-				inner join equipos_participantes ep on ep.idEquipo = eq.idEquipo
-				where ep.idTemporada = 1 and eq.idCategoria = 1';
-		$sqlAVG = 'SELECT sum(e.valor) as AVG, ep.Nombre, ep.idEquipo
+		$sqlAVG = 'SELECT sum(e.valor) as AVG, ep.Nombre, ep.idEquipo, ep.idCategoria, eq.idTemporada
 					FROM estadistica e 
 					inner join jugadores j on e.idJugador = j.idJugador
 					inner join equipos_participantes eq on eq.idEquipo = j.idEquipo
@@ -49,7 +43,6 @@ class RankingControlador
 			$J = $conexion->consultar($sqlJ, array($_REQUEST['Categoria'], $_REQUEST['Temporada']));
 
 		}else {
-			$Estadisticas = $conexion->consultar($sql, array(1,1));
 			$AVG = $conexion->consultar($sqlAVG, array(1,1));
 			$CA = $conexion->consultar($sqlCA, array(1,1));
 			$J = $conexion->consultar($sqlJ, array(1,1));

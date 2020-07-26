@@ -38,7 +38,7 @@ class Jugador extends Conexion{
 	}
 
 	public function obtenerJugador($id){
-		$sql = 'SELECT p.*, j.*, d.*, e.*, pr.*
+		$sql = 'SELECT p.Nombre as Nom, p.Nacionalidad, p.Apellido, p.Sexo, j.*, d.*, e.*, pr.*
 				FROM personas p INNER JOIN jugadores j ON j.CI = p.CI 
 				INNER JOIN direcciones d ON p.idDireccion = d.idDireccion
 				INNER JOIN parroquia pr ON pr.idParroquia = d.idParroquia

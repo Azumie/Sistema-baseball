@@ -1,19 +1,4 @@
-
 <div class="container mt-3">
-   <div class="form-group row justify-content-center">
-      <div class="col-5 col-md-3">
-         <select autofocus class="form-control" id="Filtro">
-            <option value="Fecha">Fecha</option>
-            <option value="Mes">Contrincante</option>
-         </select>
-      </div>
-      <div class="col-5 col-md-3 mb-3">
-         <input type="text" class="form-control" name="Datos" id="Datos">
-      </div>
-      <div class="col-5 col-md-2">
-         <button type="submit" class="btn b1 b1-info mr-3 btn-block"><i class="fas fa-search fa-lg" style="text-shadow: 1px 1px 1px #000"></i></button>
-      </div>
-   </div>
    <div class="row">
       <div class="col-12">
          <div class="card">
@@ -28,41 +13,72 @@
                            <th>J</th>
                            <th>Fecha</th>
                            <th>VS</th>
-                           <th></th>
+                           <th>AL</th>
                            <th>VB</th>
                            <th>HC</th>
-                           <th>H2</th>
-                           <th>H3</th>
-                           <th>HR</th>
+                           <th>2B</th>
+                           <th>3B</th>
                            <th>CA</th>
-                           <th>BB</th>
+                           <th>BR</th>
                            <th>SF</th>
                            <th>K</th>
-                           <th>AL</th>
-                           <th>PDE</th>
                            <th>SLG</th>
                            <th>AVG</th>
                         </thead>
                         <tbody>
-                           <tr>
-                              <td>1</td>
-                              <td><a href="?c=InfoPartido">2020-05-19</a></td>
-                              <td><a href="?c=InfoEquipo">Cardenales</a></td>
-                              <td>1</td>
-                              <td>1</td>
-                              <td>1</td>
-                              <td>1</td>
-                              <td>1</td>
-                              <td>1</td>
-                              <td>1</td>
-                              <td>1</td>
-                              <td>1</td>
-                              <td>1</td>
-                              <td>1</td>
-                              <td>1</td>
-                              <td>1</td>
-                              <td>1</td>
-                           </tr>
+
+<?php 
+if (isset($_REQUEST['id'])) {
+   foreach ($Partidos as $key => $Equipo) {
+     if($_REQUEST['id'] != $Equipo->idEquipo){
+         echo "<tr>
+         <td>".($key+1)."</td>
+         <td><a href='?c=infoPartido&id=$Equipo->idJuego'>$Equipo->Fecha</a></td>
+         <td>";
+      echo $Equipo->Con."</td>" ;
+      $SumasEstadisticas = array();
+      // AL
+      array_push($SumasEstadisticas, Item(1, $Equipo->idJuego, $Equipo->idEquipo, "b"));
+      // VB
+      array_push($SumasEstadisticas, Item(2, $Equipo->idJuego, $Equipo->idEquipo, "b"));
+      // HC
+      array_push($SumasEstadisticas, Item(3, $Equipo->idJuego, $Equipo->idEquipo, "b"));
+      // 2B
+      array_push($SumasEstadisticas, Item(4, $Equipo->idJuego, $Equipo->idEquipo, "b"));
+      // 3B
+      array_push($SumasEstadisticas, Item(5, $Equipo->idJuego, $Equipo->idEquipo, "b"));
+      // CA
+      array_push($SumasEstadisticas, Item(8, $Equipo->idJuego, $Equipo->idEquipo, "b"));
+      // BR
+      array_push($SumasEstadisticas, Item(12, $Equipo->idJuego, $Equipo->idEquipo, "b"));
+      // SF
+      array_push($SumasEstadisticas, Item(13, $Equipo->idJuego, $Equipo->idEquipo, "b"));
+      // K
+      array_push($SumasEstadisticas, Item(10, $Equipo->idJuego, $Equipo->idEquipo, "b"));
+      // BA/VB*1000
+      $SLG = (Item(7, $Equipo->idJuego, $Equipo->idEquipo, "b")->Suma);
+      if ($SumasEstadisticas[0]->Suma == 0) {
+         $SLG = 0;
+      }else $SLG = ($SLG / $SumasEstadisticas[2]->Suma)*1000;
+      $AVG = ((Item(3, $Equipo->idJuego, $Equipo->idEquipo, "b")->Suma) / Item(2, $Equipo->idJuego, $Equipo->idEquipo, "b")->Suma)*1000;
+      echo "
+         <td>".$SumasEstadisticas[0]->Suma."</td>
+         <td>".$SumasEstadisticas[1]->Suma."</td>
+         <td>".$SumasEstadisticas[2]->Suma."</td>
+         <td>".$SumasEstadisticas[3]->Suma."</td>
+         <td>".$SumasEstadisticas[4]->Suma."</td>
+         <td>".$SumasEstadisticas[5]->Suma."</td>
+         <td>".$SumasEstadisticas[6]->Suma."</td>
+         <td>".$SumasEstadisticas[7]->Suma."</td>
+         <td>".$SumasEstadisticas[8]->Suma."</td>
+         <td>".$SLG."</td>
+         <td>".$AVG."</td>
+         </tr>";
+      }
+   } 
+}
+
+?>
                         </tbody>
                      </table>
                   </div>
@@ -86,16 +102,50 @@
                            <th>Nombre</th>
                            <th>Apellido</th>
                            <th>VB</th>
-                           <th>HC</th>
                            <th>HR</th>
                            <th>CA</th>
-                           <th>CI</th>
+                           <th>CL</th>
                            <th>K</th>
                            <th>SLG</th>
                            <th>AVE</th>
                         </thead>
                         <tbody>
-                           <tr>
+<?php 
+if (isset($_REQUEST['Temporada']) && isset($_REQUEST['Categoria'])) {
+   foreach ($Jugador as $key => $value) {
+      $SumasEstadisticas = array();
+      array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $value->idJugador, $_REQUEST['Categoria'],$_REQUEST['Temporada'], 'b', 2));
+      array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $value->idJugador, $_REQUEST['Categoria'],$_REQUEST['Temporada'], 'b', 6));
+      array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $value->idJugador, $_REQUEST['Categoria'],$_REQUEST['Temporada'], 'b', 8));
+      array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $value->idJugador, $_REQUEST['Categoria'],$_REQUEST['Temporada'], 'b', 9));
+      array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $value->idJugador, $_REQUEST['Categoria'],$_REQUEST['Temporada'], 'b', 10));
+      $SLG = (Jugadores($_REQUEST['id'], $value->idJugador, $_REQUEST['Categoria'],$_REQUEST['Temporada'], 'b', 7)->Suma);
+      if ($SumasEstadisticas[0]->Suma == 0) {
+         $SLG = 0;
+         $AVG = 0;
+      }else {
+         $SLG = ($SLG / $SumasEstadisticas[0]->Suma)*1000;
+         $AVG = ((Jugadores($_REQUEST['id'], $value->idJugador, $_REQUEST['Categoria'],$_REQUEST['Temporada'], 'b', 3)->Suma) / $SumasEstadisticas[0]->Suma)*1000;
+      }
+      
+         echo "<tr>
+               <td><a href='?c=jugador&id=$value->idJugador&Categoria=$value->idCategoria'>$value->CI</a></td>
+               <td>$value->Nombre</td>
+               <td>$value->Apellido</td>
+               <td>".$SumasEstadisticas[0]->Suma."</td>
+               <td>".$SumasEstadisticas[1]->Suma."</td>
+               <td>".$SumasEstadisticas[2]->Suma."</td>
+               <td>".$SumasEstadisticas[3]->Suma."</td>
+               <td>".$SumasEstadisticas[4]->Suma."</td>
+               <td>".$SLG."</td>
+               <td>".$AVG."</td>
+               </tr>";
+      
+   }
+}
+
+?>
+                          <!-- <tr>
                               <td><a href="?c=jugador">29587834</a></td>
                               <td></td>
                               <td></td>
@@ -107,7 +157,7 @@
                               <td></td>
                               <td></td>
                               <td></td>
-                           </tr>
+                           </tr> -->
                         </tbody>
                      </table>
                   </div>

@@ -13,7 +13,7 @@
               <div class="row justify-content-center"><h6><?php echo $jugador->Sexo == 'H' ? 'Hombre': 'Mujer'?></h6></div>
               <div class="row">
                 <div class="col-6">
-                  <input class="form-control mb-2" type="text" value="<?php echo $jugador->Nombre?>" readonly>
+                  <input class="form-control mb-2" type="text" value="<?php echo $jugador->Nom?>" readonly>
                 </div>
                 <div class="col-6">
                   <input class="form-control mb-2" type="text" value="<?php echo $jugador->Apellido ?>" readonly>
@@ -84,8 +84,7 @@
                         <img src="assets/img/Bateador1.png">
                       </div>
                        <div class="col-10">
-                          <table
-                             class="table table-bordered table-hover table-sm table-responsive-sm">
+                          <table class="table table-bordered table-hover table-sm table-responsive-sm">
                              <thead class="table-info">
                                 <th>AL</th>
                                 <th>VB</th>
@@ -106,7 +105,45 @@
                                 <th>AVE</th>
                              </thead>
                              <tbody>
-                                <tr>
+<?php 
+
+if (isset($_REQUEST['id'])) {
+   foreach ($Jugador1 as  $value) {
+      $SumasEstadisticas = array();
+      $idEquipo, $idJugador,$idCategoria, $idTipo, $idItem
+      array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', 2));
+      array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', 6));
+      array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', 8));
+      array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', 9));
+      array_push($SumasEstadisticas, Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', 10));
+      $SLG = (Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', 7)->Suma);
+      if ($SumasEstadisticas[0]->Suma == 0) {
+         $SLG = 0;
+         $AVG = 0;
+      }else {
+         $SLG = ($SLG / $SumasEstadisticas[0]->Suma)*1000;
+         $AVG = ((Jugadores($_REQUEST['id'], $_REQUEST['Categoria'], 'b', 3)->Suma) / $SumasEstadisticas[0]->Suma)*1000;
+      }
+      
+         echo "<tr>
+               <td><a href='?c=jugador&id=$value->idJugador'>$value->CI</a></td>
+               <td>$value->Nombre</td>
+               <td>$value->Apellido</td>
+               <td>".$SumasEstadisticas[0]->Suma."</td>
+               <td>".$SumasEstadisticas[1]->Suma."</td>
+               <td>".$SumasEstadisticas[2]->Suma."</td>
+               <td>".$SumasEstadisticas[3]->Suma."</td>
+               <td>".$SumasEstadisticas[4]->Suma."</td>
+               <td>".$SLG."</td>
+               <td>".$AVG."</td>
+               </tr>";
+      
+   }
+}
+
+
+ ?>
+                               <!--  <tr>
                                    <td><span id="">1</span></td>
                                    <td><strong>1</strong></td>
                                    <td><span id="">1</span></td>
@@ -124,7 +161,7 @@
                                    <td><span id="">1</span></td>
                                    <td><span id="">1</span></td>
                                    <td><span id="">1</span></td>
-                                </tr>
+                                </tr> -->
                              </tbody>
                           </table>
                        </div>

@@ -356,33 +356,33 @@
                                                 <th>SH</th>
                                              </thead>
                                              <tbody>
-                                                <?php 
-                                                $items = $this->items->listarPorTipo('b');
-                                                $itemsConsulta = $this->items->listarEst($_REQUEST['id'],10);
-                                                $jugadores = $this->juego->listarJugadoresPorEquipo($datos[0]->equipo1, $_REQUEST['id'], 10 );
-                                                foreach($jugadores as $jugador){
-                                                   echo '<tr>';
-                                                   echo '<td>'.$jugador->CI.'</td>';
-                                                   $ok = false;
-                                                   foreach ($itemsConsulta as $key => $value) {
-                                                      if (($value->idJugador == $jugador->id)) {
-                                                         $ok = true;
-                                                      }
-                                                   }
-                                                   if ($ok == false) {
-                                                      foreach ($items as $key => $item) {
-                                                            echo "<td><input type='text' name='est[$jugador->id][$item->idItem]' class='form-control'></td>";
-                                                      }  
-                                                   } else {
-                                                      foreach ($itemsConsulta as $key => $item) {
-                                                         if (($item->idJugador == $jugador->id)) {
-                                                            echo "<td><input type='text' name='estActu[$jugador->id][$item->idItem]' class='form-control' value='$item->valor'></td>";
-                                                         }
-                                                      }
-                                                   }
-                                                   echo '</tr>';
-                                                } 
-                                                ?>
+<?php 
+$items = $this->items->listarPorTipo('b');
+$itemsConsulta = $this->items->listarEst($_REQUEST['id'],10);
+$jugadores = $this->juego->listarJugadoresPorEquipo($datos[0]->equipo1, $_REQUEST['id'], 10 );
+foreach($jugadores as $jugador){
+   echo '<tr>';
+   echo '<td>'.$jugador->CI.'</td>';
+   $ok = false;
+   foreach ($itemsConsulta as $key => $value) {
+      if (($value->idJugador == $jugador->id)) {
+         $ok = true;
+      }
+   }
+   if ($ok == false) {
+      foreach ($items as $key => $item) {
+            echo "<td><input type='text' name='est[$jugador->id][$item->idItem]' class='form-control'></td>";
+      }  
+   } else {
+      foreach ($itemsConsulta as $key => $item) {
+         if (($item->idJugador == $jugador->id)) {
+            echo "<td><input type='text' name='estActu[$jugador->id][$item->idItem]' class='form-control' value='$item->valor'></td>";
+         }
+      }
+   }
+   echo '</tr>';
+} 
+?>
 
                                              </tbody>
                                           </table>
