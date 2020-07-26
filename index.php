@@ -9,6 +9,7 @@ function getVarName($var){
 	return;
 }
 require_once 'Helper/Helper.php';
+require_once 'Modelo/conexionA.php';
 // aplicando MVC 
 // PRIMERO CREAREMOS UNA VARIABLE QUE ALMACENARA EL NOMBRE DEL CONTROLADOR QUE SE ABRIRA POR DEFECTO
 $controlador = 'Ranking';

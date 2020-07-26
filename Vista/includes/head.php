@@ -7,14 +7,11 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0 ">
 		<title><?php 
-				$nombre = '';
-				if (isset($_GET['nombre'])) {
-					$nombre = $_GET['nombre'];
-					
-				}else {
-					$nombre = 'Inicio';
+				$Titulo = "Ranking";
+				if (isset($_REQUEST['c'])){
+					$Titulo = $_REQUEST['c'];
 				}
-				echo $nombre;
+				echo $Titulo;
 		 ?>
 		</title>
 		<!-- <script src="https://kit.fontawesome.com/09c3778c44.js" crossorigin="anonymous"></script> -->

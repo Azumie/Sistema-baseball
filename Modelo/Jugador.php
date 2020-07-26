@@ -31,6 +31,21 @@ class Jugador extends Conexion{
 											$datos->getLetra()			));
 	}
 
+	public function listar(){
+		$sql = 'SELECT p.CI, p.Nombre, p.Apellido, j.Num_Camisa, j.Letra, j.idJugador as id
+						FROM personas p INNER JOIN jugadores j ON j.CI = p.CI ';
+		return $this->consultar($sql, array(''));
+	}
+
+	public function obtenerJugador($id){
+		$sql = 'SELECT p.*, j.*, d.*, e.*, pr.*
+				FROM personas p INNER JOIN jugadores j ON j.CI = p.CI 
+				INNER JOIN direcciones d ON p.idDireccion = d.idDireccion
+				INNER JOIN parroquia pr ON pr.idParroquia = d.idParroquia
+				INNER JOIN equipos e ON j.idEquipo = e.idEquipo';
+		return $this->obtener($sql, array(''));
+	}
+
 	public function listarPorEquipo($idEquipo){
 		$sql_leer = '	SELECT p.CI, p.Nombre, p.Apellido, j.Num_Camisa, j.Letra, j.idJugador as id
 						FROM personas p INNER JOIN jugadores j ON j.CI = p.CI 

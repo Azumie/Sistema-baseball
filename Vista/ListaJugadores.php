@@ -28,10 +28,19 @@
 						<div class="col-10"><br>							
 							<table class="table table-bordered table-sm table-hover table-responsive-sm">
 								<?php
-									$table = new Table(array('CI','Nombre','Apellido','VB','HC','HR','CA','CI','K','SLG','AVE'));
-									$table->createTable();
-									$table->addItem(array ('27554885',	'Antonella Alessandra Lourdes', 'Mujica Navarro',12,10,11,3,3,0,.150,.800), '?c=Jugador');
-								?>
+									$table = new Table(array('CI','Nombre','Apellido','N° Camisa','Letra'));
+									$table->createTable();?>
+							<?php
+							foreach ($jugador as $key => $value):?>
+								<tr>
+								<td><a href="?c=Jugador<?php echo "&id=$value->id"?> "><?php echo "$value->CI"; ?></a></td>
+								<td><?php echo "$value->Nombre"; ?></td>
+								<td><?php echo "$value->Apellido"; ?></td>
+								<td><?php echo "$value->Num_Camisa"; ?></td>
+								<td><?php echo "$value->Letra"; ?></td>
+								</tr>
+							<?php endforeach; ?>
+								
 							</table>
 						</div>
 					</div>

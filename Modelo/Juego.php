@@ -41,7 +41,6 @@ class Juego extends Conexion{
 
 	public function agregarJugadores($idJuego,  $idPosicion, array $jugadores){
 		$sql = 'INSERT INTO posjugada (idJuego, idPosicion, idJugador) VALUES';
-		echo $sql;
 		$datos = array();
 		foreach ($jugadores as $value) {
 			if (!empty($value)) {
@@ -50,6 +49,8 @@ class Juego extends Conexion{
 			}
 		}
 		$sql = substr($sql,0,-1);
+		// echo "$sql";
+		// var_dump($datos);
 		if (stristr($sql, '?')) {
 			$this->agregar($sql, $datos);
 		}

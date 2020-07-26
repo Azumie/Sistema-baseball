@@ -7,9 +7,8 @@
             </div>
             
             <div class="jumbotron jumbotron-bg text-white col-9 border-dark">
-               <h3 class="display-5 ">Liga de Beisbol Juvenil Hilda de Tona</h3>
-               <p>Texto totalmente innecesario
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque officia unde a eligendi aut cum illum nihil asperiores ratione nemo dignissimos, inventore perferendis aliquam tempora accusantium odio repellat magni laudantium!</p>
+               <h3 class="display-5 ">La Liga Especial Ilda de Tona</h3>
+               <p>Está dedicada a la formación y dirección de los jóvenes deportistas para intruirlos en un camino de disciplina, valores y habilidades para que desempeñen una correcta vida deportiva </p>
             </div>
          </div>
       </div>
@@ -22,20 +21,30 @@
                      <h4 class="mt-2";><img src="assets/img/Trofeo.png">Ranking<img src="assets/img/Trofeo.png"></h4>
                   </div>
                   <div class="card-body">
-                        <div class="form-inline row mb-2">
+                     <p class="text-center text-muted"><em>i</em> Filtre para buscar el Ranking de una Temporada en específico</p> 
+                        <form class="form-inline row mb-2" method="POST" action="?c=Ranking">
                            <label for="temporada" class="col-2 aling-self-center">Temporada</label>
                            <select class="form-control col-3" id="temporada">
-                              <option>2020</option>
-                              <option>2019</option>
-
+                              <?php    
+                                 $sql_leer = "select idTemporada, AnioInicio from temporadas";
+                                 $resul = $conexion->consultar($sql_leer, array(''));
+                                 foreach ($resul as $campo) {
+                                    echo '<option value="'.$campo->idTemporada.'">'.$campo->AnioInicio.'</option>';
+                                    }
+                              ?>
                            </select>
                            <label for="categoria" class="col-auto">Categoria</label>
                            <select name="categoria" id="categoria" class="form-control col-3 mr-4">
-                              <option>Juvenil</option>
-                              <option>Junior</option>
+                              <?php 
+                                 $sql = 'SELECT * FROM categorias';
+                                 $categorias = $conexion ->consultar($sql, array(''));
+                                 foreach ($categorias as $categoria) {
+                                    echo "<option value='$categoria->idCategoria' selected >$categoria->Categoria</option>";
+                                 }
+                              ?>
                            </select>
                            <button class="btn b1 b1-primary col-md-1 ">Buscar</button>
-                        </div>
+                        </form>
                         <div class="row mt-3">
                            <div class="col-12">
                               <table class="table table-bordered table-sm table-hover table-responsive-sm">
@@ -43,36 +52,26 @@
                                     <th>Pos</th>
                                     <th>Equipo</th>
                                     <th>J</th>
-                                    <th>G</th>
-                                    <th>E</th>
+                                    <!-- <th>G</th>
+                                    <th>E</th> -->
                                     <th>CA</th>
-                                    <th>CP</th>
+                                    <!-- <th>CP</th> -->
                                     <th>AVG</th>
-                                    <th>PTS</th>
                                  </thead>
                                  <tbody>
-                                    <tr>
-                                       <td>1</td>
-                                       <td><a href="InfoEquipos.php">PHILLIES</a></td>
-                                       <td>33</td>
-                                       <td>27</td>
-                                       <td>5</td>
-                                       <td>1</td>
-                                       <td>220</td>
-                                       <td>.818</td>
-                                       <td>82</td>
-                                    </tr>
-                                    <tr>
-                                       <td>1</td>
-                                       <td><a href="InfoEquipos.php">Cebmo</a></td>
-                                       <td>33</td>
-                                       <td>27</td>
-                                       <td>5</td>
-                                       <td>1</td>
-                                       <td>220</td>
-                                       <td>.818</td>
-                                       <td>82</td>
-                                    </tr>
+<?php 
+foreach ($AVG as $key => $Equipo) {
+   echo "<tr>
+         <td>$key</td>
+         <td><a href='?c=infoEquipo&id=$Equipo->idEquipo'>$Equipo->Nombre</a></td>
+         <td>".$J[$key]->J."</td>
+         <td>$Equipo->AVG</td>
+         <td>".$CA[$key]->CA."</td>
+         </tr>";
+}
+?>
+<td></td>
+                                   
                                  </tbody>
                               </table>
                            </div>

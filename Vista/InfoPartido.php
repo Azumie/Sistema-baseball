@@ -32,14 +32,14 @@
                      <div class="col-1 col-md-auto mt-3" ><h4 id="RLocal">8</h4></div>
                      <div class="col-4 text-center">
                         <h6><em>Equipo Local</em></h6>
-                        <h4><a href="InfoEquipos.php"><?php echo $this->equipo->Nombre ?></a></h4>
+                        <h4><a href="InfoEquipos.php" class="text-info"><?php echo $this->equipo->Nombre ?></a></h4>
                      </div>
                      <div class="col-1 mt-md-4">
                         <h2 class="text-primary"><strong>VS</strong></h2>
                      </div>
                      <div class="col-4 text-center">
                         <h6><em>Equipo Visitante</em></h6>
-                        <h4><a href="InfoEquipos.php"><?php echo $this->equipo->nombre ?></a></h4>
+                        <h4><a href="InfoEquipos.php" class="text-info"><?php echo $this->equipo->nombre ?></a></h4>
                      </div>
                      <div class="col-1 col-md-auto mt-3"><h4 id="RVisitante">8</h4></div>
                   </div>
@@ -52,8 +52,8 @@
             <div class="row">
                <div class="col-12">
                   <ul class="nav nav-tabs">
-                     <li class="nav-item"><a href="#Visitante" class="nav-link active" data-toggle="tab">Visitante</a></li>
-                     <li class="nav-item"><a href="#Local" class="nav-link" data-toggle="tab">Local</a></li>
+                     <li class="nav-item"><a href="#Visitante" class="nav-link active text-dark" data-toggle="tab">Visitante</a></li>
+                     <li class="nav-item"><a href="#Local" class="nav-link text-dark" data-toggle="tab">Local</a></li>
                   </ul>
                   <div class="tab-content px-4">
                      <div class="tab-pane active" id="Visitante" role="tabpanel">
@@ -61,13 +61,13 @@
                            <div class="col-12">
                      <ul class="nav nav-tabs">
                         <li class="nav-item">
-                           <a href="#Bateador" class="nav-link active" data-toggle="tab">Bateador</a>
+                           <a href="#Bateador" class="nav-link active  text-dark" data-toggle="tab">Bateador</a>
                         </li>
                         <li class="nav-item">
-                           <a href="#Defensa" class="nav-link" data-toggle="tab">Defensa</a>
+                           <a href="#Defensa" class="nav-link text-dark" data-toggle="tab">Defensa</a>
                         </li>
                         <li class="nav-item">
-                           <a href="#Lanzador" class="nav-link" data-toggle="tab">Lanzador</a>
+                           <a href="#Lanzador" class="nav-link text-dark" data-toggle="tab">Lanzador</a>
                         </li>
                      </ul>
                      <div class="tab-content mt-3">

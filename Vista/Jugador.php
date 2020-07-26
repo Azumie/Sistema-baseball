@@ -9,21 +9,21 @@
                 <img src="assets/img/usuario.png">
               </div>
               <div class="row justify-content-center"><h4><i class="fas fa-baseball-ball fa-spin text-info"></i>-Datos Personales-<i class="fas fa-baseball-ball fa-spin text-primary"></i></h4></div>
-              <div class="row justify-content-center"><h5>V-27554995</h5></div>
-              <div class="row justify-content-center"><h6>Femenina</h6></div>
+              <div class="row justify-content-center"><h5><?php echo $jugador->Nacionalidad.'-'.$jugador->CI ?></h5></div>
+              <div class="row justify-content-center"><h6><?php echo $jugador->Sexo == 'H' ? 'Hombre': 'Mujer'?></h6></div>
               <div class="row">
                 <div class="col-6">
-                  <input class="form-control mb-2" type="text" value="Antonella Alessandra Lourdes" readonly>
+                  <input class="form-control mb-2" type="text" value="<?php echo $jugador->Nombre?>" readonly>
                 </div>
                 <div class="col-6">
-                  <input class="form-control mb-2" type="text" value="Mujica Navarro" readonly>
+                  <input class="form-control mb-2" type="text" value="<?php echo $jugador->Apellido ?>" readonly>
                 </div>
               </div>
               <div class="row justify-content-center">
                 <div class="col-5 col-md-4"><br>
                   <div class="row"><h6>Estado: <em>Lara</em></h6></div>
                   <div class="row"><h6>Municipio: <em>Iribarren</em></h6></div>
-                  <div class="row"><h6>Parroquia: <em>Concepción</em></h6></div>
+                  <div class="row"><h6>Parroquia: <em><?php echo $jugador->Parroquia?></em></h6></div>
                   <!-- <div class="row"><h6>Fecha de Nacimiento</h6></div>
                   <div class="row"><input class="form-control" type="date" readonly></div> -->
                 </div>
@@ -31,10 +31,10 @@
                   <div class="row">
                     <h6>Dirección:</h6>
                   </div>
-                  <div class="row"><textarea class="form-control" name="Direccion" id="Direccion" placeholder="Dirección actual del jugador"></textarea></div>
+                  <div class="row"><textarea class="form-control" name="Direccion" id="Direccion" placeholder="Dirección actual del jugador"><?php echo $jugador->Direccion?></textarea></div>
                 </div>
               </div>
-              <div class="row justify-content-end"><h5><i class="fas fa-calendar-alt mr-1 text-info fa-lg"></i>24-09-2020</h5></div>
+              <div class="row justify-content-end"><h5><i class="fas fa-calendar-alt mr-1 text-info fa-lg"></i><?php echo $jugador->Nombre.' '.$jugador->Apellido ?></h5></div>
               <hr class="bg-info">
             </div>
           </div>

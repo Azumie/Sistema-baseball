@@ -244,13 +244,6 @@
                                     <?php 
                                        $jugadores = new Jugador();
                                        $jugadores = $jugadores->listarPorEquipo($datos[0]->equipo1);
-                                       foreach ($jugadoresP as $jugador) {
-                                          foreach ($jugadores as $key2 => $value) {
-                                             if ($value->id == $jugador->id) {
-                                                unset($jugadores[$key2]);
-                                             }
-                                          }
-                                       }
                                        addItemAdminInput($jugadores, 'equipo1');
                                     ?>
                                  </tbody>
@@ -280,14 +273,7 @@
                                     <?php 
                                     $jugadores = new Jugador();
                                     $jugadores = $jugadores->listarPorEquipo($datos[0]->equipo2);
-                                    foreach ($jugadoresP as $jugador) {
-                                          foreach ($jugadores as $key2 => $value) {
-                                             if ($value->id == $jugador->id) {
-                                                unset($jugadores[$key2]);
-                                             }
-                                          }
-                                       }
-                                       addItemAdminInput($jugadores, 'equipo2');
+                                          addItemAdminInput($jugadores, 'equipo2');
                                     ?>
                                  </tbody>
                               </table>
@@ -372,39 +358,32 @@
                                              <tbody>
                                                 <?php 
                                                 $items = $this->items->listarPorTipo('b');
-                                                $itemsConsulta = $this->items->listarEst($_REQUEST['id'],'b');
-
-                                                // foreach($jugadoresP as $jugador){
-                                                //    if ($jugador->idEquipo == $datos[0]->equipo1) {
-                                                //       echo '<tr>';
-                                                //       echo '<td>'.$jugador->CI.'</td>';
-                                                //       foreach ($itemsConsulta as $key => $item) {
-                                                //          if(is_null($item->idItem)){
-                                                //             echo '<td><input type="text" name="est['.$jugador->id.']['.$item->idItem.']" class="form-control"></td>';
-                                                //          }else {
-                                                //             echo '<td><input type="text" name="est['.$jugador->id.']['.$item->idItem.']" class="form-control" value="'.$item->valor.'"></td>';                        
-                                                //          }
-                                                //       }
-                                                //    }
-                                                // } 
-                                                foreach($jugadoresP as $jugador){
+                                                $itemsConsulta = $this->items->listarEst($_REQUEST['id'],10);
+                                                $jugadores = $this->juego->listarJugadoresPorEquipo($datos[0]->equipo1, $_REQUEST['id'], 10 );
+                                                foreach($jugadores as $jugador){
                                                    echo '<tr>';
                                                    echo '<td>'.$jugador->CI.'</td>';
-                                                   
-                                                   foreach ($itemsConsulta as $key => $item) {
-                                                      if ($jugador->id == $item->idJugador){
-                                                         echo "<td><input type='text' name='est[$jugador->id][$item->idItem]' class='form-control' value='$item->valor'></td>";
-                                                         unset($itemsConsulta[$key]);
+                                                   $ok = false;
+                                                   foreach ($itemsConsulta as $key => $value) {
+                                                      if (($value->idJugador == $jugador->id)) {
+                                                         $ok = true;
                                                       }
-                                                     
+                                                   }
+                                                   if ($ok == false) {
+                                                      foreach ($items as $key => $item) {
+                                                            echo "<td><input type='text' name='est[$jugador->id][$item->idItem]' class='form-control'></td>";
+                                                      }  
+                                                   } else {
+                                                      foreach ($itemsConsulta as $key => $item) {
+                                                         if (($item->idJugador == $jugador->id)) {
+                                                            echo "<td><input type='text' name='estActu[$jugador->id][$item->idItem]' class='form-control' value='$item->valor'></td>";
+                                                         }
+                                                      }
                                                    }
                                                    echo '</tr>';
                                                 } 
-                                                      // foreach ($itemsConsulta as $Consulta) {
-                                                      //    }
                                                 ?>
-                                                
-         
+
                                              </tbody>
                                           </table>
                                        </div>
@@ -444,18 +423,30 @@
                                              <tbody>
                                                 <?php 
                                                 $items = $this->items->listarPorTipo('b');
-                                                foreach($jugadoresP as $jugador){
+                                                $itemsConsulta = $this->items->listarEst($_REQUEST['id'],10);
+                                                $jugadores = $this->juego->listarJugadoresPorEquipo($datos[0]->equipo2, $_REQUEST['id'], 10 );
+                                                foreach($jugadores as $jugador){
                                                    echo '<tr>';
                                                    echo '<td>'.$jugador->CI.'</td>';
-                                                   
-                                                   foreach ($itemsConsulta as $item) {
-                                                      if ($jugador->id == $item->idJugador){
-                                                         echo "<td><input type='text' name='est[$jugador->id][$item->idItem]' class='form-control' value='$item->valor'></td>";
+                                                   $ok = false;
+                                                   foreach ($itemsConsulta as $key => $value) {
+                                                      if (($value->idJugador == $jugador->id)) {
+                                                         $ok = true;
                                                       }
-                                                     
+                                                   }
+                                                   if ($ok == false) {
+                                                      foreach ($items as $key => $item) {
+                                                            echo "<td><input type='text' name='est[$jugador->id][$item->idItem]' class='form-control'></td>";
+                                                      }  
+                                                   } else {
+                                                      foreach ($itemsConsulta as $key => $item) {
+                                                         if (($item->idJugador == $jugador->id)) {
+                                                            echo "<td><input type='text' name='estActu[$jugador->id][$item->idItem]' class='form-control' value='$item->valor'></td>";
+                                                         }
+                                                      }
                                                    }
                                                    echo '</tr>';
-                                                }
+                                                } 
                                                 ?>
                                              </tbody>
                                           </table>
@@ -489,11 +480,15 @@
                                           class="table table-bordered table-sm table-hover table-responsive-sm">
                                           <thead class="table-info">
                                              <th>CI</th>
-                                             <th>POS</th>
+                                             <th>POSICION</th>
                                              <th>O</th>
                                              <th>A</th>
                                              <th>E</th>
-                                             <th>POS</th>
+                                             <th>POSICION</th>
+                                             <th>O</th>
+                                             <th>A</th>
+                                             <th>E</th>
+                                             <th>POSICION</th>
                                              <th>O</th>
                                              <th>A</th>
                                              <th>E</th>
@@ -506,7 +501,7 @@
                                              foreach($jugadores as $jugador){
                                                 echo '<tr>';
                                                 echo '<td>'.$jugador->CI.'</td>';
-                                                for ($i=0; $i < 2; $i++) { 
+                                                for ($i=0; $i < 3; $i++) { 
                                                    echo '<td><select class="form-control w-100" name="'.$jugador->id.'[]"><option value = 0> ...Elegir </option>';
                                                    foreach ($pos as $value) {
                                                       echo ' <option value="'.$value->idPosicion.'">'.$value->nombre.'</option>';
@@ -540,11 +535,15 @@
                                           class="table table-bordered table-sm table-hover table-responsive-sm">
                                           <thead class="table-danger">
                                              <th>CI</th>
-                                             <th>POS</th>
+                                             <th>POSICION</th>
                                              <th>O</th>
                                              <th>A</th>
                                              <th>E</th>
-                                             <th>POS</th>
+                                             <th>POSICION</th>
+                                             <th>O</th>
+                                             <th>A</th>
+                                             <th>E</th>
+                                             <th>POSICION</th>
                                              <th>O</th>
                                              <th>A</th>
                                              <th>E</th>
@@ -557,19 +556,54 @@
                                              foreach($jugadores as $jugador){
                                                 echo '<tr>';
                                                 echo '<td>'.$jugador->CI.'</td>';
-                                                for ($i=0; $i < 2; $i++) { 
-                                                   echo '<td><select class="form-control w-100" name="'.$jugador->id.'[]"><option value = 0> ...Elegir </option>';
-                                                   foreach ($pos as $value) {
-                                                      echo ' <option value="'.$value->idPosicion.'">'.$value->nombre.'</option>';
+                                                $ok = false;
+                                                foreach ($itemsConsulta as $key => $value) {
+                                                   if (($value->idJugador == $jugador->id)) {
+                                                      $ok = true;
                                                    }
-                                                   echo '</select></td>';
-                                                   foreach ($items as $item) {
-                                                      echo '<td><input type="text" name="'.$jugador->id.'[]" class="form-control"></td>';
+                                                }
+                                                if ($ok == false) {
+                                                   for ($i=0; $i < 3; $i++) { 
+                                                      echo '<td><select class="form-control w-100" name="'.$jugador->id.'[]"><option value = 0> ...Elegir </option>';
+                                                      foreach ($pos as $value) {
+                                                         echo ' <option value="'.$value->idPosicion.'">'.$value->nombre.'</option>';
+                                                      }
+                                                      echo '</select></td>';
+                                                      foreach ($items as $item) {
+                                                         echo '<td><input type="text" name="'.$jugador->id.'[]" class="form-control"></td>';
+                                                      }
                                                    }
                                                 }
                                                 
+                                                
                                                 echo '</tr>';
-                                             }?>
+                                             }
+                                             $items = $this->items->listarPorTipo('d');
+                                                $itemsConsulta = $this->items->listarEst($_REQUEST['id'],10);
+                                                $jugadores = $this->juego->listarJugadoresPorEquipo($datos[0]->equipo2, $_REQUEST['id'], 10 );
+                                                foreach($jugadores as $jugador){
+                                                   echo '<tr>';
+                                                   echo '<td>'.$jugador->CI.'</td>';
+                                                   $ok = false;
+                                                   foreach ($itemsConsulta as $key => $value) {
+                                                      if (($value->idJugador == $jugador->id)) {
+                                                         $ok = true;
+                                                      }
+                                                   }
+                                                   if ($ok == false) {
+                                                      foreach ($items as $key => $item) {
+                                                            echo "<td><input type='text' name='est[$jugador->id][$item->idItem]' class='form-control'></td>";
+                                                      }  
+                                                   } else {
+                                                      foreach ($itemsConsulta as $key => $item) {
+                                                         if (($item->idJugador == $jugador->id)) {
+                                                            echo "<td><input type='text' name='estActu[$jugador->id][$item->idItem]' class='form-control' value='$item->valor'></td>";
+                                                         }
+                                                      }
+                                                   }
+                                                   echo '</tr>';
+                                                } 
+                                             ?>
                                           </tbody>
                                        </table>
                                     </div>
@@ -623,15 +657,28 @@
                                           </thead>
                                           <tbody>
                                              <?php 
-                                                $jugadores = $this->juego->listarJugadoresPorEquipo($datos[0]->equipo1, $_REQUEST['id'], 1);
                                                 $items = $this->items->listarPorTipo('l');
+                                                $itemsConsulta = $this->items->listarEst($_REQUEST['id'],1);
+                                                $jugadores = $this->juego->listarJugadoresPorEquipo($datos[0]->equipo1, $_REQUEST['id'], 10 );
                                                 foreach($jugadores as $jugador){
                                                    echo '<tr>';
                                                    echo '<td>'.$jugador->CI.'</td>';
-                                                   
-                                                   foreach ($items as $item) {
-                                                      echo '<td><input type="text" name="est['.$jugador->id.']['.$item->idItem.']" class="form-control"></td>';
-                                                     
+                                                   $ok = false;
+                                                   foreach ($itemsConsulta as $key => $value) {
+                                                      if (($value->idJugador == $jugador->id)) {
+                                                         $ok = true;
+                                                      }
+                                                   }
+                                                   if ($ok == false) {
+                                                      foreach ($items as $key => $item) {
+                                                            echo "<td><input type='text' name='est[$jugador->id][$item->idItem]' class='form-control'></td>";
+                                                      }  
+                                                   } else {
+                                                      foreach ($itemsConsulta as $key => $item) {
+                                                         if (($item->idJugador == $jugador->id)) {
+                                                            echo "<td><input type='text' name='estActu[$jugador->id][$item->idItem]' class='form-control' value='$item->valor'></td>";
+                                                         }
+                                                      }
                                                    }
                                                    echo '</tr>';
                                                 } 
@@ -676,15 +723,28 @@
                                           </thead>
                                           <tbody>
                                              <?php 
-                                                $jugadores = $this->juego->listarJugadoresPorEquipo($datos[0]->equipo2, $_REQUEST['id'], 1);
                                                 $items = $this->items->listarPorTipo('l');
+                                                $itemsConsulta = $this->items->listarEst($_REQUEST['id'],1);
+                                                $jugadores = $this->juego->listarJugadoresPorEquipo($datos[0]->equipo2, $_REQUEST['id'], 10 );
                                                 foreach($jugadores as $jugador){
                                                    echo '<tr>';
                                                    echo '<td>'.$jugador->CI.'</td>';
-                                                   
-                                                   foreach ($items as $item) {
-                                                      echo '<td><input type="text" name="est['.$jugador->id.']['.$item->idItem.']" class="form-control"></td>';
-                                                     
+                                                   $ok = false;
+                                                   foreach ($itemsConsulta as $key => $value) {
+                                                      if (($value->idJugador == $jugador->id)) {
+                                                         $ok = true;
+                                                      }
+                                                   }
+                                                   if ($ok == false) {
+                                                      foreach ($items as $key => $item) {
+                                                            echo "<td><input type='text' name='est[$jugador->id][$item->idItem]' class='form-control'></td>";
+                                                      }  
+                                                   } else {
+                                                      foreach ($itemsConsulta as $key => $item) {
+                                                         if (($item->idJugador == $jugador->id)) {
+                                                            echo "<td><input type='text' name='estActu[$jugador->id][$item->idItem]' class='form-control' value='$item->valor'></td>";
+                                                         }
+                                                      }
                                                    }
                                                    echo '</tr>';
                                                 } 

@@ -18,12 +18,10 @@ class Item extends Conexion
 		return $this->consultar($sql, array($tipo));
 	}
 
-	public function listarEst($idJuego, $tipo){
-		$sql = 'SELECT e.idJuego, e.idPosicion, e.idItem, e.valor, e.idJugador 
-		from estadistica e
-		INNER JOIN items i ON e.idItem = i.idItem 
-		WHERE e.idJuego = ? AND i.tipo = ?';
-		return $this->consultar($sql, array($idJuego,$tipo));
+	public function listarEst($idJuego, $idPosicion){
+		$sql = 'SELECT * from estadistica	where idJuego = ? and idPosicion = ?';
+
+		return $this->consultar($sql, array($idJuego,$idPosicion));
 	}
 // TRABAJANDO EN ESTA PARA REVISAR LOS QUE TIENES ESTADISTICAS Y LOS QUE NO
 	public function revisarEstadistica($idJuego, $tipo){
@@ -69,6 +67,23 @@ class Item extends Conexion
 			return 'Error: No suministró valores para la estadística de ningún jugador';
 		}
 	}
+
+
+	public function actualizarEst($idJuego, $idPosicion, array $data){
+		$sql = 'UPDATE estadistica SET valor = ? WHERE idJuego = ? AND idPosicion = ? AND idJugador = ? AND idItem = ?;';
+		$sql1 = '';
+		$datos = array();
+		foreach ($data as $key => $jugador) {
+
+			foreach ($jugador as $key2 => $items) {
+					$sql1 .= $sql;
+					array_push($datos, $items, $idJuego, $idPosicion, $key, $key2);
+				}
+		}
+		$this->agregar($sql1, $datos);
+		// "<br> UPDATE estadistica SET valor = $items WHERE idJuego = $idJuego AND idPosicion = $idPosicion AND idJugador = $key AND idItem = $key2;";
+	}
+
 
 	public function incluirEstDef($idJuego, array $est, $idJugador){
 		// definimos la consulta sql
@@ -121,6 +136,9 @@ class Item extends Conexion
 		return $this->consultar($sql ,array(''));
 
 	}
+
+
+
 
 	public function setIdItem	($idItem)	{ $this->idItem = $idItem; }
 	public function getIdItem 	()				{ return $this->idItem; }
