@@ -13,13 +13,23 @@
 					<div class="form-inline row mb-3 justify-content-center">
 						<label for="temporada" class="col-auto aling-self-center">Temporada</label>
 						<select class="form-control col-3" id="temporada">
-							<option>2020</option>
-							<option>2019</option>
+							<?php    
+	                           $sql_leer = "select idTemporada, AnioInicio from temporadas";
+	                           $resul = $conexion->consultar($sql_leer, array(''));
+	                           foreach ($resul as $campo) {
+	                              echo '<option value="'.$campo->idTemporada.'">'.$campo->AnioInicio.'</option>';
+                           		}
+                         	?>
 						</select>
 						<label for="categoria" class="col-auto">Categoría</label>
 						<select name="categoria" id="categoria" class="form-control col-3 mr-4">
-							<option>Juvenil</option>
-							<option>Junior</option>
+							<?php 
+                           $sql = 'SELECT * FROM categorias';
+                           $categorias = $conexion ->consultar($sql, array(''));
+                           foreach ($categorias as $categoria) {
+                                 echo "<option value='$categoria->idCategoria' selected >$categoria->Categoria</option>";
+                           }
+                        ?>
 						</select>
 						<button class="btn b1 b1-primary col-md-1"><i class="fas fa-search fa-lg" style="text-shadow: 1px 1px 1px #000"></i></button>
 					</div>
