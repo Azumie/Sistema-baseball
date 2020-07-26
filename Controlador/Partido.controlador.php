@@ -9,6 +9,7 @@
 
 class PartidoControlador{
 	public $ERROR = "";
+	public $ERROR2 = '';
 	private $juego;
 	private $equipo;
 	private $items;
@@ -35,15 +36,37 @@ class PartidoControlador{
 	}
 
 	public function guardarPartido(){
-		         
+		$sql_leer ='SELECT date(j.fechaHora) as Fecha,time(j.fechaHora) as Hora, c.idCampo, a.idAnotador
+					FROM juegos j 
+					INNER JOIN partidas p 	ON j.idJuego = p.idJuego 
+					INNER JOIN campos c 	ON c.idCampo = j.idCampo
+					INNER JOIN anotadores a ON j.idAnotador = a.idAnotador';
+		$ok = false;
 		if (isset($_POST['AgregarPartido'])) {
 			if ($_POST['Agregar_Equipo1'] != $_POST['Agregar_Equipo2']) {
-				$this->juego->setIdAnotador($_POST['Anotador']);
-				$this->juego->setIdCampo($_POST['Campo']);
-				$this->juego->setFechaHora($_POST['Fecha_Partido'].' '.$_POST['Hora_Partido']);
-				$this->juego->incluir($this->juego);
-				$this->juego->agregarEquipos($_REQUEST['Temporada'], $_POST['Agregar_Equipo1'], 1);
-				$this->juego->agregarEquipos($_REQUEST['Temporada'], $_POST['Agregar_Equipo2'], 0);
+
+				foreach ($this->juego->consultar($sql_leer, array('')) as $key => $value) {
+					if ($value->Fecha == $_POST['Fecha_Partido'] && $value->Hora == $_POST['Hora_Partido'] &&
+						$value->idAnotador == $_POST['Anotador'] && $value->idCampo == $_POST['Campo'] ) {
+							$ok = true;
+					}
+				}
+				if ($ok == false) {
+					try {
+						$this->juego->setIdAnotador($_POST['Anotador']);
+						$this->juego->setIdCampo($_POST['Campo']);
+						$this->juego->setFechaHora($_POST['Fecha_Partido'].' '.$_POST['Hora_Partido']);
+						$this->juego->incluir($this->juego);
+						$this->juego->agregarEquipos($_REQUEST['Temporada'], $_POST['Agregar_Equipo1'], 1);
+						$this->juego->agregarEquipos($_REQUEST['Temporada'], $_POST['Agregar_Equipo2'], 0);
+					} catch (PDOException $e) {
+						$this->ERROR = 'Hubo un error al agregar el partido';
+						$this->index();
+						die();
+					}
+				}else {
+					$this->ERROR = 'No puede haber un juego a la misma hora lugar y fecha';
+				}
 			} else {
 				$this->ERROR = "¡Un equipo no puede enfrentarse a sí mismo!";
 				$this->index();

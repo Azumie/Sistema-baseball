@@ -49,7 +49,7 @@ class Jugador extends Conexion{
 	public function listarPorEquipo($idEquipo){
 		$sql_leer = '	SELECT p.CI, p.Nombre, p.Apellido, j.Num_Camisa, j.Letra, j.idJugador as id
 						FROM personas p INNER JOIN jugadores j ON j.CI = p.CI 
-						WHERE j.idEquipo = ?';
+						WHERE j.idEquipo = ? AND j.Activo = 1';
 		return $this->consultar($sql_leer, array($idEquipo));
 	}
 

@@ -162,9 +162,9 @@ if (isset($_REQUEST['Temporada']) && isset($_REQUEST['Categoria'])) {
                      </table>
                   </div>
                </div>
-               <div class="row justify-content-center mt-3">
+               <form class="row justify-content-center mt-3" method="post" action="?c=pdf&ideq=<?php echo $_REQUEST['id'].'&Temporada='.$_REQUEST['Temporada'].'&Categoria='.$_REQUEST['Categoria']; ?>">
                   <button class="col-4 btn b1 b1-primary" data-toggle="modal" data-target="#Alerta"><i class="fas fa-print fa-lg mr-1"></i>Imprimir Reporte<i class="fas fa-print fa-lg ml-1"></i></button>
-               </div>
+               </form>
             </div>
          </div>
       </div>

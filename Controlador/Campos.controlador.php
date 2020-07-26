@@ -7,7 +7,8 @@ require 'Controlador/Table.php';
 
 
 class CamposControlador{
-	
+
+	public $ERROR = "";
 	private $campo;
 	private $direccion;
 
@@ -28,28 +29,54 @@ class CamposControlador{
 	}
 
 	public function guardar(){
-
+		$listaCampos 	= $this->campo->listar();
+		$ok = false;
 		if (isset($_REQUEST['id'])) {
 			$campox     = $this->campo->obtenerCampo($_REQUEST['id']);
 			$campox->idParroquia = $_REQUEST['Parroquia'];
 			$campox->Direccion 	 = $_REQUEST['Direccion'];
 			$campox->Campo 		 = $_REQUEST['Nombre_Campo'];
-			$this->campo->actualizar($campox);
-			header('location: ?c=campos');
+			foreach ($listaCampos as $key => $campo) {
+				if(	strtoupper($campo->campo)  == strtoupper( $campox->Campo )){
+						$ok = true;
+				}
+			}
+			if ($ok == false) {
+				$this->campo->actualizar($campox);
+				header('location: ?c=campos');
+			}else{
+				$this->ERROR = 'Estos datos ya le pertenecen a otro campo';
+				$this->index();
+			}
 		}else {
-			$this->direccion->setDireccion($_POST['Direccion']);
-			$this->direccion->setIdParroquia($_POST['Parroquia']);
-			$this->direccion->incluir($this->direccion);
-			// LUEGO AGREGAREMOS ESA DIRECCION A NUESTRO CAMPO CON LOS SETTERS
-			$this->campo->setDireccion($this->direccion);
-			// SE AGREGAN LOS DEMAS DATOS
-			$this->campo->setCampo($_POST['Nombre_Campo']);
-			// Y SE INSERTA EL CAMPO A LA BASE DE DATOS
-			$this->campo->incluir($this->campo);
+			foreach ($listaCampos as $key => $campo) {
+				if (strtoupper($campo->campo)  == strtoupper($_POST['Nombre_Campo'])     ){
+						$ok = true;
+				}
+			}
+			if ($ok == false) {
+				try {
+					$this->direccion->setDireccion($_POST['Direccion']);
+					$this->direccion->setIdParroquia($_POST['Parroquia']);
+					$this->direccion->incluir($this->direccion);
+				} catch (PDOException $e) {
+					$this->ERROR = 'Esta direccion ya existe en la base de datos';
+					$this->index();
+					die();					
+				}
+				// LUEGO AGREGAREMOS ESA DIRECCION A NUESTRO CAMPO CON LOS SETTERS
+				$this->campo->setDireccion($this->direccion);
+				// SE AGREGAN LOS DEMAS DATOS
+				$this->campo->setCampo($_POST['Nombre_Campo']);
+				// Y SE INSERTA EL CAMPO A LA BASE DE DATOS
+				$this->campo->incluir($this->campo);
+			}else{
+				$this->ERROR = 'Este Equipo Ya existe';
+			}
+				$this->index();
 		}
-
-		$this->index();
 	}
+				
 
 	public function crud(){
 
