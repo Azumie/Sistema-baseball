@@ -63,10 +63,10 @@
 foreach ($AVG as $key => $Equipo) {
    echo "<tr>
          <td>$key</td>
-         <td><a href='?c=infoEquipo&id=$Equipo->idEquipo'>$Equipo->Nombre</a></td>
+         <td><a href='?c=infoEquipo&id=$Equipo->idEquipo&Categoria=$Equipo->idCategoria&Temporada=$Equipo->idTemporada'>$Equipo->Nombre</a></td>
          <td>".$J[$key]->J."</td>
          <td>$Equipo->AVG</td>
-         <td>".$CA[$key]->CA."</td>
+         <td>".($CA[$key]->CA)."</td>
          </tr>";
 }
 ?>
